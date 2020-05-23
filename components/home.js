@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   StyleSheet, View, Text, TextInput, Button,
 } from 'react-native';
+import { connect } from 'react-redux';
 import { getLocations, sendLocation } from '../services/api';
 
 class Home extends Component {
@@ -10,18 +11,20 @@ class Home extends Component {
     this.state = {
       latitude: '',
       longitude: '',
-      locations: '',
-      postResponse: '',
+      // locations: '',
+      // postResponse: '',
     };
   }
 
   handleSendLocation = () => {
     const { latitude, longitude } = this.state;
+    // eslint-disable-next-line no-shadow
+    const { sendLocation } = this.props;
     sendLocation({ latitude, longitude })
       .then((response) => {
         console.log('in handleSendLocation');
         console.log(response);
-        this.setState({ postResponse: response });
+        // this.setState({ postResponse: response });
       })
       .catch((error) => {
         console.log('error in send boo');
@@ -30,10 +33,12 @@ class Home extends Component {
   }
 
   handleGetLocations = () => {
+    // eslint-disable-next-line no-shadow
+    const { getLocations } = this.props;
     getLocations()
       .then((locations) => {
         console.log(locations);
-        this.setState({ locations });
+        // this.setState({ locations });
       })
       .catch((error) => {
         console.log('error in get boooo');
@@ -42,7 +47,7 @@ class Home extends Component {
   }
 
   renderLocations = () => {
-    const { locations } = this.state;
+    const { locations } = this.props;
     if (locations === '') {
       return (
         <View />
@@ -57,21 +62,22 @@ class Home extends Component {
   }
 
   renderPosted = () => {
-    const { postResponse } = this.state;
-    if (postResponse !== '') {
+    const { locations } = this.props;
+    if (locations !== '') {
       return (
         <View />
       );
     } else {
       return (
         <Text>
-          {postResponse}
+          {locations}
         </Text>
       );
     }
   }
 
   render() {
+    console.log(this.props);
     const { latitude, longitude } = this.state;
     return (
       <View style={styles.container}>
@@ -101,6 +107,10 @@ class Home extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  locations: state.locs.locations,
+});
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -109,4 +119,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default connect(mapStateToProps, { getLocations, sendLocation })(Home);
