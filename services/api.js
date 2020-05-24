@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { AsyncStorage } from 'react-native';
 
-const API_URL = 'https://greentrace-server.herokuapp.com/api/events';
+const API_URL = 'https://greentrace-server.herokuapp.com/api/location';
 const API = 'https://greentrace-server.herokuapp.com/api';
 
 export const ActionTypes = {
@@ -31,6 +31,8 @@ export const getLocations = () => {
 };
 
 export const sendLocation = ({ latitude, longitude }) => {
+  console.log(latitude);
+  console.log(longitude);
   return (dispatch) => {
     return new Promise((resolve, reject) => {
       axios.post(API_URL, { longitude: Number(longitude), latitude: Number(latitude) })
