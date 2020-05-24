@@ -72,7 +72,7 @@ class Alerts extends Component {
     const { isLoading } = this.state;
     if (isLoading) {
       return this.renderLoadingView();
-    } else if (messages.length == 0) {
+    } else if (messages.length === 0) {
       return this.renderEmptyState();
     } else {
       return (
