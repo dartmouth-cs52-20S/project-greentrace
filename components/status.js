@@ -3,12 +3,12 @@ import {
   StyleSheet, View, Text,
 } from 'react-native';
 
-class Profile extends Component {
+class Status extends Component {
   render() {
     return (
       <View style={styles.container}>
         <Text>
-          Welcome to the profile page.
+          Welcome to the status page.
         </Text>
       </View>
     );
@@ -23,4 +23,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Profile;
+export default Status;

@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import {
   StyleSheet, View, Text, TextInput, Button,
 } from 'react-native';
+// eslint-disable-next-line import/no-unresolved
 import { connect } from 'react-redux';
 import { getLocations, sendLocation } from '../services/api';
 
-class Home extends Component {
+class Map extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -82,7 +83,7 @@ class Home extends Component {
     return (
       <View style={styles.container}>
         <Text>
-          Welcome to the home page.
+          Welcome to the map page.
         </Text>
         <Text>Latitude</Text>
         <TextInput style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
@@ -119,4 +120,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(mapStateToProps, { getLocations, sendLocation })(Home);
+export default connect(mapStateToProps, { getLocations, sendLocation })(Map);
