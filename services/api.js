@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://greentrace-server.herokuapp.com/api/events';
+const API_URL = 'https://greentrace-server.herokuapp.com/api/';
 
 export const ActionTypes = {
   TEST: 'TEST',

@@ -3,8 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/FontAwesome';
 import Map from '../components/map';
-import Risk from '../components/risk';
-import Alerts from '../components/alerts';
+import RiskTab from './risk_tab';
+import AlertTab from './alert_tab';
 import Status from '../components/status';
 
 const Tab = createBottomTabNavigator();
@@ -16,23 +16,32 @@ const MainTabBar = () => {
         initialRouteName="Map"
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused }) => {
-            let iconName;
+            let iconName; // iosName, androidName;
             if (route.name === 'Map') {
               iconName = 'map';
+              // iosName = 'ios-map';
+              // androidName = 'md-map';
+            }
+            if (route.name === 'Risk') {
+              iconName = 'speedometer';
+              // iosName = 'ios-speedometer';
+              // androidName = 'md-speedometer';
             }
             if (route.name === 'Alerts') {
-              iconName = 'notifications';
+              iconName = 'ios-notifications';
+              // iosName = 'ios-notifications';
+              // androidName = 'md-notifications';
             }
-            if (route.name === 'Profile') {
-              iconName = 'send';
+            if (route.name === 'Status') {
+              iconName = 'pulse';
             }
             return <Ionicons name={iconName} size={26} color={focused ? '#58AADA' : 'grey'} />;
           },
         })}
       >
         <Tab.Screen name="Map" component={Map} />
-        <Tab.Screen name="Risk" component={Risk} />
-        <Tab.Screen name="Alerts" component={Alerts} />
+        <Tab.Screen name="Risk" component={RiskTab} />
+        <Tab.Screen name="Alerts" component={AlertTab} />
         <Tab.Screen name="Status" component={Status} />
       </Tab.Navigator>
     </NavigationContainer>
