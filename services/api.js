@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { AsyncStorage } from 'react-native';
 
 const API_URL = 'https://greentrace-server.herokuapp.com/api/events';
 const API = 'https://greentrace-server.herokuapp.com/api';
@@ -8,6 +9,7 @@ export const ActionTypes = {
   AUTH_USER: 'AUTH_USER',
   DEAUTH_USER: 'DEAUTH_USER',
   AUTH_ERROR: 'AUTH_ERROR',
+  FETCH_MESSAGES: 'FETCH_MESSAGES',
 };
 
 export const getLocations = () => {
@@ -51,6 +53,7 @@ export const signup = ({ email, password }) => {
   return (dispatch) => {
     axios.post(`${API}/signup`, { email, password }).then((response) => {
       console.log(response);
+      AsyncStorage.setItem('currUser', response.data.id);
       dispatch({ type: ActionTypes.AUTH_USER, payload: email });
     }).catch((error) => {
       dispatch({ type: ActionTypes.AUTH_ERROR });
@@ -61,9 +64,18 @@ export const signup = ({ email, password }) => {
 export const signin = ({ email, password }) => {
   return (dispatch) => {
     axios.post(`${API}/signin`, { email, password }).then((response) => {
+      AsyncStorage.setItem('currUser', response.data.id);
       dispatch({ type: ActionTypes.AUTH_USER, payload: email });
     }).catch((error) => {
       dispatch({ type: ActionTypes.AUTH_ERROR });
+    });
+  };
+};
+
+export const fetchMessages = () => {
+  return (dispatch) => {
+    axios.get(`${API}/user/${AsyncStorage.getItem('currUser')}/messages`).then((response) => {
+      dispatch({ type: ActionTypes.FETCH_MESSAGES, payload: response.data.message });
     });
   };
 };
