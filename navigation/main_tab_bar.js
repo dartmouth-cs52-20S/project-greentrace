@@ -2,9 +2,10 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/FontAwesome';
-import Home from '../components/home';
+import Map from '../components/map';
+import Risk from '../components/risk';
 import Alerts from '../components/alerts';
-import Profile from '../components/profile';
+import Status from '../components/status';
 
 const Tab = createBottomTabNavigator();
 
@@ -12,26 +13,27 @@ const MainTabBar = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        initialRouteName="Home"
+        initialRouteName="Map"
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused }) => {
             let iconName;
-            if (route.name === 'Home') {
-              iconName = 'navigate-outline';
+            if (route.name === 'Map') {
+              iconName = 'map';
             }
             if (route.name === 'Alerts') {
-              iconName = 'warning-outline';
+              iconName = 'notifications';
             }
             if (route.name === 'Profile') {
-              iconName = 'person-circle-outline';
+              iconName = 'send';
             }
             return <Ionicons name={iconName} size={26} color={focused ? '#58AADA' : 'grey'} />;
           },
         })}
       >
-        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="Map" component={Map} />
+        <Tab.Screen name="Risk" component={Risk} />
         <Tab.Screen name="Alerts" component={Alerts} />
-        <Tab.Screen name="Profile" component={Profile} />
+        <Tab.Screen name="Status" component={Status} />
       </Tab.Navigator>
     </NavigationContainer>
   );
