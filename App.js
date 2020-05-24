@@ -8,7 +8,6 @@ import * as Permissions from 'expo-permissions';
 import * as TaskManager from 'expo-task-manager';
 import Modal from 'react-native-modal';
 // import * as api from './services/api';
-import React from 'react';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
@@ -121,17 +120,17 @@ class App extends Component {
     }
     return (
       <Provider store={store}>
-      <View style={{ flex: 1 }}>
-        <Modal isVisible={this.state.isLocationModalVisible} onModalHide={this.openSettings}>
-          <View style={{
-            height: 300, width: 300, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center',
-          }}
-          >
-            <Button onPress={this.handlePress} />
-          </View>
-        </Modal>
-        <MainTabBar />
-      </View>
+        <View style={{ flex: 1 }}>
+          <Modal isVisible={this.state.isLocationModalVisible} onModalHide={this.openSettings}>
+            <View style={{
+              height: 300, width: 300, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center',
+            }}
+            >
+              <Button onPress={this.handlePress} />
+            </View>
+          </Modal>
+          <MainTabBar />
+        </View>
       </Provider>
     );
   }
