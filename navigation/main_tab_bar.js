@@ -6,6 +6,9 @@ import Map from '../components/map';
 import RiskTab from './risk_tab';
 import AlertTab from './alert_tab';
 import Status from '../components/status';
+import SignIn from '../components/signin';
+import SignUp from '../components/signup';
+
 
 const Tab = createBottomTabNavigator();
 
@@ -43,6 +46,8 @@ const MainTabBar = () => {
         <Tab.Screen name="Risk" component={RiskTab} />
         <Tab.Screen name="Alerts" component={AlertTab} />
         <Tab.Screen name="Status" component={Status} />
+        <Tab.Screen name="Sign In" component={SignIn} />
+        <Tab.Screen name="Sign Up" component={SignUp} />
       </Tab.Navigator>
     </NavigationContainer>
   );
