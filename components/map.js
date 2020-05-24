@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   StyleSheet, View, Text, TextInput, Button,
 } from 'react-native';
-// eslint-disable-next-line import/no-unresolved
 import { connect } from 'react-redux';
 import { getLocations, sendLocation } from '../services/api';
 
@@ -78,7 +77,6 @@ class Map extends Component {
   }
 
   render() {
-    console.log(this.props);
     const { latitude, longitude } = this.state;
     return (
       <View style={styles.container}>

@@ -1,9 +1,13 @@
 import axios from 'axios';
 
 const API_URL = 'https://greentrace-server.herokuapp.com/api/events';
+const API = 'https://greentrace-server.herokuapp.com/api';
 
 export const ActionTypes = {
   TEST: 'TEST',
+  AUTH_USER: 'AUTH_USER',
+  DEAUTH_USER: 'DEAUTH_USER',
+  AUTH_ERROR: 'AUTH_ERROR',
 };
 
 export const getLocations = () => {
@@ -39,6 +43,27 @@ export const sendLocation = ({ latitude, longitude }) => {
           console.log(`backend api error: ${error}`);
           reject(error);
         });
+    });
+  };
+};
+
+export const signup = ({ email, password }) => {
+  return (dispatch) => {
+    axios.post(`${API}/signup`, { email, password }).then((response) => {
+      console.log(response);
+      dispatch({ type: ActionTypes.AUTH_USER, payload: email });
+    }).catch((error) => {
+      dispatch({ type: ActionTypes.AUTH_ERROR });
+    });
+  };
+};
+
+export const signin = ({ email, password }) => {
+  return (dispatch) => {
+    axios.post(`${API}/signin`, { email, password }).then((response) => {
+      dispatch({ type: ActionTypes.AUTH_USER, payload: email });
+    }).catch((error) => {
+      dispatch({ type: ActionTypes.AUTH_ERROR });
     });
   };
 };
