@@ -8,12 +8,21 @@ import * as Permissions from 'expo-permissions';
 import * as TaskManager from 'expo-task-manager';
 import Modal from 'react-native-modal';
 // import * as api from './services/api';
+import React from 'react';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import reducers from './reducers';
 import MainTabBar from './navigation/main_tab_bar';
 
 
 // disable really annoying in app warnings
 console.disableYellowBox = true;
 const LOCATION_TASK_NAME = 'background-location-task';
+
+const store = createStore(reducers, {}, compose(
+  applyMiddleware(thunk),
+));
 
 class App extends Component {
   constructor(props) {
@@ -111,6 +120,7 @@ class App extends Component {
       console.log('longitude: ', longitude);
     }
     return (
+      <Provider store={store}>
       <View style={{ flex: 1 }}>
         <Modal isVisible={this.state.isLocationModalVisible} onModalHide={this.openSettings}>
           <View style={{
@@ -122,6 +132,7 @@ class App extends Component {
         </Modal>
         <MainTabBar />
       </View>
+      </Provider>
     );
   }
 }
