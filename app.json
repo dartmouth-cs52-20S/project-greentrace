@@ -22,7 +22,16 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Allow greentrace to use your location.",
+        "NSLocationAlwaysUsageDescription": "Allow greentrace to use your location.",
+        "NSLocationWhenInUseUsageDescription": "Allow greentrace to use your location.",
+        "UIBackgroundModes": [
+                 "location",
+                 "fetch"
+               ]
+    }
     }
   }
 }

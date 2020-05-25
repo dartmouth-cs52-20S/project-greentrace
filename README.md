@@ -1,11 +1,10 @@
-# Project Name
+# GreenTrace
 
 ![Team Photo](selfie.png)
 
-TODO: short project description, some sample screenshots or mockups
+GreenTrace is a React Native mobile application to contact trace for COVID-19 at Dartmouth College. We intend to implement functionality for an alert system to notify users when they've been near someone who has COVID-19; a portal allowing users to identify themselves as COVID-19 positive; a heat map of campus to show users potential COVID-19 hotspots; and a risk assessment page based on a user's information. Thus far, we have completed initial mockups, and we have a basic version of the map, alerts, and update status page. Our risk assessment page is under construction, and all other aspects are also looking forward to some heavy restructuring.
 
-(Initial Stage)
-Our plan for GreenTrace is to develop a React Native application which enables contact tracing for Dartmouth students specifically. Some of the main features we intend to implement are an alert system to notify users when they've been near someone who has COVID-19, a portal allowing users to identify themselves as COVID-19 positive, and potentially a heat map of campus to show users which areas may be COVID-19 hotspots.
+[Figma Link for our mockups](https://www.figma.com/file/yxsUgPFvbNk1mntMHKRfp1/GreenTrace?node-id=70%3A226)
 
 ## Architecture
 
@@ -21,8 +20,6 @@ For our front-end, we plan to use React Native to build a mobile application. We
 
 ## Setup
 
-TODO: how to get the project dev environment up and running, npm install etc
-
 (Notes for Initial Stage)
 We will definitely need install Expo, the Expo Location API, and the Google API. Of course, we need Node.js as well.
 
@@ -30,10 +27,13 @@ We will definitely need install Expo, the Expo Location API, and the Google API.
 * Expo Location API Installation: `expo install expo-location` then configure for iOS or Android (https://github.com/expo/expo/tree/master/packages/expo-location)
 * Google Maps API Installation: Configure through Google like we've done previously for other assignments (https://developers.google.com/maps/documentation/embed/get-api-key)
 
+You'll need to `yarn` in the project directory to get all of the packages and dependencies.
+
 ## Deployment
 
 TODO: how to deploy the project
-(Undecided as of now)
+Log into Expo with email `greentracedartmouth@gmail.com` and password `DartmouthGreenTraceCS52`.
+It should be located in the projects there!
 
 ## Authors
 

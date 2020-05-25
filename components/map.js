@@ -81,7 +81,7 @@ class Map extends Component {
     return (
       <View style={styles.container}>
         <Text>
-          Welcome to the map page.
+          Welcome to the home page.
         </Text>
         <Text>Latitude</Text>
         <TextInput style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}

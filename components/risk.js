@@ -7,9 +7,7 @@ class Risk extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>
-          Welcome to the risk assessment page.
-        </Text>
+        <Text>Welcome to the risk assessment page!</Text>
       </View>
     );
   }
