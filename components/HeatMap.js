@@ -78,6 +78,7 @@ class HeatMap extends React.Component {
       { latitude: 6.84076681, longitude: 79.871319, weight: 1 },
     ];
     return (
+
       <View style={styles.container}>
         <MapView
           region={{

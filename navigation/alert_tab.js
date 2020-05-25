@@ -6,13 +6,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Alerts from '../components/alerts';
 import AlertsDetail from '../components/alerts_detail';
 
-// const TempSearch = (props) => (<Button onPress={() => { props.navigation.navigate('Detail'); }} title="next" />);
-// const TempDetail = (props) => (<Button onPress={() => { props.navigation.pop(); }} title="close" />);
-
 const Stack = createStackNavigator();
 
-// nest stack navigator to handle two internal views
-// "name" prop is the name of the route
 const AlertTab = () => {
   return (
     <Stack.Navigator>
