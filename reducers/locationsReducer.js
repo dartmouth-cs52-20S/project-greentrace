@@ -6,8 +6,8 @@ const initialState = {
 
 const LocationsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionTypes.TEST:
-      console.log('test', action.payload);
+    case ActionTypes.STORE_LOCATION:
+      console.log('STORE_LOCATION', action.payload);
       return { ...state, locations: action.payload };
     default:
       return state;

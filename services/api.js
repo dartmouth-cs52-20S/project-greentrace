@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 import axios from 'axios';
 import { AsyncStorage } from 'react-native';
 import { SENDGRID_API_KEY } from 'react-native-dotenv';
@@ -6,7 +7,7 @@ const API_URL = 'https://greentrace-server.herokuapp.com/api';
 // const API_URL = 'http://localhost:9090/api';
 
 export const ActionTypes = {
-  TEST: 'TEST',
+  STORE_LOCATION: 'STORE_LOCATION',
   AUTH_USER: 'AUTH_USER',
   DEAUTH_USER: 'DEAUTH_USER',
   AUTH_ERROR: 'AUTH_ERROR',
@@ -22,7 +23,7 @@ export const getLocations = () => {
           // console.log('getlocations -> response');
           // console.log(response.data.message);
           resolve(response.data.message);
-          dispatch({ type: ActionTypes.TEST, payload: response.data.message });
+          dispatch({ type: ActionTypes.STORE_LOCATION, payload: response.data.message });
         })
         .catch((error) => {
           console.log(`backend api error: ${error}`);
@@ -32,24 +33,17 @@ export const getLocations = () => {
   };
 };
 
-export const sendLocation = ({ latitude, longitude }) => {
-  return (dispatch) => {
-    return new Promise((resolve, reject) => {
-      axios.post(`${API_URL}/location`, { longitude: Number(longitude), latitude: Number(latitude) })
-        .then((response) => {
-          console.log('sendlocation -> response');
-          console.log(response.data);
-          console.log(response.data.message);
-          resolve(response.data.message);
-          dispatch({ type: ActionTypes.TEST, payload: response.data.message });
-        })
-        .catch((error) => {
-          console.log(`backend api error: ${error}`);
-          reject(error);
-        });
+export function sendLocation({ sourceUserID, latitude, longitude, dataCollectionTimestamp }) {
+  console.log('snedlocation', { sourceUserID, latitude, longitude, dataCollectionTimestamp });
+  axios.post(`${API_URL}/location`, { sourceUserID, longitude: Number(longitude), latitude: Number(latitude), dataCollectionTimestamp })
+    .then((response) => {
+      console.log('sendlocation -> response');
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.log(`backend api error: ${error}`);
     });
-  };
-};
+}
 
 export const signup = ({ email, password }) => {
   return (dispatch) => {
