@@ -30,8 +30,10 @@ class Status extends Component {
   getTestedValue(option) {
     console.log(option);
     if (option === 'Tested') {
+      console.log('option was tested');
       this.setState({ tested: true });
     } else {
+      console.log('option was tested');
       this.setState({ tested: false });
     }
   }
@@ -75,7 +77,7 @@ class Status extends Component {
             data={covidOptions}
             style={styles.dropdown}
             value="Negative"
-            onChangeText={() => { }}
+            onChangeText={() => { this.getCovidValue(); }}
           />
         </View>
         <View style={styles.field}>
@@ -87,7 +89,7 @@ class Status extends Component {
             data={testedOptions}
             style={styles.dropdown}
             value="Untested"
-            onChangeText={this.getTestedValue}
+            onChangeText={() => { this.getTestedValue(); }}
           />
         </View>
         <TouchableOpacity onPress={() => { this.submit(); }}>

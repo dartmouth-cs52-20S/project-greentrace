@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import {
-  // StyleSheet,
   View,
   Text,
   TouchableOpacity,
   ScrollView,
   ActivityIndicator,
+  StyleSheet,
   // AsyncStorage,
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -61,11 +61,11 @@ class Alerts extends Component {
     }
 
     return (
-      <TouchableOpacity>
-        <Ionicons name="warning" />
+      <TouchableOpacity style={styles.thumbnail}>
+        <Ionicons name="warning" style={styles.thumbnailIcon} />
         <View>
-          <Text>{text}</Text>
-          <Text>{timestamp}</Text>
+          <Text style={styles.thumbnailMessage}>{text}</Text>
+          <Text style={styles.thumbnailTime}>{timestamp}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -98,13 +98,31 @@ class Alerts extends Component {
   }
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'space-around',
-//     alignItems: 'center',
-//   },
-// });
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  thumbnail: {
+    flexDirection: 'row',
+    marginHorizontal: 20,
+    marginVertical: 10,
+    padding: 10,
+    borderRadius: 7,
+    backgroundColor: 'white',
+  },
+  thumbnailIcon: {
+    marginHorizontal: 10,
+    marginRight: 15,
+    fontSize: 20,
+    alignSelf: 'center',
+  },
+  thumbnailMessage: {
+    fontSize: 20,
+    flexWrap: 'wrap',
+  },
+});
 
 const mapStateToProps = (reduxState) => ({
   messages: reduxState.messages.messages,
