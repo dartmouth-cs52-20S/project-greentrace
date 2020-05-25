@@ -6,11 +6,12 @@ import {
   TouchableOpacity,
   ScrollView,
   ActivityIndicator,
+  // AsyncStorage,
 } from 'react-native';
 import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/FontAwesome';
 import { FlatList } from 'react-native-gesture-handler';
-import getDateUSFormatString from '../lib/date-lib';
+// import getDateUSFormatString from '../lib/date-lib';
 import { fetchMessages } from '../services/api';
 
 class Alerts extends Component {
@@ -24,6 +25,9 @@ class Alerts extends Component {
   componentDidMount() {
     // eslint-disable-next-line react/destructuring-assignment
     this.props.fetchMessages();
+    console.log('messages');
+    // eslint-disable-next-line react/destructuring-assignment
+    console.log(this.props.messages);
     this.setState({ isLoading: false });
   }
 
@@ -61,13 +65,18 @@ class Alerts extends Component {
         <Ionicons name="warning" />
         <View>
           <Text>{text}</Text>
-          <Text>{getDateUSFormatString(timestamp)}</Text>
+          <Text>{timestamp}</Text>
         </View>
       </TouchableOpacity>
     );
   }
 
   render() {
+    // AsyncStorage.getItem('currUser')
+    //   .then((response) => {
+    //     console.log(response);
+    //   });
+    // console.log(AsyncStorage.getItem('currUser').then(response));
     const { messages } = this.props;
     const { isLoading } = this.state;
     if (isLoading) {

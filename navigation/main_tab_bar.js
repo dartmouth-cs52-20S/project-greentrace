@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/FontAwesome';
-import Map from '../components/map';
+// import Map from '../components/map';
 import HeatMap from '../components/HeatMap';
 import RiskTab from './risk_tab';
 import AlertTab from './alert_tab';
@@ -20,31 +20,25 @@ const MainTabBar = () => {
         initialRouteName="Map"
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused }) => {
-            let iconName; // iosName, androidName;
+            let iconName;
             if (route.name === 'Map') {
               iconName = 'map';
-              // iosName = 'ios-map';
-              // androidName = 'md-map';
             }
             if (route.name === 'Risk') {
-              iconName = 'speedometer';
-              // iosName = 'ios-speedometer';
-              // androidName = 'md-speedometer';
+              iconName = 'tachometer';
             }
             if (route.name === 'Alerts') {
-              iconName = 'ios-notifications';
-              // iosName = 'ios-notifications';
-              // androidName = 'md-notifications';
+              iconName = 'envelope';
             }
             if (route.name === 'Status') {
-              iconName = 'pulse';
+              iconName = 'thermometer-three-quarters';
             }
             return <Ionicons name={iconName} size={26} color={focused ? '#58AADA' : 'grey'} />;
           },
         })}
       >
         <Tab.Screen name="Map" component={HeatMap} />
-        <Tab.Screen name="Map2" component={Map} />
+        {/* <Tab.Screen name="Map2" component={Map} /> */}
         <Tab.Screen name="Risk" component={RiskTab} />
         <Tab.Screen name="Alerts" component={AlertTab} />
         <Tab.Screen name="Status" component={Status} />

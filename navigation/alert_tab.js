@@ -22,7 +22,7 @@ const AlertTab = () => {
         options={{
           title: 'Alerts',
           headerStyle: {
-            backgroundColor: '#f4511e',
+            backgroundColor: 'green',
           },
           headerTintColor: '#fff',
         }}

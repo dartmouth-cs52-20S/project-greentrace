@@ -9,6 +9,7 @@ export const ActionTypes = {
   DEAUTH_USER: 'DEAUTH_USER',
   AUTH_ERROR: 'AUTH_ERROR',
   FETCH_MESSAGES: 'FETCH_MESSAGES',
+  UPDATE_USER: 'UPDATE_USER',
 };
 
 export const getLocations = () => {
@@ -72,9 +73,31 @@ export const signin = ({ email, password }) => {
 };
 
 export const fetchMessages = () => {
+  console.log('fetchMessages');
   return (dispatch) => {
-    axios.get(`${API_URL}/user/${AsyncStorage.getItem('currUser')}/messages`).then((response) => {
+    // axios.get(`${API_URL}/user/${AsyncStorage.getItem('currUser')}/messages`).then((response) => {
+    //   dispatch({ type: ActionTypes.FETCH_MESSAGES, payload: response.data.message });
+    // });
+    console.log('in return dispatch');
+    const user = '5ecb16e40801600038902185';
+    axios.get(`${API_URL}/user/${user}/messages`).then((response) => {
+      console.log('in fetchmessages axios get call');
+      console.log(response);
       dispatch({ type: ActionTypes.FETCH_MESSAGES, payload: response.data.message });
     });
+  };
+};
+
+export const sendMessage = (message) => {
+  console.log('in send message');
+  const user = '5ecb16e40801600038902185';
+  return (dispatch) => {
+    axios.post(`${API_URL}/user/${user}/messages`, message).then((response) => {
+      dispatch({ type: ActionTypes.SEND_MESSAGE, payload: response.data });
+    });
+    // axios.post(`${API_URL}/user/${AsyncStorage.getItem('currUser')}/messages`, message).then((response) => {
+    //   dispatch({ type: ActionTypes.UPDATE_USER, payload: response.data });
+    // });
+    // userId: '5ecb18190801600038902186',
   };
 };
