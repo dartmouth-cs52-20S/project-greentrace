@@ -1,7 +1,7 @@
 import { ActionTypes } from '../services/api';
 
 const initialState = {
-  locations: '',
+  locations: {},
 };
 
 const LocationsReducer = (state = initialState, action) => {

@@ -1,3 +1,5 @@
+/* eslint-disable no-return-assign */
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable object-curly-newline */
 import React from 'react';
 import { connect } from 'react-redux';
@@ -5,6 +7,46 @@ import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { StyleSheet, View, Dimensions } from 'react-native';
 
 class HeatMap extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      initialRegion: null,
+    };
+  }
+
+  componentDidMount() {
+    this.getCurrentLocation();
+  }
+
+  async getCurrentLocation() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const region = {
+          latitude: parseFloat(position.coords.latitude),
+          longitude: parseFloat(position.coords.longitude),
+          latitudeDelta: 0.005,
+          longitudeDelta: 0.005,
+        };
+        this.setState({
+          initialRegion: region,
+        });
+      },
+      (error) => console.log(error),
+      {
+        enableHighAccuracy: true,
+        timeout: 20000,
+        maximumAge: 1000,
+      },
+    );
+  }
+
+  goToInitialLocation() {
+    const initialRegion = { ...this.state.initialRegion };
+    initialRegion.latitudeDelta = 0.005;
+    initialRegion.longitudeDelta = 0.005;
+    this.mapView.animateToRegion(initialRegion, 2000);
+  }
+
   render() {
     const points = [{ latitude: 6.83646681, longitude: 79.77121907, weight: 1 },
       { latitude: 6.82776681, longitude: 79.871319, weight: 1 },
@@ -81,16 +123,15 @@ class HeatMap extends React.Component {
 
       <View style={styles.container}>
         <MapView
-          region={{
-            latitude: 6.82646681,
-            longitude: 79.87121907,
-            latitudeDelta: 0.09,
-            longitudeDelta: 0.0121,
-          }}
+          followUserLocation
+          ref={(ref) => (this.mapView = ref)}
+          zoomEnabled
+          showsUserLocation
+          onMapReady={this.goToInitialRegion}
+          initialRegion={this.state.initialRegion}
           style={styles.mapStyle}
           provider={PROVIDER_GOOGLE}
           mapType="satellite"
-          showsUserLocation
         >
           <MapView.Heatmap points={points}
             opacity={1}

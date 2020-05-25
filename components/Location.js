@@ -102,10 +102,10 @@ class LocationTracking extends Component {
       console.log(text);
     } else if (this.state.location) {
       text = JSON.stringify(this.state.location);
-      const { latitude, longitude } = this.state.location.coords;
-      console.log(text);
-      console.log('latitude: ', latitude);
-      console.log('longitude: ', longitude);
+      // const { latitude, longitude } = this.state.location.coords;
+      // console.log(text);
+      // console.log('latitude: ', latitude);
+      // console.log('longitude: ', longitude);
     }
     return (
       <Modal isVisible={this.state.isLocationModalVisible} onModalHide={this.openSettings}>
@@ -129,8 +129,7 @@ TaskManager.defineTask(LOCATION_TASK_NAME, async ({ data, error }) => {
   }
   if (data) {
     const { locations } = data;
-    const { latitude } = locations[0].coords;
-    const { longitude } = locations[0].coords;
+    const { latitude, longitude } = locations[0].coords;
     const dataCollectionTimestamp = locations[0].timestamp;
     const locationObject = { sourceUserID: 'user', longitude, latitude, dataCollectionTimestamp };
     sendLocation(locationObject);
@@ -138,7 +137,6 @@ TaskManager.defineTask(LOCATION_TASK_NAME, async ({ data, error }) => {
     console.log('Timestamp: ', locations[0].timestamp);
     // const currentUser = await App.getCurrentUser();
     // Axios.post();
-    console.log('lat', locations[0].coords.latitude);
   }
 });
 
