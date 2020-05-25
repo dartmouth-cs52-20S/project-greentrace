@@ -31,8 +31,6 @@ export const getLocations = () => {
 };
 
 export const sendLocation = ({ latitude, longitude }) => {
-  console.log(latitude);
-  console.log(longitude);
   return (dispatch) => {
     return new Promise((resolve, reject) => {
       axios.post(`${API_URL}/location`, { longitude: Number(longitude), latitude: Number(latitude) })
