@@ -1,6 +1,6 @@
 # GreenTrace
 
-![Team Photo](selfie.png)
+![Team Photo](./assets/selfie.png)
 
 GreenTrace is a React Native mobile application to contact trace for COVID-19 at Dartmouth College. We intend to implement functionality for an alert system to notify users when they've been near someone who has COVID-19; a portal allowing users to identify themselves as COVID-19 positive; a heat map of campus to show users potential COVID-19 hotspots; and a risk assessment page based on a user's information. Thus far, we have completed initial mockups, and we have a basic version of the map, alerts, and update status page. Our risk assessment page is under construction, and all other aspects are also looking forward to some heavy restructuring.
 

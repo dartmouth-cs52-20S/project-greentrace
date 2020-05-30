@@ -79,7 +79,8 @@ export const fetchMessages = () => {
     //   dispatch({ type: ActionTypes.FETCH_MESSAGES, payload: response.data.message });
     // });
     console.log('in return dispatch');
-    const user = '5ecb16e40801600038902185';
+    // const user = '5ecb16e40801600038902185';
+    const user = '5ed0202dc1ce1b00386f034f';
     axios.get(`${API_URL}/user/${user}/messages`).then((response) => {
       console.log('in fetchmessages axios get call');
       console.log(response);
@@ -90,7 +91,8 @@ export const fetchMessages = () => {
 
 export const sendMessage = (message) => {
   console.log('in send message');
-  const user = '5ecb16e40801600038902185';
+  // const user = '5ecb16e40801600038902185';
+  const user = '5ed0202dc1ce1b00386f034f';
   return (dispatch) => {
     axios.post(`${API_URL}/user/${user}/messages`, message).then((response) => {
       dispatch({ type: ActionTypes.SEND_MESSAGE, payload: response.data });

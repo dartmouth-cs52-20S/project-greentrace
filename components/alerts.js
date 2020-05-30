@@ -31,6 +31,11 @@ class Alerts extends Component {
     this.setState({ isLoading: false });
   }
 
+  showMessageDetail(message) {
+    // eslint-disable-next-line react/destructuring-assignment
+    this.props.navigation.navigate('AlertsDetail', message);
+  }
+
   renderLoadingView() {
     return (
       <View>
@@ -61,7 +66,7 @@ class Alerts extends Component {
     }
 
     return (
-      <TouchableOpacity style={styles.thumbnail}>
+      <TouchableOpacity style={styles.thumbnail} onPress={() => { this.showMessageDetail(message); }}>
         <Ionicons name="warning" style={styles.thumbnailIcon} />
         <View>
           <Text style={styles.thumbnailMessage}>{text}</Text>
