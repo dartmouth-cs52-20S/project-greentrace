@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 // import Ionicons from 'react-native-vector-icons/FontAwesome';
 
 import Alerts from '../components/alerts';
-import AlertsDetail from '../components/alerts_detail';
+import AlertsDetail from '../components/alerts-detail';
 
 const Stack = createStackNavigator();
 

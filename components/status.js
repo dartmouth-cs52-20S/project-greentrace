@@ -1,21 +1,42 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable global-require */
+/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import {
-  StyleSheet, View, Text, TouchableOpacity,
+  View, Text, StyleSheet, TouchableOpacity, // Image, // TouchableOpacity, // Modal, StyleSheet,
 } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown';
 import { connect } from 'react-redux';
 import { sendMessage } from '../services/api';
+// import InfoModal from './general-info-modal';
 
 class Status extends Component {
+  static navigationOptions = {
+    title: 'Status',
+    headerStyle: {
+      backgroundColor: 'green',
+    },
+    headerTintColor: '#fff',
+    headerLeft: () => (
+      <Text>Pick Me</Text>
+    ),
+  };
+
   constructor(props) {
     super(props);
     this.state = {
       covid: false,
       tested: false,
+      modalIsVisible: false,
+      // edited: false,
     };
   }
 
   componentDidMount() {
+    // eslint-disable-next-line react/destructuring-assignment
+    this.props.navigation.setParams({
+      toggleModalMenu: this.toggleModalMenu,
+    });
   }
 
   getCovidValue(option) {
@@ -48,6 +69,12 @@ class Status extends Component {
     this.props.sendMessage(message);
   }
 
+  toggleModalMenu() {
+    console.log('toggling the modal menu ayo');
+    // eslint-disable-next-line no-unused-expressions
+    this.setState((prevState) => { !prevState.modalIsVisible; });
+  }
+
   render() {
     const covidOptions = [
       {
@@ -65,6 +92,8 @@ class Status extends Component {
         value: 'Untested',
       },
     ];
+    // eslint-disable-next-line react/destructuring-assignment
+    console.log('show modal?', this.state.modalIsVisible);
 
     return (
       <View style={styles.container}>
@@ -97,6 +126,20 @@ class Status extends Component {
             Submit
           </Text>
         </TouchableOpacity>
+        {/* <Modal
+          isVisible={this.state.modalIsVisible}
+          onBackdropPress={this.toggleModalMenu} // Android back press
+          onSwipeComplete={this.toggleModalMenu} // Swipe to discard
+          animationIn="slideInRight" // Has others, we want slide in from the right
+          animationOut="slideOutRight" // When discarding the drawer
+          swipeDirection="right" // Discard the drawer with swipe to right
+          useNativeDriver // Faster animation
+          hideModalContentWhileAnimating // Better performance, try with/without
+          propagateSwipe // Allows swipe events to propagate to children components (eg a ScrollView inside a modal)
+          style={styles.sideMenuStyle}
+        >
+          <InfoModal callParentScreenFunction={this.callParentScreenFunction} />
+        </Modal> */}
       </View>
     );
   }
@@ -116,5 +159,6 @@ const styles = StyleSheet.create({
     width: 200,
   },
 });
+
 
 export default connect(null, { sendMessage })(Status);

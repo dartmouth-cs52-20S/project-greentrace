@@ -15,13 +15,7 @@ const AlertTab = () => {
       <Stack.Screen
         name="Status"
         component={Status}
-        options={{
-          title: 'Status',
-          headerStyle: {
-            backgroundColor: '#f4511e',
-          },
-          headerTintColor: '#fff',
-        }}
+        options={Status.navigationOptions}
       />
       {/* <Stack.Screen
         name="AlertsDetail"

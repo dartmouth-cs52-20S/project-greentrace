@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import Risk from '../components/risk';
-import RiskInfo from '../components/alerts_detail';
+import RiskInfo from '../components/risk-info';
 
 // const TempSearch = (props) => (<Button onPress={() => { props.navigation.navigate('Detail'); }} title="next" />);
 // const TempDetail = (props) => (<Button onPress={() => { props.navigation.pop(); }} title="close" />);

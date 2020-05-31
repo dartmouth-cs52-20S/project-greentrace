@@ -3,7 +3,7 @@ import {
   View,
   Text,
   TouchableOpacity,
-  ScrollView,
+  // ScrollView,
   ActivityIndicator,
   StyleSheet,
   // AsyncStorage,
@@ -90,14 +90,14 @@ class Alerts extends Component {
       return this.renderEmptyState();
     } else {
       return (
-        <ScrollView>
-          <FlatList
-            data={messages}
-            renderItem={({ item }) => { return this.renderMessageThumbnail(item); }}
-            keyExtractor={(item) => item.timestamp}
-            // style={styles.listView}
-          />
-        </ScrollView>
+      // <ScrollView>
+        <FlatList
+          data={messages}
+          renderItem={({ item }) => { return this.renderMessageThumbnail(item); }}
+          keyExtractor={(item) => item.timestamp}
+          contentContainerStyle={styles.container}
+        />
+      // </ScrollView>
       );
     }
   }
@@ -106,12 +106,14 @@ class Alerts extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-around',
+    // justifyContent: 'space-around',
     alignItems: 'center',
+    marginHorizontal: 15,
+    marginVertical: 10,
   },
   thumbnail: {
     flexDirection: 'row',
-    marginHorizontal: 20,
+    marginHorizontal: 10,
     marginVertical: 10,
     padding: 10,
     borderRadius: 7,
