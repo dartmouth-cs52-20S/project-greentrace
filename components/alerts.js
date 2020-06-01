@@ -1,12 +1,12 @@
+/* eslint-disable no-alert */
 import React, { Component } from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
-  // ScrollView,
   ActivityIndicator,
   StyleSheet,
-  // AsyncStorage,
+  Button,
 } from 'react-native';
 import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/FontAwesome';
@@ -15,6 +15,21 @@ import { FlatList } from 'react-native-gesture-handler';
 import { fetchMessages } from '../services/api';
 
 class Alerts extends Component {
+  static navigationOptions = {
+    title: 'Alerts',
+    headerStyle: {
+      backgroundColor: 'green',
+    },
+    headerTintColor: '#fff',
+    headerLeft: () => (
+      <Button
+        onPress={() => alert('This is a button!')}
+        title="Info"
+        color="#fff"
+      />
+    ),
+  };
+
   constructor(props) {
     super(props);
     this.state = {

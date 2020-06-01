@@ -1,26 +1,29 @@
-/* eslint-disable no-unused-expressions */
-/* eslint-disable global-require */
-/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import {
-  View, Text, StyleSheet, TouchableOpacity, // Image, // TouchableOpacity, // Modal, StyleSheet,
+  View, Text, StyleSheet, TouchableOpacity,
 } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown';
 import { connect } from 'react-redux';
+// import Ionicons from 'react-native-vector-icons/FontAwesome';
 import { sendMessage } from '../services/api';
 // import InfoModal from './general-info-modal';
+import Toggle from './drawer-toggle';
 
 class Status extends Component {
-  static navigationOptions = {
-    title: 'Status',
-    headerStyle: {
-      backgroundColor: 'green',
-    },
-    headerTintColor: '#fff',
-    headerLeft: () => (
-      <Text>Pick Me</Text>
-    ),
-  };
+  // static navigationOptions = {
+  //   title: 'Status',
+  //   headerStyle: {
+  //     backgroundColor: 'green',
+  //   },
+  //   headerTintColor: '#fff',
+  //   headerLeft: () => (
+  //     <Button
+  //       onPress={() => alert('This is a button!')}
+  //       title="Info"
+  //       color="#fff"
+  //     />
+  //   ),
+  // };
 
   constructor(props) {
     super(props);
@@ -31,6 +34,14 @@ class Status extends Component {
       // edited: false,
     };
   }
+
+  // React.useLayoutEffect(() => {
+  //   navigation.setOptions({
+  //     headerRight: () => (
+  //       <Button onPress={() => setCount(c => c + 1)} title="Update count" />
+  //     ),
+  //   });
+  // }, [navigation, setCount]);
 
   componentDidMount() {
     // eslint-disable-next-line react/destructuring-assignment
@@ -76,6 +87,7 @@ class Status extends Component {
   }
 
   render() {
+    const { navigation } = this.props;
     const covidOptions = [
       {
         value: 'Positive',
@@ -97,12 +109,12 @@ class Status extends Component {
 
     return (
       <View style={styles.container}>
+        <Toggle navigation={navigation} />
         <View style={styles.field}>
           <Text>
             COVID-19 Status
           </Text>
           <Dropdown
-            // label="COVID-19 Status"
             data={covidOptions}
             style={styles.dropdown}
             value="Negative"
@@ -114,7 +126,6 @@ class Status extends Component {
             Testing Status
           </Text>
           <Dropdown
-            // label="Testing Status"
             data={testedOptions}
             style={styles.dropdown}
             value="Untested"
@@ -141,6 +152,8 @@ class Status extends Component {
           <InfoModal callParentScreenFunction={this.callParentScreenFunction} />
         </Modal> */}
       </View>
+    // </View>
+
     );
   }
 }
@@ -148,7 +161,7 @@ class Status extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
   },
@@ -157,6 +170,12 @@ const styles = StyleSheet.create({
   },
   field: {
     width: 200,
+  },
+  hamburger: {
+    alignSelf: 'flex-end',
+    padding: 0,
+    marginRight: 50,
+    marginTop: 50,
   },
 });
 

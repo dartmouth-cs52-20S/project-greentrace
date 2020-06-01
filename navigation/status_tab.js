@@ -1,31 +1,52 @@
 import React from 'react';
-// import { Button } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
-// import Ionicons from 'react-native-vector-icons/FontAwesome';
-
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import AccountInformation from '../components/account-info';
+import PrivacyInformation from '../components/privacy-info';
 import Status from '../components/status';
+import Resources from '../components/resources';
 
-const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
+// Drawer.navigationObjects = { tabBarVisible: false };
+// Drawer.navigationOptions = ({ navigation }) => {
+//   // let tabBarVisible = true;
+//   // if (navigation.state.index > 0) {
+//   //   tabBarVisible = false;
+//   // }
+//   // return {
+//   //   tabBarVisible,
+//   // };
+//   const tabBarVisible = false;
+//   return { tabBarVisible };
+// };
 
-// nest stack navigator to handle two internal views
+// nest drawer to handle four internal views
 // "name" prop is the name of the route
-const AlertTab = () => {
+const StatusTab = () => {
+  console.log('in status tab');
+  console.log(Drawer);
   return (
-    <Stack.Navigator>
-      <Stack.Screen
+    <Drawer.Navigator
+      drawerPosition="right"
+    >
+      <Drawer.Screen
         name="Status"
         component={Status}
         options={Status.navigationOptions}
       />
-      {/* <Stack.Screen
-        name="AlertsDetail"
-        component={AlertsDetail}
-        options={{
-          title: 'Alerts',
-        }}
-      /> */}
-    </Stack.Navigator>
+      <Drawer.Screen
+        name="Account"
+        component={AccountInformation}
+      />
+      <Drawer.Screen
+        name="Privacy"
+        component={PrivacyInformation}
+      />
+      <Drawer.Screen
+        name="Resources"
+        component={Resources}
+      />
+    </Drawer.Navigator>
   );
 };
 
-export default AlertTab;
+export default StatusTab;
