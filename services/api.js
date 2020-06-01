@@ -64,7 +64,7 @@ export const signup = ({ email, password }) => {
       });
 
       // AsyncStorage.setItem('currUser', response.data.id);
-      dispatch({ type: ActionTypes.AUTH_USER, payload: email });
+      dispatch({ type: ActionTypes.AUTH_USER, payload: response.data });
     }).catch((error) => {
       console.log(error);
       dispatch({ type: ActionTypes.AUTH_ERROR });
@@ -76,7 +76,7 @@ export const signin = ({ email, password }) => {
   return (dispatch) => {
     axios.post(`${API_URL}/signin`, { email, password }).then((response) => {
       AsyncStorage.setItem('currUser', response.data.id);
-      dispatch({ type: ActionTypes.AUTH_USER, payload: email });
+      dispatch({ type: ActionTypes.AUTH_USER, payload: response.data });
     }).catch((error) => {
       dispatch({ type: ActionTypes.AUTH_ERROR });
     });
