@@ -82,7 +82,7 @@ class LocationTracking extends Component {
   }
 
   handleAppStateChange = (nextAppState) => {
-    if (this.state.appState.match(/inactive|backgrond/) && nextAppState === 'active') {
+    if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
       this.getLocationAsynch();
     }
   }
@@ -128,9 +128,12 @@ TaskManager.defineTask(LOCATION_TASK_NAME, async ({ data, error }) => {
     const { locations } = data;
     const { latitude, longitude } = locations[0].coords;
     const dataCollectionTimestamp = locations[0].timestamp;
+    // const region = { latitude, longitude, latitudeDelta: 0.005, longitudeDelta: 0.005 };
+    // AsyncStorage.setItem('currlocation', JSON.stringify(region));
     console.log('test');
     AsyncStorage.getItem('currUser')
       .then((result) => {
+        console.log(result);
         if (result !== null) {
           const parsed = JSON.parse(result);
           const locationObject = { sourceUserID: parsed.id, longitude, latitude, dataCollectionTimestamp };

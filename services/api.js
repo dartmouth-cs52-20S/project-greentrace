@@ -47,22 +47,23 @@ export function sendLocation({ sourceUserID, latitude, longitude, dataCollection
 
 export const signup = ({ email, password }) => {
   return (dispatch) => {
+    console.log('test');
     axios.post(`${API_URL}/signup`, { email, password }).then((response) => {
+      console.log('test');
       const { token } = response.data;
       // eslint-disable-next-line no-shadow
       const { email, id } = response.data.user;
-      console.log(token, email, id);
+      console.log('stuff returned from axios call', token, email, id);
 
       const msg = {
         personalizations: [{ to: [{ email }] }], from: { email: 'greentracedartmouth@gmail.com' }, subject: 'Your GreenTrace Token', content: [{ type: 'text/plain', value: `${token}` }],
       };
-      AsyncStorage.setItem('currUser', response.data.user);
       axios.post('https://api.sendgrid.com/v3/mail/send', msg, { headers: { Authorization: `Bearer ${SENDGRID_API_KEY}` } }).then(() => {
         console.log('success');
       }).catch(() => {
         console.log('not success');
       });
-
+      AsyncStorage.setItem('currUser', JSON.stringify(response.data.user));
       // AsyncStorage.setItem('currUser', response.data.id);
       dispatch({ type: ActionTypes.AUTH_USER, payload: response.data });
     }).catch((error) => {
@@ -75,10 +76,15 @@ export const signup = ({ email, password }) => {
 export const signin = ({ email, password }) => {
   return (dispatch) => {
     axios.post(`${API_URL}/signin`, { email, password }).then((response) => {
-      AsyncStorage.setItem('currUser', response.data.user);
+      console.log('data', response.data);
+      console.log('user', response.data.user);
+      AsyncStorage.setItem('currUser', JSON.stringify(response.data.user));
+      AsyncStorage.getItem('currUser').then((result) => { console.log(result); }).catch((error) => { console.log(error); });
+
       dispatch({ type: ActionTypes.AUTH_USER, payload: response.data });
     }).catch((error) => {
       dispatch({ type: ActionTypes.AUTH_ERROR });
+      console.log('entered error');
     });
   };
 };
