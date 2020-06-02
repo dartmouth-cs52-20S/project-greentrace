@@ -2,7 +2,6 @@ import React from 'react';
 import {
   StyleSheet, Text, View, FlatList, TouchableOpacity, Linking,
 } from 'react-native';
-import Toggle from './drawer-toggle';
 // import getDateUSFormatString from '../lib/date-lib';
 
 const resourcesObject = require('../lib/resources.json');
@@ -10,7 +9,6 @@ const resourcesObject = require('../lib/resources.json');
 const { resources } = resourcesObject;
 
 const Resources = (props) => {
-  const { navigation } = props;
   const headerText = 'Resources';
 
   const renderResource = (item) => {
@@ -26,7 +24,6 @@ const Resources = (props) => {
 
   return (
     <View style={styles.container}>
-      <Toggle navigation={navigation} />
       <Text>{headerText}</Text>
       <FlatList
         data={resources}

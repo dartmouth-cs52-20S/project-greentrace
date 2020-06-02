@@ -3,16 +3,14 @@ import {
   StyleSheet, Text, View, TouchableOpacity,
 } from 'react-native';
 // import { connect } from 'react-redux';
-import Toggle from './drawer-toggle';
 
 const AccountInformation = (props) => {
 //   const { userId } = props.userId;
-  const { navigation } = props;
+  console.log('in account info');
   const userId = 'USERID';
   const warningMessage = 'We don’t store any personally-identifying information, so if you lose this token, you’ll have to sign up again.';
   return (
     <View style={styles.container}>
-      <Toggle navigation={navigation} />
       <Text>Account Information</Text>
       <Text>
         User ID:

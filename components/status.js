@@ -196,6 +196,9 @@ class Status extends Component {
             onChangeText={(value) => { this.getTestedValue(value); }}
           />
         </View>
+        <TouchableOpacity>
+          <Text>Check Symptoms</Text>
+        </TouchableOpacity>
         {this.renderSubmit()}
         {/* <TouchableOpacity onPress={() => {
           console.log('pressed button yay');
