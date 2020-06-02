@@ -6,8 +6,9 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import reducers from './reducers';
-import MainTabBar from './navigation/main_tab_bar';
+// import MainTabBar from './navigation/main_tab_bar';
 import LocationTracking from './components/Location';
+import MainNavigation from './navigation/main_navigation';
 
 // disable really annoying in app warnings
 console.disableYellowBox = true;
@@ -27,7 +28,8 @@ class App extends Component {
     return (
       <Provider store={store}>
         <LocationTracking />
-        <MainTabBar />
+        {/* <MainTabBar /> */}
+        <MainNavigation />
       </Provider>
     );
   }

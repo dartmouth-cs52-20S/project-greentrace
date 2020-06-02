@@ -1,37 +1,24 @@
 import React from 'react';
-// import { Button } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-// import Ionicons from 'react-native-vector-icons/FontAwesome';
-
+// import AccountInformation from '../components/account-info';
+// import PrivacyInformation from '../components/privacy-info';
 import Status from '../components/status';
+// import Resources from '../components/resources';
 
 const Stack = createStackNavigator();
 
-// nest stack navigator to handle two internal views
-// "name" prop is the name of the route
-const AlertTab = () => {
+const StatusTab = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      drawerPosition="right"
+    >
       <Stack.Screen
         name="Status"
         component={Status}
-        options={{
-          title: 'Status',
-          headerStyle: {
-            backgroundColor: '#f4511e',
-          },
-          headerTintColor: '#fff',
-        }}
+        options={Status.navigationOptions}
       />
-      {/* <Stack.Screen
-        name="AlertsDetail"
-        component={AlertsDetail}
-        options={{
-          title: 'Alerts',
-        }}
-      /> */}
     </Stack.Navigator>
   );
 };
 
-export default AlertTab;
+export default StatusTab;

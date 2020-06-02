@@ -1,10 +1,21 @@
+/* eslint-disable react/sort-comp */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import {
-  StyleSheet, View, Text, TouchableOpacity,
+  View, Text, StyleSheet, TouchableOpacity, // Modal,
 } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown';
+import Modal from 'react-native-modal';
 import { connect } from 'react-redux';
+// import Ionicons from 'react-native-vector-icons/FontAwesome';
 import { sendMessage } from '../services/api';
+import UpdateModalContent from './status-update-modal';
+
+const fromAuth = {
+  covid: false,
+  tested: false,
+};
 
 class Status extends Component {
   constructor(props) {
@@ -12,29 +23,67 @@ class Status extends Component {
     this.state = {
       covid: false,
       tested: false,
+      modalIsVisible: false,
+      edited: false,
     };
+    this.closeModal = this.closeModal.bind(this);
+    this.submit = this.submit.bind(this);
   }
 
   componentDidMount() {
+    // eslint-disable-next-line react/destructuring-assignment
+    // this.props.navigation.setParams({
+    //   toggleModalMenu: this.toggleModalMenu,
+    // });
   }
 
-  getCovidValue(option) {
-    console.log(option);
-    if (option === 'Positive') {
-      this.setState({ covid: true });
+  handleEditing() {
+    if (this.state.covid !== fromAuth.covid || this.state.tested !== fromAuth.tested) {
+      this.setState({ edited: true });
     } else {
-      this.setState({ covid: false });
+      this.setState({ edited: false });
     }
   }
 
-  getTestedValue(option) {
+  closeModal() {
+    console.log('we pop back out!');
+    this.setState({ modalIsVisible: false });
+  }
+
+  getCovidValue(option) {
+    console.log('in getCovidValue');
     console.log(option);
+    // let { edited } = this.state;
+    if (option === 'Positive') {
+      // if (!edited && fromAuth.covid !== true) {
+      //   edited = true;
+      // }
+      this.setState({ covid: true });
+    } else {
+      // if (!edited && fromAuth.covid !== false) {
+      //   edited = true;
+      // }
+      this.setState({ covid: false });
+    }
+    this.handleEditing();
+  }
+
+  getTestedValue(option) {
+    console.log('in getTestedValue');
+    console.log(option);
+    let { edited } = this.state;
     if (option === 'Tested') {
       console.log('option was tested');
-      this.setState({ tested: true });
+      if (!edited && fromAuth.tested !== true) {
+        edited = true;
+      }
+      this.setState({ tested: true, edited: fromAuth.tested !== true });
     } else {
       console.log('option was tested');
-      this.setState({ tested: false });
+      if (!edited && fromAuth.tested !== false) {
+        edited = true;
+      }
+      this.setState({ tested: false, edited: fromAuth.tested !== false });
     }
   }
 
@@ -46,9 +95,61 @@ class Status extends Component {
     };
     // eslint-disable-next-line react/destructuring-assignment
     this.props.sendMessage(message);
+    fromAuth.covid = covid;
+    fromAuth.tested = tested;
+    this.closeModal();
+    this.handleEditing();
+  }
+
+  // toggleModalMenu() {
+  //   console.log('toggling the modal menu ayo');
+  //   // eslint-disable-next-line no-unused-expressions
+  //   this.setState((prevState) => { !prevState.modalIsVisible; });
+  // }
+
+  renderSubmit() {
+    if (this.state.edited) {
+      return (
+        <TouchableOpacity onPress={() => { this.setState({ modalIsVisible: true }); }}>
+          <Text>
+            Submit
+          </Text>
+        </TouchableOpacity>
+      );
+    } else {
+      return null;
+    }
+  }
+
+  renderModal() {
+    console.log('in render modal');
+    const { modalIsVisible } = this.state;
+    if (modalIsVisible) {
+      const original = { covid: fromAuth.covid, tested: fromAuth.tested };
+      const update = { covid: this.state.covid, tested: this.state.tested };
+      return (
+        <Modal
+          isVisible={modalIsVisible}
+          onBackdropPress={this.closeModal} // Android back press
+          onSwipeComplete={this.closeModal} // Swipe to discard
+          animationIn="slideInRight" // Has others, we want slide in from the right
+          animationOut="slideOutRight" // When discarding the drawer
+          swipeDirection="right" // Discard the drawer with swipe to right
+          useNativeDriver // Faster animation
+          hideModalContentWhileAnimating // Better performance, try with/without
+          propagateSwipe // Allows swipe events to propagate to children components (eg a ScrollView inside a modal)
+        >
+          <UpdateModalContent closeModal={this.closeModal} submit={this.submit} original={original} update={update} />
+        </Modal>
+      );
+    } else {
+      return null;
+    }
   }
 
   render() {
+    console.log('state:', this.state);
+    console.log('fromAuth:', fromAuth);
     const covidOptions = [
       {
         value: 'Positive',
@@ -65,6 +166,11 @@ class Status extends Component {
         value: 'Untested',
       },
     ];
+    // eslint-disable-next-line react/destructuring-assignment
+    console.log('show modal?', this.state.modalIsVisible);
+    console.log('edited?', this.state.edited);
+    console.log('covid?', this.state.covid);
+    console.log('tested?', this.state.tested);
 
     return (
       <View style={styles.container}>
@@ -73,11 +179,10 @@ class Status extends Component {
             COVID-19 Status
           </Text>
           <Dropdown
-            // label="COVID-19 Status"
             data={covidOptions}
             style={styles.dropdown}
             value="Negative"
-            onChangeText={() => { this.getCovidValue(); }}
+            onChangeText={(value) => { this.getCovidValue(value); }}
           />
         </View>
         <View style={styles.field}>
@@ -85,19 +190,29 @@ class Status extends Component {
             Testing Status
           </Text>
           <Dropdown
-            // label="Testing Status"
             data={testedOptions}
             style={styles.dropdown}
             value="Untested"
-            onChangeText={() => { this.getTestedValue(); }}
+            onChangeText={(value) => { this.getTestedValue(value); }}
           />
         </View>
-        <TouchableOpacity onPress={() => { this.submit(); }}>
-          <Text>
-            Submit
-          </Text>
+        <TouchableOpacity onPress={() => { this.props.navigation.navigate('Symptom Check'); }}>
+          <Text>Check Symptoms</Text>
         </TouchableOpacity>
+        {this.renderSubmit()}
+        {/* <TouchableOpacity onPress={() => {
+          console.log('pressed button yay');
+          this.setState({ modalIsVisible: true });
+        }}
+        >
+          <Text>
+            Render Modal
+          </Text>
+        </TouchableOpacity> */}
+        {this.renderModal()}
       </View>
+    // </View>
+
     );
   }
 }
@@ -105,7 +220,7 @@ class Status extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
   },
@@ -115,6 +230,17 @@ const styles = StyleSheet.create({
   field: {
     width: 200,
   },
+  hamburger: {
+    alignSelf: 'flex-end',
+    padding: 0,
+    marginRight: 50,
+    marginTop: 50,
+  },
 });
+
+// const mapStateToProps = (reduxState) => ({
+//   covid: reduxState.user.covid,
+//   tested: reduxState.user.tested,
+// });
 
 export default connect(null, { sendMessage })(Status);

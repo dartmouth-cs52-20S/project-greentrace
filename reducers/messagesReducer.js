@@ -3,8 +3,6 @@ import { ActionTypes } from '../services/api';
 const initialState = {
   messages: [],
   currMessage: {},
-  covid: false,
-  tested: false,
 };
 
 const MessagesReducer = (state = initialState, action) => {

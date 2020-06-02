@@ -1,12 +1,13 @@
+/* eslint-disable no-alert */
 import React, { Component } from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
-  ScrollView,
   ActivityIndicator,
   StyleSheet,
-  // AsyncStorage,
+  ScrollView,
+  // Button,
 } from 'react-native';
 import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/FontAwesome';
@@ -15,6 +16,21 @@ import { FlatList } from 'react-native-gesture-handler';
 import { fetchMessages } from '../services/api';
 
 class Alerts extends Component {
+  static navigationOptions = {
+    title: 'Alerts',
+    headerStyle: {
+      backgroundColor: 'green',
+    },
+    headerTintColor: '#fff',
+    // headerLeft: () => (
+    //   <Button
+    //     onPress={() => alert('This is a button!')}
+    //     title="Info"
+    //     color="#fff"
+    //   />
+    // ),
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -29,6 +45,11 @@ class Alerts extends Component {
     // eslint-disable-next-line react/destructuring-assignment
     console.log(this.props.messages);
     this.setState({ isLoading: false });
+  }
+
+  showMessageDetail(message) {
+    // eslint-disable-next-line react/destructuring-assignment
+    this.props.navigation.navigate('AlertsDetail', message);
   }
 
   renderLoadingView() {
@@ -61,7 +82,7 @@ class Alerts extends Component {
     }
 
     return (
-      <TouchableOpacity style={styles.thumbnail}>
+      <TouchableOpacity key={timestamp} style={styles.thumbnail} onPress={() => { this.showMessageDetail(message); }}>
         <Ionicons name="warning" style={styles.thumbnailIcon} />
         <View>
           <Text style={styles.thumbnailMessage}>{text}</Text>
@@ -90,7 +111,8 @@ class Alerts extends Component {
             data={messages}
             renderItem={({ item }) => { return this.renderMessageThumbnail(item); }}
             keyExtractor={(item) => item.timestamp}
-            // style={styles.listView}
+            contentContainerStyle={styles.container}
+            style={{ flex: 1 }}
           />
         </ScrollView>
       );
@@ -101,12 +123,14 @@ class Alerts extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-around',
+    // justifyContent: 'space-around',
     alignItems: 'center',
+    marginHorizontal: 15,
+    marginVertical: 10,
   },
   thumbnail: {
     flexDirection: 'row',
-    marginHorizontal: 20,
+    marginHorizontal: 10,
     marginVertical: 10,
     padding: 10,
     borderRadius: 7,

@@ -1,0 +1,30 @@
+{
+    "resources": [
+        {
+            "name": "Dick's House",
+            "website": "https://students.dartmouth.edu/health-service/",
+            "phone": "6036469400"
+        },
+        {
+            "name": "Dartmouth-Hitchcock Medical Center (DHMC)",
+            "website": "https://www.dartmouth-hitchcock.org/",
+            "phone": "6036505000"
+        },
+        {
+            "name": "Student Wellness Center",
+            "website": "https://students.dartmouth.edu/wellness-center/",
+            "phone": "6036469414"   
+        },
+        {
+            "name": "Centers for Disease Prevention and Control (New Hampshire)",
+            "website": "https://www.cdc.gov/coronavirus/2019-ncov/if-you-are-sick/index.html",
+            "phone": "6032714496"
+        },
+        {
+            "name": "Department of Safety and Security",
+            "website": "https://www.dartmouth.edu/security/",
+            "phone": "6036464000"
+        }
+
+    ]
+}
