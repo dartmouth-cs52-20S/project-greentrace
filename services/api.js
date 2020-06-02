@@ -13,6 +13,7 @@ export const ActionTypes = {
   AUTH_ERROR: 'AUTH_ERROR',
   FETCH_MESSAGES: 'FETCH_MESSAGES',
   UPDATE_USER: 'UPDATE_USER',
+  GET_USER: 'GET_USER',
 };
 
 export const getLocations = () => {
@@ -114,5 +115,17 @@ export const sendMessage = (message) => {
     //   dispatch({ type: ActionTypes.UPDATE_USER, payload: response.data });
     // });
     // userId: '5ecb18190801600038902186',
+  };
+};
+
+export const getUser = (id) => {
+  return (dispatch) => {
+    axios.get(`${API_URL}/user/${id}`)
+      .then((response) => {
+        dispatch({ type: ActionTypes.GET_USER, payload: response.DATA });
+      })
+      .catch((error) => {
+        console.log('ERROR ERROR! NO USER EXISTS AT THAT ID!');
+      });
   };
 };
