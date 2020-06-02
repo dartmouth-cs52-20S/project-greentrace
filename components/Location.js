@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import * as Location from 'expo-location';
 import {
-  View, Button, Linking, Platform, AppState,
+  View, Button, Linking, Platform, AppState, AsyncStorage,
 } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import * as TaskManager from 'expo-task-manager';
@@ -31,7 +31,7 @@ class LocationTracking extends Component {
   }
 
   componentDidMount = async () => {
-    // await AsyncStorage.setItem('currentUser', JSON.stringify(this.props.currentUser));
+    await AsyncStorage.setItem('currentUser', JSON.stringify(this.props.currentUser));
     await Location.startLocationUpdatesAsync(LOCATION_TASK_NAME, {
       accuracy: Location.Accuracy.High,
     });
@@ -61,10 +61,10 @@ class LocationTracking extends Component {
     }
   }
 
-  // static getCurrentUser = async () => {
-  //   // const currentUser = AsyncStorage.get('currentUser');
-  //   // return JSON.parse(currentUser);
-  // }
+  static getCurrentUser = async () => {
+    const currentUser = AsyncStorage.get('currentUser');
+    return JSON.parse(currentUser);
+  }
 
   handlePress = (event) => {
     event.preventDefault();
@@ -102,10 +102,6 @@ class LocationTracking extends Component {
       console.log(text);
     } else if (this.state.location) {
       text = JSON.stringify(this.state.location);
-      // const { latitude, longitude } = this.state.location.coords;
-      // console.log(text);
-      // console.log('latitude: ', latitude);
-      // console.log('longitude: ', longitude);
     }
     return (
       <Modal isVisible={this.state.isLocationModalVisible} onModalHide={this.openSettings}>
@@ -131,13 +127,14 @@ TaskManager.defineTask(LOCATION_TASK_NAME, async ({ data, error }) => {
     const { locations } = data;
     const { latitude, longitude } = locations[0].coords;
     const dataCollectionTimestamp = locations[0].timestamp;
-    const locationObject = { sourceUserID: 'user', longitude, latitude, dataCollectionTimestamp };
+    const currentUser = await LocationTracking.getCurrentUser();
+    const locationObject = { sourceUserID: currentUser, longitude, latitude, dataCollectionTimestamp };
     sendLocation(locationObject);
-    console.log('Locations: ', locations);
-    console.log('Timestamp: ', locations[0].timestamp);
-    // const currentUser = await App.getCurrentUser();
-    // Axios.post();
   }
 });
 
-export default connect(null, { sendLocation })(LocationTracking);
+const mapStateToProps = (reduxState) => ({
+  currentUser: reduxState.auth.user.id,
+});
+
+export default connect(mapStateToProps, { sendLocation })(LocationTracking);
