@@ -196,7 +196,7 @@ class Status extends Component {
             onChangeText={(value) => { this.getTestedValue(value); }}
           />
         </View>
-        <TouchableOpacity onPress={() => { this.props.navigation; }}>
+        <TouchableOpacity onPress={() => { this.props.navigation.navigate('Symptom Check'); }}>
           <Text>Check Symptoms</Text>
         </TouchableOpacity>
         {this.renderSubmit()}

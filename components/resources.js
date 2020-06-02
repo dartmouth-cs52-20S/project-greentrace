@@ -28,7 +28,7 @@ const Resources = (props) => {
       <FlatList
         data={resources}
         renderItem={({ item }) => { return renderResource(item); }}
-        keyExtractor={(item) => item.timestamp}
+        keyExtractor={(item) => item.name}
         contentContainerStyle={styles.container}
       />
     </View>
@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 15,
     marginVertical: 10,
+    minHeight: 700,
   },
   resource: {
     flexDirection: 'column',

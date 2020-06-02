@@ -42,14 +42,17 @@ class Information extends Component {
     console.log('current', current);
     if (current === 'Account') {
       return (
+      // <Text>Account Information</Text>
         <AccountInformation />
       );
     } else if (current === 'Privacy') {
       return (
+        // <Text>Privacy Information</Text>
         <PrivacyInformation />
       );
     } else if (current === 'Resources') {
       return (
+        // <Text>Resources</Text>
         <Resources />
       );
     } else {

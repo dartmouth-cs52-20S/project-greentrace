@@ -6,7 +6,8 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   StyleSheet,
-  Button,
+  ScrollView,
+  // Button,
 } from 'react-native';
 import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/FontAwesome';
@@ -21,13 +22,13 @@ class Alerts extends Component {
       backgroundColor: 'green',
     },
     headerTintColor: '#fff',
-    headerLeft: () => (
-      <Button
-        onPress={() => alert('This is a button!')}
-        title="Info"
-        color="#fff"
-      />
-    ),
+    // headerLeft: () => (
+    //   <Button
+    //     onPress={() => alert('This is a button!')}
+    //     title="Info"
+    //     color="#fff"
+    //   />
+    // ),
   };
 
   constructor(props) {
@@ -81,7 +82,7 @@ class Alerts extends Component {
     }
 
     return (
-      <TouchableOpacity style={styles.thumbnail} onPress={() => { this.showMessageDetail(message); }}>
+      <TouchableOpacity key={timestamp} style={styles.thumbnail} onPress={() => { this.showMessageDetail(message); }}>
         <Ionicons name="warning" style={styles.thumbnailIcon} />
         <View>
           <Text style={styles.thumbnailMessage}>{text}</Text>
@@ -105,14 +106,15 @@ class Alerts extends Component {
       return this.renderEmptyState();
     } else {
       return (
-      // <ScrollView>
-        <FlatList
-          data={messages}
-          renderItem={({ item }) => { return this.renderMessageThumbnail(item); }}
-          keyExtractor={(item) => item.timestamp}
-          contentContainerStyle={styles.container}
-        />
-      // </ScrollView>
+        <ScrollView>
+          <FlatList
+            data={messages}
+            renderItem={({ item }) => { return this.renderMessageThumbnail(item); }}
+            keyExtractor={(item) => item.timestamp}
+            contentContainerStyle={styles.container}
+            style={{ flex: 1 }}
+          />
+        </ScrollView>
       );
     }
   }

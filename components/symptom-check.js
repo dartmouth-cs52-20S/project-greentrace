@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  View, Text,
+  View, Text, TouchableOpacity,
 } from 'react-native';
 // import { connect } from 'react-redux';
 // import { CheckBox } from 'react-native-elements';
@@ -8,9 +8,13 @@ import {
 
 class SymptomCheck extends Component {
   render() {
+    const { navigation } = this.props;
     return (
       <View>
         <Text>Welcome to symptoms check woo</Text>
+        <TouchableOpacity onPress={() => { navigation.pop(); }}>
+          <Text>Take me back back back</Text>
+        </TouchableOpacity>
       </View>
     );
   }

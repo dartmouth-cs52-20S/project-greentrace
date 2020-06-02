@@ -2,6 +2,17 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 // import getDateUSFormatString from '../lib/date-lib';
 
+
+const styles = StyleSheet.create({
+  modalView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: 300,
+    minWidth: 300,
+  },
+});
+
 const PrivacyInformation = (props) => {
 //   render() {
   const headerText = 'Privacy';
@@ -16,13 +27,5 @@ const PrivacyInformation = (props) => {
   );
 //   }
 };
-
-const styles = StyleSheet.create({
-  modalView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 export default PrivacyInformation;
