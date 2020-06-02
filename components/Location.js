@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import * as Location from 'expo-location';
 import {
-  View, Button, Linking, Platform, AppState,
+  View, Button, Linking, Platform, AppState, AsyncStorage,
 } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import * as TaskManager from 'expo-task-manager';
@@ -61,10 +61,11 @@ class LocationTracking extends Component {
     }
   }
 
-  // static getCurrentUser = async () => {
-  //   // const currentUser = AsyncStorage.get('currentUser');
-  //   // return JSON.parse(currentUser);
-  // }
+  static getCurrentUser = async () => {
+    const currentUser = AsyncStorage.getItem('currUser');
+    console.log('in get Curr user', currentUser);
+    return currentUser;
+  }
 
   handlePress = (event) => {
     event.preventDefault();
@@ -81,7 +82,7 @@ class LocationTracking extends Component {
   }
 
   handleAppStateChange = (nextAppState) => {
-    if (this.state.appState.match(/inactive|backgrond/) && nextAppState === 'active') {
+    if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
       this.getLocationAsynch();
     }
   }
@@ -102,10 +103,6 @@ class LocationTracking extends Component {
       console.log(text);
     } else if (this.state.location) {
       text = JSON.stringify(this.state.location);
-      // const { latitude, longitude } = this.state.location.coords;
-      // console.log(text);
-      // console.log('latitude: ', latitude);
-      // console.log('longitude: ', longitude);
     }
     return (
       <Modal isVisible={this.state.isLocationModalVisible} onModalHide={this.openSettings}>
@@ -131,13 +128,28 @@ TaskManager.defineTask(LOCATION_TASK_NAME, async ({ data, error }) => {
     const { locations } = data;
     const { latitude, longitude } = locations[0].coords;
     const dataCollectionTimestamp = locations[0].timestamp;
-    const locationObject = { sourceUserID: 'user', longitude, latitude, dataCollectionTimestamp };
-    sendLocation(locationObject);
-    console.log('Locations: ', locations);
-    console.log('Timestamp: ', locations[0].timestamp);
-    // const currentUser = await App.getCurrentUser();
-    // Axios.post();
+    // const region = { latitude, longitude, latitudeDelta: 0.005, longitudeDelta: 0.005 };
+    // AsyncStorage.setItem('currlocation', JSON.stringify(region));
+    console.log('test');
+    AsyncStorage.getItem('currUser')
+      .then((result) => {
+        console.log(result);
+        if (result !== null) {
+          const parsed = JSON.parse(result);
+          const locationObject = { sourceUserID: parsed.id, longitude, latitude, dataCollectionTimestamp };
+          sendLocation(locationObject);
+          console.log(result);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // const currentUser = await LocationTracking.getCurrentUser();
   }
 });
+
+// const mapStateToProps = (reduxState) => ({
+//   currentUser: reduxState.auth.user,
+// });
 
 export default connect(null, { sendLocation })(LocationTracking);

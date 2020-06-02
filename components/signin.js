@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet, View, Text, TextInput, Button,
+  StyleSheet, View, Text, TextInput, Button, AsyncStorage,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { signin } from '../services/api';
@@ -37,6 +37,7 @@ class SignIn extends Component {
           <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ password: text }); }} value={password} placeholder="password" />
         </View>
         <Button onPress={() => { this.submit(); }} style={styles.button} color="white" title="Log In" />
+        <Button onPress={() => { AsyncStorage.clear(); }} style={styles.button} color="white" title="Sign Out" />
       </View>
     );
   }
