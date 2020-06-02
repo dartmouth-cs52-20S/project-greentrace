@@ -31,7 +31,7 @@ class LocationTracking extends Component {
   }
 
   componentDidMount = async () => {
-    await AsyncStorage.setItem('currentUser', JSON.stringify(this.props.currentUser));
+    // await AsyncStorage.setItem('currentUser', JSON.stringify(this.props.currentUser));
     await Location.startLocationUpdatesAsync(LOCATION_TASK_NAME, {
       accuracy: Location.Accuracy.High,
     });
@@ -62,8 +62,9 @@ class LocationTracking extends Component {
   }
 
   static getCurrentUser = async () => {
-    const currentUser = AsyncStorage.get('currentUser');
-    return JSON.parse(currentUser);
+    const currentUser = AsyncStorage.getItem('currUser');
+    console.log('in get Curr user', currentUser);
+    return currentUser;
   }
 
   handlePress = (event) => {
@@ -127,14 +128,25 @@ TaskManager.defineTask(LOCATION_TASK_NAME, async ({ data, error }) => {
     const { locations } = data;
     const { latitude, longitude } = locations[0].coords;
     const dataCollectionTimestamp = locations[0].timestamp;
-    const currentUser = await LocationTracking.getCurrentUser();
-    const locationObject = { sourceUserID: currentUser, longitude, latitude, dataCollectionTimestamp };
-    sendLocation(locationObject);
+    console.log('test');
+    AsyncStorage.getItem('currUser')
+      .then((result) => {
+        if (result !== null) {
+          const parsed = JSON.parse(result);
+          const locationObject = { sourceUserID: parsed.id, longitude, latitude, dataCollectionTimestamp };
+          sendLocation(locationObject);
+          console.log(result);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // const currentUser = await LocationTracking.getCurrentUser();
   }
 });
 
-const mapStateToProps = (reduxState) => ({
-  currentUser: reduxState.auth.user.id,
-});
+// const mapStateToProps = (reduxState) => ({
+//   currentUser: reduxState.auth.user,
+// });
 
-export default connect(mapStateToProps, { sendLocation })(LocationTracking);
+export default connect(null, { sendLocation })(LocationTracking);
