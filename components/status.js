@@ -3,114 +3,89 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import {
-  View, Text, StyleSheet, TouchableOpacity, // Modal,
+  View, Text, StyleSheet, TouchableOpacity, AsyncStorage, // Modal,
 } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown';
 import Modal from 'react-native-modal';
 import { connect } from 'react-redux';
 // import Ionicons from 'react-native-vector-icons/FontAwesome';
-import { sendMessage } from '../services/api';
+import SymptomCheck from './symptom-check';
+import { updateUser } from '../services/api';
 import UpdateModalContent from './status-update-modal';
-
-const fromAuth = {
-  covid: false,
-  tested: false,
-};
 
 class Status extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      covid: false,
-      tested: false,
-      modalIsVisible: false,
+      prev: {},
+      covid: 'Negative',
+      tested: 'Untested',
+      confirmModal: false,
+      symptomModal: false,
       edited: false,
+      id: null,
     };
-    this.closeModal = this.closeModal.bind(this);
-    this.submit = this.submit.bind(this);
+    this.fetchCurrentStatus();
   }
 
   componentDidMount() {
-    // eslint-disable-next-line react/destructuring-assignment
-    // this.props.navigation.setParams({
-    //   toggleModalMenu: this.toggleModalMenu,
-    // });
   }
 
-  handleEditing() {
-    if (this.state.covid !== fromAuth.covid || this.state.tested !== fromAuth.tested) {
-      this.setState({ edited: true });
-    } else {
-      this.setState({ edited: false });
+  fetchCurrentStatus = () => {
+    AsyncStorage.getItem('currUser')
+      .then((result) => {
+        if (result !== null) {
+          const user = JSON.parse(result);
+          console.log('Getting curr user', result);
+          const prev = {};
+          const { covid, tested, id } = user;
+          if (covid) {
+            prev.covid = 'Positive';
+          } else {
+            prev.covid = 'Negative';
+          }
+          if (tested) {
+            prev.tested = 'Tested';
+          } else {
+            prev.tested = 'Untested';
+          }
+          // eslint-disable-next-line object-curly-newline
+          this.setState({ prev, covid: prev.covid, tested: prev.tested, id });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  closeConfirmModal = () => {
+    this.setState({ confirmModal: false });
+  }
+
+  closeSymptomModal = () => {
+    this.setState({ symptomModal: false });
+  }
+
+  onHandleChange = (event) => {
+    if (event === 'Positive' || event === 'Negative') {
+      this.setState({ covid: event, edited: true });
+    }
+    if (event === 'Tested' || event === 'Untested') {
+      this.setState({ tested: event, edited: true });
     }
   }
 
-  closeModal() {
-    console.log('we pop back out!');
-    this.setState({ modalIsVisible: false });
+  submit = () => {
+    const { covid, tested, id } = this.state;
+    updateUser(id, { covid: (covid === 'Positive'), tested: (tested === 'Tested') });
+    this.closeConfirmModal();
+    this.setState({ edited: false });
   }
-
-  getCovidValue(option) {
-    console.log('in getCovidValue');
-    console.log(option);
-    // let { edited } = this.state;
-    if (option === 'Positive') {
-      // if (!edited && fromAuth.covid !== true) {
-      //   edited = true;
-      // }
-      this.setState({ covid: true });
-    } else {
-      // if (!edited && fromAuth.covid !== false) {
-      //   edited = true;
-      // }
-      this.setState({ covid: false });
-    }
-    this.handleEditing();
-  }
-
-  getTestedValue(option) {
-    console.log('in getTestedValue');
-    console.log(option);
-    let { edited } = this.state;
-    if (option === 'Tested') {
-      console.log('option was tested');
-      if (!edited && fromAuth.tested !== true) {
-        edited = true;
-      }
-      this.setState({ tested: true, edited: fromAuth.tested !== true });
-    } else {
-      console.log('option was tested');
-      if (!edited && fromAuth.tested !== false) {
-        edited = true;
-      }
-      this.setState({ tested: false, edited: fromAuth.tested !== false });
-    }
-  }
-
-  submit() {
-    const { covid, tested } = this.state;
-    const now = new Date();
-    const message = {
-      traceID: '', covid, tested, contactDate: now.getTime(),
-    };
-    // eslint-disable-next-line react/destructuring-assignment
-    this.props.sendMessage(message);
-    fromAuth.covid = covid;
-    fromAuth.tested = tested;
-    this.closeModal();
-    this.handleEditing();
-  }
-
-  // toggleModalMenu() {
-  //   console.log('toggling the modal menu ayo');
-  //   // eslint-disable-next-line no-unused-expressions
-  //   this.setState((prevState) => { !prevState.modalIsVisible; });
-  // }
 
   renderSubmit() {
     if (this.state.edited) {
       return (
-        <TouchableOpacity onPress={() => { this.setState({ modalIsVisible: true }); }}>
+        <TouchableOpacity onPress={() => { this.setState({ confirmModal: true }); }}>
           <Text>
             Submit
           </Text>
@@ -121,17 +96,17 @@ class Status extends Component {
     }
   }
 
-  renderModal() {
+  renderConfirmModal() {
     console.log('in render modal');
-    const { modalIsVisible } = this.state;
-    if (modalIsVisible) {
-      const original = { covid: fromAuth.covid, tested: fromAuth.tested };
+    const { confirmModal } = this.state;
+    if (confirmModal) {
+      const original = { covid: this.state.prev.covid, tested: this.state.prev.tested };
       const update = { covid: this.state.covid, tested: this.state.tested };
       return (
         <Modal
-          isVisible={modalIsVisible}
-          onBackdropPress={this.closeModal} // Android back press
-          onSwipeComplete={this.closeModal} // Swipe to discard
+          isVisible={confirmModal}
+          onBackdropPress={this.closeConfirmModal} // Android back press
+          onSwipeComplete={this.closeConfirmModal} // Swipe to discard
           animationIn="slideInRight" // Has others, we want slide in from the right
           animationOut="slideOutRight" // When discarding the drawer
           swipeDirection="right" // Discard the drawer with swipe to right
@@ -139,7 +114,30 @@ class Status extends Component {
           hideModalContentWhileAnimating // Better performance, try with/without
           propagateSwipe // Allows swipe events to propagate to children components (eg a ScrollView inside a modal)
         >
-          <UpdateModalContent closeModal={this.closeModal} submit={this.submit} original={original} update={update} />
+          <UpdateModalContent closeModal={this.closeConfirmModal} submit={this.submit} original={original} update={update} />
+        </Modal>
+      );
+    } else {
+      return null;
+    }
+  }
+
+  renderSymptomModal() {
+    const { symptomModal } = this.state;
+    if (symptomModal) {
+      return (
+        <Modal
+          isVisible={symptomModal}
+          onBackdropPress={this.closeSymptomModal} // Android back press
+          onSwipeComplete={this.closeSymptomModal} // Swipe to discard
+          animationIn="slideInRight" // Has others, we want slide in from the right
+          animationOut="slideOutRight" // When discarding the drawer
+          swipeDirection="right" // Discard the drawer with swipe to right
+          useNativeDriver // Faster animation
+          hideModalContentWhileAnimating // Better performance, try with/without
+          propagateSwipe // Allows swipe events to propagate to children components (eg a ScrollView inside a modal)
+        >
+          <SymptomCheck closeModal={this.closeSymptomModal} />
         </Modal>
       );
     } else {
@@ -149,7 +147,6 @@ class Status extends Component {
 
   render() {
     console.log('state:', this.state);
-    console.log('fromAuth:', fromAuth);
     console.log('navigation', this.props.navigation);
     const covidOptions = [
       {
@@ -168,7 +165,7 @@ class Status extends Component {
       },
     ];
     // eslint-disable-next-line react/destructuring-assignment
-    console.log('show modal?', this.state.modalIsVisible);
+    console.log('show modal?', this.state.confirmModal);
     console.log('edited?', this.state.edited);
     console.log('covid?', this.state.covid);
     console.log('tested?', this.state.tested);
@@ -180,10 +177,11 @@ class Status extends Component {
             COVID-19 Status
           </Text>
           <Dropdown
+            name="covid"
             data={covidOptions}
             style={styles.dropdown}
-            value="Negative"
-            onChangeText={(value) => { this.getCovidValue(value); }}
+            value={this.state.covid}
+            onChangeText={this.onHandleChange}
           />
         </View>
         <View style={styles.field}>
@@ -191,15 +189,16 @@ class Status extends Component {
             Testing Status
           </Text>
           <Dropdown
+            name="tested"
             data={testedOptions}
             style={styles.dropdown}
-            value="Untested"
-            onChangeText={(value) => { this.getTestedValue(value); }}
+            value={this.state.tested}
+            onChangeText={this.onHandleChange}
           />
         </View>
-        {/* <TouchableOpacity onPress={() => { this.props.navigation.navigate('Symptom Check', { backToTab: 'Tab Bar', backToScreen: 'Status' }); }}>
+        <TouchableOpacity onPress={() => { this.setState({ symptomModal: true }); }}>
           <Text>Check Symptoms</Text>
-        </TouchableOpacity> */}
+        </TouchableOpacity>
         {this.renderSubmit()}
         {/* <TouchableOpacity onPress={() => {
           console.log('pressed button yay');
@@ -210,9 +209,10 @@ class Status extends Component {
             Render Modal
           </Text>
         </TouchableOpacity> */}
-        {this.renderModal()}
+        {this.renderSymptomModal()}
+        {this.renderConfirmModal()}
       </View>
-    // </View>
+      // </View>
 
     );
   }
@@ -244,4 +244,4 @@ const styles = StyleSheet.create({
 //   tested: reduxState.user.tested,
 // });
 
-export default connect(null, { sendMessage })(Status);
+export default connect(null, { updateUser })(Status);

@@ -3,8 +3,8 @@ import axios from 'axios';
 import { AsyncStorage } from 'react-native';
 import { SENDGRID_API_KEY } from 'react-native-dotenv';
 
-// const API_URL = 'https://greentrace-server.herokuapp.com/api';
-const API_URL = 'http://localhost:9090/api';
+const API_URL = 'https://greentrace-server.herokuapp.com/api';
+// const API_URL = 'http://localhost:9090/api';
 
 export const ActionTypes = {
   STORE_LOCATION: 'STORE_LOCATION',
@@ -167,5 +167,17 @@ export const getHeatpmap = () => {
     })
     .catch((error) => {
       console.log(`backend api error: ${error}`);
+    });
+};
+
+export const updateUser = (id, update) => {
+  axios.put(`${API_URL}/user/${id}`, update)
+    .then((response) => {
+      AsyncStorage.setItem('currUser', JSON.stringify(response.data));
+      return response;
+    })
+    .catch((error) => {
+      console.log('Backend API error', error);
+      return error;
     });
 };
