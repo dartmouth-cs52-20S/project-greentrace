@@ -224,11 +224,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
+    backgroundColor: 'white',
   },
   dropdown: {
     width: 250,
   },
   field: {
+    flex: 1,
+    justifyContent: 'space-around',
+    alignItems: 'stretch',
     width: 200,
   },
   hamburger: {
