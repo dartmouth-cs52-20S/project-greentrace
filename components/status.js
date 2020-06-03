@@ -3,12 +3,13 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import {
-  View, Text, StyleSheet, TouchableOpacity, AsyncStorage, SegmentedControlIOSComponent, // Modal,
+  View, Text, StyleSheet, TouchableOpacity, AsyncStorage, // Modal,
 } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown';
 import Modal from 'react-native-modal';
 import { connect } from 'react-redux';
 // import Ionicons from 'react-native-vector-icons/FontAwesome';
+import SymptomCheck from './symptom-check';
 import { updateUser } from '../services/api';
 import UpdateModalContent from './status-update-modal';
 
@@ -19,12 +20,12 @@ class Status extends Component {
       prev: {},
       covid: 'Negative',
       tested: 'Untested',
-      modalIsVisible: false,
+      confirmModal: false,
+      symptomModal: false,
       edited: false,
       id: null,
     };
     this.fetchCurrentStatus();
-    this.closeModal = this.closeModal.bind(this);
   }
 
   componentDidMount() {
@@ -57,8 +58,12 @@ class Status extends Component {
       });
   }
 
-  closeModal() {
-    this.setState({ modalIsVisible: false });
+  closeConfirmModal = () => {
+    this.setState({ confirmModal: false });
+  }
+
+  closeSymptomModal = () => {
+    this.setState({ symptomModal: false });
   }
 
   onHandleChange = (event) => {
@@ -73,14 +78,14 @@ class Status extends Component {
   submit = () => {
     const { covid, tested, id } = this.state;
     updateUser(id, { covid: (covid === 'Positive'), tested: (tested === 'Tested') });
-    this.closeModal();
+    this.closeConfirmModal();
     this.setState({ edited: false });
   }
 
   renderSubmit() {
     if (this.state.edited) {
       return (
-        <TouchableOpacity onPress={() => { this.setState({ modalIsVisible: true }); }}>
+        <TouchableOpacity onPress={() => { this.setState({ confirmModal: true }); }}>
           <Text>
             Submit
           </Text>
@@ -91,17 +96,17 @@ class Status extends Component {
     }
   }
 
-  renderModal() {
+  renderConfirmModal() {
     console.log('in render modal');
-    const { modalIsVisible } = this.state;
-    if (modalIsVisible) {
+    const { confirmModal } = this.state;
+    if (confirmModal) {
       const original = { covid: this.state.prev.covid, tested: this.state.prev.tested };
       const update = { covid: this.state.covid, tested: this.state.tested };
       return (
         <Modal
-          isVisible={modalIsVisible}
-          onBackdropPress={this.closeModal} // Android back press
-          onSwipeComplete={this.closeModal} // Swipe to discard
+          isVisible={confirmModal}
+          onBackdropPress={this.closeConfirmModal} // Android back press
+          onSwipeComplete={this.closeConfirmModal} // Swipe to discard
           animationIn="slideInRight" // Has others, we want slide in from the right
           animationOut="slideOutRight" // When discarding the drawer
           swipeDirection="right" // Discard the drawer with swipe to right
@@ -109,7 +114,30 @@ class Status extends Component {
           hideModalContentWhileAnimating // Better performance, try with/without
           propagateSwipe // Allows swipe events to propagate to children components (eg a ScrollView inside a modal)
         >
-          <UpdateModalContent closeModal={this.closeModal} submit={this.submit} original={original} update={update} />
+          <UpdateModalContent closeModal={this.closeConfirmModal} submit={this.submit} original={original} update={update} />
+        </Modal>
+      );
+    } else {
+      return null;
+    }
+  }
+
+  renderSymptomModal() {
+    const { symptomModal } = this.state;
+    if (symptomModal) {
+      return (
+        <Modal
+          isVisible={symptomModal}
+          onBackdropPress={this.closeSymptomModal} // Android back press
+          onSwipeComplete={this.closeSymptomModal} // Swipe to discard
+          animationIn="slideInRight" // Has others, we want slide in from the right
+          animationOut="slideOutRight" // When discarding the drawer
+          swipeDirection="right" // Discard the drawer with swipe to right
+          useNativeDriver // Faster animation
+          hideModalContentWhileAnimating // Better performance, try with/without
+          propagateSwipe // Allows swipe events to propagate to children components (eg a ScrollView inside a modal)
+        >
+          <SymptomCheck closeModal={this.closeSymptomModal} />
         </Modal>
       );
     } else {
@@ -137,7 +165,7 @@ class Status extends Component {
       },
     ];
     // eslint-disable-next-line react/destructuring-assignment
-    console.log('show modal?', this.state.modalIsVisible);
+    console.log('show modal?', this.state.confirmModal);
     console.log('edited?', this.state.edited);
     console.log('covid?', this.state.covid);
     console.log('tested?', this.state.tested);
@@ -168,9 +196,9 @@ class Status extends Component {
             onChangeText={this.onHandleChange}
           />
         </View>
-        {/* <TouchableOpacity onPress={() => { this.props.navigation.navigate('Symptom Check', { backToTab: 'Tab Bar', backToScreen: 'Status' }); }}>
+        <TouchableOpacity onPress={() => { this.setState({ symptomModal: true }); }}>
           <Text>Check Symptoms</Text>
-        </TouchableOpacity> */}
+        </TouchableOpacity>
         {this.renderSubmit()}
         {/* <TouchableOpacity onPress={() => {
           console.log('pressed button yay');
@@ -181,7 +209,8 @@ class Status extends Component {
             Render Modal
           </Text>
         </TouchableOpacity> */}
-        {this.renderModal()}
+        {this.renderSymptomModal()}
+        {this.renderConfirmModal()}
       </View>
       // </View>
 

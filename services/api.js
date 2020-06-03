@@ -167,12 +167,8 @@ export const getHeatpmap = () => {
 };
 
 export const updateUser = (id, update) => {
-  console.log('update', update);
-  console.log('id', id);
-  console.log('url', `${API_URL}/user/${id}`);
   axios.put(`${API_URL}/user/${id}`, update)
     .then((response) => {
-      console.log('Updated User: ', response);
       AsyncStorage.setItem('currUser', JSON.stringify(response.data));
       return response;
     })
