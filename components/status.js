@@ -110,7 +110,7 @@ class Status extends Component {
   renderSubmit() {
     if (this.state.edited) {
       return (
-        <TouchableOpacity onPress={() => { this.setState({ modalIsVisible: true }); }}>
+        <TouchableOpacity style={styles.actionButton} onPress={() => { this.setState({ modalIsVisible: true }); }}>
           <Text>
             Submit
           </Text>
@@ -221,7 +221,7 @@ class Status extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
   },
@@ -230,11 +230,17 @@ const styles = StyleSheet.create({
   },
   field: {
     width: 200,
+    // flexDirection: 'column',
+    // alignItems: 'center',
+    marginTop: 30,
   },
   hamburger: {
     alignSelf: 'flex-end',
     padding: 0,
     marginRight: 50,
+    marginTop: 50,
+  },
+  actionButton: {
     marginTop: 50,
   },
 });

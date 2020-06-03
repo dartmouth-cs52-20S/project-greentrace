@@ -62,8 +62,8 @@ class Alerts extends Component {
 
   renderEmptyState() {
     return (
-      <View>
-        <Text>No alerts yet! :(</Text>
+      <View style={styles.emptyState}>
+        <Text style={styles.emptyStateMessage}>No alerts yet</Text>
       </View>
     );
   }
@@ -145,6 +145,15 @@ const styles = StyleSheet.create({
   thumbnailMessage: {
     fontSize: 20,
     flexWrap: 'wrap',
+  },
+  emptyState: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  emptyStateMessage: {
+    fontSize: 15,
   },
 });
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Text, View, TouchableOpacity, AsyncStorage,
+  Text, View, TouchableOpacity, AsyncStorage, StyleSheet,
 } from 'react-native';
 
 import AccountInformation from './account-info';
@@ -36,7 +36,7 @@ class Information extends Component {
 
   renderToggle() {
     return (
-      <View>
+      <View style={styles.toggle}>
         {this.renderToggleItem('Account')}
         {this.renderToggleItem('Privacy')}
         {this.renderToggleItem('Resources')}
@@ -77,5 +77,15 @@ class Information extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  toggle: {
+    flexDirection: 'row',
+    width: 200,
+    justifyContent: 'space-evenly',
+    alignSelf: 'center',
+    marginVertical: 30,
+  },
+});
 
 export default Information;
