@@ -3,6 +3,7 @@
 /* eslint-disable object-curly-newline */
 import React from 'react';
 import { connect } from 'react-redux';
+import * as Location from 'expo-location';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { StyleSheet, View, Dimensions, AsyncStorage } from 'react-native';
 import { getHeatpmap } from '../services/api';
@@ -11,47 +12,44 @@ class HeatMap extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      region: {},
+      region: {
+        latitude: 43.704441,
+        longitude: -72.288696,
+        latitudeDelta: 0.005,
+        longitudeDelta: 0.005,
+      },
       heatmap: [],
     };
   }
 
   componentDidMount() {
-    this.getCurrentLocation();
+    this.updateLocation();
+    this.getInitialLocation();
+    const heatmap = getHeatpmap();
+    this.setState({ heatmap });
   }
 
-  async getCurrentLocation() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const region = {
-          latitude: parseFloat(position.coords.latitude),
-          longitude: parseFloat(position.coords.longitude),
-          latitudeDelta: 0.005,
-          longitudeDelta: 0.005,
-        };
-        this.setState({
-          region,
-        });
-        const heatmap = getHeatpmap();
-        this.setState({ heatmap });
-      },
-      (error) => console.log(error),
-      {
-        enableHighAccuracy: true,
-        timeout: 20000,
-        maximumAge: 1000,
-      },
-    );
+  async getInitialLocation() {
+    const position = await Location.getCurrentPositionAsync({});
+    const region = {
+      latitude: parseFloat(position.coords.latitude),
+      longitude: parseFloat(position.coords.longitude),
+      latitudeDelta: 0.005,
+      longitudeDelta: 0.005,
+    };
+    this.setState({
+      region,
+    });
   }
 
-  goToInitialLocation = () => {
+  updateLocation = () => {
     AsyncStorage.getItem('currlocation')
       .then((result) => {
         if (result !== null) {
           const region = JSON.parse(result);
           // console.log('Changing map region to', region);
           this.setState({ region });
-          this.mapView.animateToRegion(region);
+          this.mapView.animateToRegion(region, 2000);
         }
       })
       .catch((err) => {
@@ -69,7 +67,7 @@ class HeatMap extends React.Component {
           zoomEnabled
           showsUserLocation
           region={this.state.region}
-          onUserLocationChange={this.goToInitialLocation}
+          onUserLocationChange={this.updateLocation}
           style={styles.mapStyle}
           provider={PROVIDER_GOOGLE}
           mapType="satellite"
