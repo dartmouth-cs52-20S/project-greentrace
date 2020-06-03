@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import {
   StyleSheet, View, Text, TextInput, Button,
@@ -21,6 +22,7 @@ class SignUp extends Component {
     const { signup } = this.props;
     if (email !== '' && password !== '' && password === passwordConfirm) {
       signup({ email, password });
+      this.props.navigation.navigate('Tab Bar');
     }
   }
 

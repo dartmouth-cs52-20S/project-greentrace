@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import {
   StyleSheet, View, Text, TextInput, Button, AsyncStorage,
@@ -20,6 +21,7 @@ class SignIn extends Component {
     const { signin } = this.props;
     if (email !== '' && password !== '') {
       signin({ email, password });
+      this.props.navigation.navigate('Tab Bar');
     }
   }
 
@@ -37,6 +39,7 @@ class SignIn extends Component {
           <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ password: text }); }} value={password} placeholder="password" />
         </View>
         <Button onPress={() => { this.submit(); }} style={styles.button} color="white" title="Log In" />
+        <Button onPress={() => { this.props.navigation.navigate('Sign Up'); }} color="white" title="New user? Sign Up" />
         <Button onPress={() => { AsyncStorage.clear(); }} style={styles.button} color="white" title="Sign Out" />
       </View>
     );

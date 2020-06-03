@@ -150,6 +150,7 @@ class Status extends Component {
   render() {
     console.log('state:', this.state);
     console.log('fromAuth:', fromAuth);
+    console.log('navigation', this.props.navigation);
     const covidOptions = [
       {
         value: 'Positive',
@@ -196,9 +197,9 @@ class Status extends Component {
             onChangeText={(value) => { this.getTestedValue(value); }}
           />
         </View>
-        <TouchableOpacity onPress={() => { this.props.navigation.navigate('Symptom Check'); }}>
+        {/* <TouchableOpacity onPress={() => { this.props.navigation.navigate('Symptom Check', { backToTab: 'Tab Bar', backToScreen: 'Status' }); }}>
           <Text>Check Symptoms</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         {this.renderSubmit()}
         {/* <TouchableOpacity onPress={() => {
           console.log('pressed button yay');
