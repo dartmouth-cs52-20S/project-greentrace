@@ -4,14 +4,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import { StyleSheet, View, Dimensions } from 'react-native';
+import { StyleSheet, View, Dimensions, AsyncStorage } from 'react-native';
 import { getHeatpmap } from '../services/api';
 
 class HeatMap extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      initialRegion: null,
+      region: {},
+      heatmap: [],
     };
   }
 
@@ -29,8 +30,10 @@ class HeatMap extends React.Component {
           longitudeDelta: 0.005,
         };
         this.setState({
-          initialRegion: region,
+          region,
         });
+        const heatmap = getHeatpmap();
+        this.setState({ heatmap });
       },
       (error) => console.log(error),
       {
@@ -41,29 +44,37 @@ class HeatMap extends React.Component {
     );
   }
 
-  goToInitialLocation() {
-    const initialRegion = { ...this.state.initialRegion };
-    initialRegion.latitudeDelta = 0.005;
-    initialRegion.longitudeDelta = 0.005;
-    this.mapView.animateToRegion(initialRegion, 2000);
+  goToInitialLocation = () => {
+    AsyncStorage.getItem('currlocation')
+      .then((result) => {
+        if (result !== null) {
+          const region = JSON.parse(result);
+          // console.log('Changing map region to', region);
+          this.setState({ region });
+          this.mapView.animateToRegion(region);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
+
 
   render() {
     return (
-
       <View style={styles.container}>
         <MapView
           followUserLocation
           ref={(ref) => (this.mapView = ref)}
           zoomEnabled
           showsUserLocation
-          onMapReady={this.goToInitialRegion}
-          initialRegion={this.state.initialRegion}
+          region={this.state.region}
+          onUserLocationChange={this.goToInitialLocation}
           style={styles.mapStyle}
           provider={PROVIDER_GOOGLE}
           mapType="satellite"
         >
-          <MapView.Heatmap points={getHeatpmap()}
+          <MapView.Heatmap points={this.state.heatmap}
             opacity={1}
             radius={20}
           />
