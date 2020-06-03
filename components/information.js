@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Text, View, TouchableOpacity,
+  Text, View, TouchableOpacity, AsyncStorage,
 } from 'react-native';
 
 import AccountInformation from './account-info';
@@ -13,10 +13,17 @@ class Information extends Component {
     this.state = {
       current: 'Account',
     };
+    this.logout = this.logout.bind(this);
   }
 
   switchView(title) {
     this.setState({ current: title });
+  }
+
+  logout() {
+    const { navigation } = this.props;
+    AsyncStorage.clear();
+    navigation.navigate('Sign In');
   }
 
   renderToggleItem(title) {
@@ -39,16 +46,17 @@ class Information extends Component {
 
   renderSubstance() {
     const { current } = this.state;
+    const { navigation } = this.props;
     console.log('current', current);
     if (current === 'Account') {
       return (
       // <Text>Account Information</Text>
-        <AccountInformation />
+        <AccountInformation logout={this.logout} />
       );
     } else if (current === 'Privacy') {
       return (
         // <Text>Privacy Information</Text>
-        <PrivacyInformation />
+        <PrivacyInformation navigation={navigation} />
       );
     } else if (current === 'Resources') {
       return (
