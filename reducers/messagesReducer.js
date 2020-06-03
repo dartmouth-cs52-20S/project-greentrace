@@ -6,6 +6,7 @@ const initialState = {
 };
 
 const MessagesReducer = (state = initialState, action) => {
+  console.log('PRINT THIS PLEASE');
   switch (action.type) {
     case ActionTypes.FETCH_MESSAGES:
       return { ...state, messages: action.payload };
