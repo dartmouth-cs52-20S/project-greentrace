@@ -49,7 +49,7 @@ class HeatMap extends React.Component {
           const region = JSON.parse(result);
           // console.log('Changing map region to', region);
           this.setState({ region });
-          this.mapView.animateToRegion(region);
+          this.mapView.animateToRegion(region, 2000);
         }
       })
       .catch((err) => {
