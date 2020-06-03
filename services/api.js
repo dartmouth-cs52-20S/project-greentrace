@@ -92,31 +92,51 @@ export const signin = ({ email, password }) => {
 
 export const fetchMessages = () => {
   console.log('fetchMessages');
-  return (dispatch) => {
-    // axios.get(`${API_URL}/user/${AsyncStorage.getItem('currUser')}/messages`).then((response) => {
-    //   dispatch({ type: ActionTypes.FETCH_MESSAGES, payload: response.data.message });
-    // });
-    console.log('in return dispatch');
-    // const user = '5ecb16e40801600038902185';
-    // const user = '5ed0202dc1ce1b00386f034f';
-    const user = '5ed2a1f2a3c6ac0038eb7895';
-    axios.get(`${API_URL}/user/${user}/messages`).then((response) => {
-      console.log('in fetchmessages axios get call');
-      console.log(response);
-      dispatch({ type: ActionTypes.FETCH_MESSAGES, payload: response.data.message });
-    });
-  };
+  AsyncStorage.getItem('currUser')
+    .then((user) => {
+      if (user !== null) {
+        const parsed = JSON.parse(user);
+        console.log('fetch messages user line 98', parsed.id);
+        axios.get(`${API_URL}/user/${parsed.id}/messages`).then((response) => {
+        // console.log('in return dispatch', response.data);
+        // dispatch({ type: ActionTypes.FETCH_MESSAGES, payload: response.data.message });
+        // console.log('in return dispatch message', response.data.messages);
+          console.log(response.data);
+          return response.data;
+        });
+      }
+    })
+    .catch((err) => { console.log('fetch message error line 98', err); return null; });
+  // const user = '5ecb16e40801600038902185';
+  // const user = '5ed0202dc1ce1b00386f034f';
+  // const user = '5ed2a1f2a3c6ac0038eb7895';
+  // axios.get(`${API_URL}/user/${user}/messages`).then((response) => {
+  //   console.log('in fetchmessages axios get call');
+  //   console.log(response);
+  //   dispatch({ type: ActionTypes.FETCH_MESSAGES, payload: response.data.message });
+  // });
 };
 
 export const sendMessage = (message) => {
-  console.log('in send message');
+  console.log('in send message', message);
   // const user = '5ecb16e40801600038902185';
   // const user = '5ed0202dc1ce1b00386f034f';
-  const user = '5ed2a1f2a3c6ac0038eb7895';
+  // const user = '5ed2a1f2a3c6ac0038eb7895';
   return (dispatch) => {
-    axios.post(`${API_URL}/user/${user}/messages`, message).then((response) => {
-      dispatch({ type: ActionTypes.SEND_MESSAGE, payload: response.data });
-    });
+    AsyncStorage.getItem('currUser')
+      .then((currUser) => {
+        const parsed = JSON.parse(currUser);
+        const parsedId = parsed.id;
+        axios.post(`${API_URL}/user/${parsedId}/messages`, message).then((response) => {
+          dispatch({ type: ActionTypes.SEND_MESSAGE, payload: response.data });
+        });
+      })
+      .catch((err) => {
+        console.log('error sending message line 130', err);
+      });
+    // axios.post(`${API_URL}/user/${user}/messages`, message).then((response) => {
+    //   dispatch({ type: ActionTypes.SEND_MESSAGE, payload: response.data });
+    // });
     // axios.post(`${API_URL}/user/${AsyncStorage.getItem('currUser')}/messages`, message).then((response) => {
     //   dispatch({ type: ActionTypes.UPDATE_USER, payload: response.data });
     // });

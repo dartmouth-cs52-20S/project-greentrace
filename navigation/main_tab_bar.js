@@ -38,7 +38,7 @@ const MainTabBar = () => {
         },
       })}
     >
-      <Tab.Screen name="Map" component={MapTab} />
+      {/* <Tab.Screen name="Map" component={MapTab} /> */}
       {/* <Tab.Screen name="Risk" component={RiskTab} /> */}
       <Tab.Screen name="Alerts" component={AlertTab} />
       <Tab.Screen name="Status" component={StatusTab} />

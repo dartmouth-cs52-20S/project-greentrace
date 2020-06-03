@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  StyleSheet, Text, View, TouchableOpacity,
+  StyleSheet, Text, View, TouchableOpacity, Button, AsyncStorage,
 } from 'react-native';
 // import { connect } from 'react-redux';
 
@@ -20,6 +20,7 @@ const AccountInformation = (props) => {
       <Text>{warningMessage}</Text>
       <TouchableOpacity><Text>Change Password</Text></TouchableOpacity>
       <TouchableOpacity><Text>LOG OUT</Text></TouchableOpacity>
+      <Button onPress={() => { AsyncStorage.clear(); }} style={styles.button} color="white" title="Sign Out" />
     </View>
   );
 };
