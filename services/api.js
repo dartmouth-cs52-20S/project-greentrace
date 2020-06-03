@@ -77,8 +77,8 @@ export const signup = ({ email, password }) => {
 export const signin = ({ email, password }) => {
   return (dispatch) => {
     axios.post(`${API_URL}/signin`, { email, password }).then((response) => {
-      console.log('data', response.data);
-      console.log('user', response.data.user);
+      // console.log('data', response.data);
+      // console.log('user', response.data.user);
       AsyncStorage.setItem('currUser', JSON.stringify(response.data.user));
       AsyncStorage.getItem('currUser').then((result) => { console.log(result); }).catch((error) => { console.log(error); });
 
@@ -86,27 +86,31 @@ export const signin = ({ email, password }) => {
     }).catch((error) => {
       dispatch({ type: ActionTypes.AUTH_ERROR });
       console.log('entered error');
+      console.log('line 89 error', error);
     });
   };
 };
 
 export const fetchMessages = () => {
-  console.log('fetchMessages');
-  AsyncStorage.getItem('currUser')
-    .then((user) => {
-      if (user !== null) {
-        const parsed = JSON.parse(user);
-        console.log('fetch messages user line 98', parsed.id);
-        axios.get(`${API_URL}/user/${parsed.id}/messages`).then((response) => {
-        // console.log('in return dispatch', response.data);
-        // dispatch({ type: ActionTypes.FETCH_MESSAGES, payload: response.data.message });
-        // console.log('in return dispatch message', response.data.messages);
-          console.log(response.data);
-          return response.data;
-        });
-      }
-    })
-    .catch((err) => { console.log('fetch message error line 98', err); return null; });
+  return (dispatch) => {
+    console.log('fetchMessages');
+    AsyncStorage.getItem('currUser')
+      .then((user) => {
+        if (user !== null) {
+          const parsed = JSON.parse(user);
+          // console.log('fetch messages user line 98', parsed.id);
+          axios.get(`${API_URL}/user/${parsed.id}/messages`).then((response) => {
+            // console.log('in return dispatch', response.data);
+            // dispatch({ type: ActionTypes.FETCH_MESSAGES, payload: response.data.message });
+            // console.log('in return dispatch message', response.data.messages);
+          // console.log('in API, line 105', response.data);
+          // console.log(tempArray);
+            dispatch({ type: ActionTypes.FETCH_MESSAGES, payload: response.data });
+          });
+        }
+      })
+      .catch((err) => { console.log('fetch message error line 98', err); return null; });
+  };
   // const user = '5ecb16e40801600038902185';
   // const user = '5ed0202dc1ce1b00386f034f';
   // const user = '5ed2a1f2a3c6ac0038eb7895';
