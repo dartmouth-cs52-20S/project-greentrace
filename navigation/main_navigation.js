@@ -4,6 +4,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import MainTabBar from './main_tab_bar';
 import SymptomStack from './symptom_stack';
+import SignIn from '../components/signin';
+import SignUp from '../components/signup';
 
 const Stack = createStackNavigator();
 
@@ -11,6 +13,14 @@ const MainNavigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen
+          name="Sign In"
+          component={SignIn}
+        />
+        <Stack.Screen
+          name="Sign Up"
+          component={SignUp}
+        />
         <Stack.Screen
           name="Tab Bar"
           component={MainTabBar}
@@ -26,7 +36,6 @@ const MainNavigation = () => {
           }}
         />
       </Stack.Navigator>
-
     </NavigationContainer>
   );
 };

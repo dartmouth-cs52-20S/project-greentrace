@@ -8,6 +8,14 @@ import {
 // import { logSymptoms } from '../services/api';
 
 const SymptomInitial = (props) => {
+//   console.log('props');
+//   console.log(props);
+//   console.log('navigation');
+//   console.log(props.navigation);
+//   const { backToTab } = props.navigation.state.params;
+  //   const { backToTab } = props.navigation.state.getParam('backToTab');
+//   console.log(backToTab);
+//   console.log(props.navigation.getParam('backToTab'));
   return (
     <View>
       <Text>How are you feeling today?</Text>
