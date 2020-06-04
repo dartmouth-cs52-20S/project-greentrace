@@ -124,7 +124,6 @@ export const fetchMessages = () => {
 
 export const setCurrMessage = (id) => {
   return (dispatch) => {
-    console.log('IN API.JS LINE 127', id);
     dispatch({ type: ActionTypes.FETCH_MESSAGE, payload: id });
   };
 };

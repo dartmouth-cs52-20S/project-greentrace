@@ -8,17 +8,14 @@ import Ionicons from 'react-native-vector-icons/FontAwesome';
 const AlertsDetail = (props) => {
   // render() {
   const { currentMessage, messages } = props;
-  console.log('LINE 11', currentMessage);
   let clickedMessage = null;
   messages.forEach((msg) => {
     if (msg.id === currentMessage) clickedMessage = msg;
   });
-  console.log('MESSAGE in ALERT DETAILS LINE 16', clickedMessage);
   const {
     timestamp, contactDate, covid, tested,
   } = clickedMessage;
   const contactDateString = new Date(contactDate).toString().substring(0, 15);
-  console.log('THE FORMATTED DATE LINE 21', contactDateString);
   let notification, recommendation;
   if (covid && tested) {
     notification = `A student you were last in contact with on ${contactDateString} has been tested (as previously alerted) and diagnosed as positive for COVID-19.`;

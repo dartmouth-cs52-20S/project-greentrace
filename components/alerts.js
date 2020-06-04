@@ -73,7 +73,6 @@ class Alerts extends Component {
           // eslint-disable-next-line react/destructuring-assignment
           const messages = this.props.fetchMessages();
           // const { messages } = this.props;
-          console.log('IN ALERTS.JS LINE 75', messages);
           // console.log('fetched messages', messages);
           // if (messages === undefined) {
           //   this.setState({ messages: [] });
@@ -127,7 +126,6 @@ class Alerts extends Component {
     const { isLoading } = this.state;
     const { messages } = this.props;
     // eslint-disable-next-line react/destructuring-assignment
-    console.log('in render', this.props.messages);
     if (isLoading) {
       return this.renderLoadingView();
     // eslint-disable-next-line react/destructuring-assignment
