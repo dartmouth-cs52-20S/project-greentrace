@@ -2,7 +2,7 @@ import { ActionTypes } from '../services/api';
 
 const initialState = {
   messages: [],
-  currMessage: {},
+  currMessage: '',
 };
 
 const MessagesReducer = (state = initialState, action) => {
@@ -11,6 +11,7 @@ const MessagesReducer = (state = initialState, action) => {
     case ActionTypes.FETCH_MESSAGES:
       return { ...state, messages: action.payload };
     case ActionTypes.FETCH_MESSAGE:
+      console.log(action.payload);
       return { ...state, currMessage: action.payload };
     case ActionTypes.SEND_MESSAGE:
       return { ...state, covid: action.payload.covid, tested: action.payload.tested };

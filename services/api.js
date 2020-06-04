@@ -12,6 +12,7 @@ export const ActionTypes = {
   DEAUTH_USER: 'DEAUTH_USER',
   AUTH_ERROR: 'AUTH_ERROR',
   FETCH_MESSAGES: 'FETCH_MESSAGES',
+  FETCH_MESSAGE: 'FETCH_MESSAGE',
   UPDATE_USER: 'UPDATE_USER',
   GET_USER: 'GET_USER',
 };
@@ -119,6 +120,13 @@ export const fetchMessages = () => {
   //   console.log(response);
   //   dispatch({ type: ActionTypes.FETCH_MESSAGES, payload: response.data.message });
   // });
+};
+
+export const setCurrMessage = (id) => {
+  return (dispatch) => {
+    console.log('IN API.JS LINE 127', id);
+    dispatch({ type: ActionTypes.FETCH_MESSAGE, payload: id });
+  };
 };
 
 export const sendMessage = (message) => {

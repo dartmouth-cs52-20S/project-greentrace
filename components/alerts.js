@@ -13,7 +13,7 @@ import Ionicons from 'react-native-vector-icons/FontAwesome';
 import { FlatList } from 'react-native-gesture-handler';
 // import getDateUSFormatString from '../lib/date-lib';
 import { connect } from 'react-redux';
-import { fetchMessages } from '../services/api';
+import { fetchMessages, setCurrMessage } from '../services/api';
 
 class Alerts extends Component {
   static navigationOptions = {
@@ -51,6 +51,8 @@ class Alerts extends Component {
   }
 
   showMessageDetail(message) {
+    // eslint-disable-next-line react/destructuring-assignment
+    this.props.setCurrMessage(message.id);
     // eslint-disable-next-line react/destructuring-assignment
     this.props.navigation.navigate('AlertsDetail', message);
   }
@@ -210,6 +212,7 @@ const mapStateToProps = (reduxState) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchMessages: () => dispatch(fetchMessages()),
+    setCurrMessage: (id) => dispatch(setCurrMessage(id)),
   };
 };
 
