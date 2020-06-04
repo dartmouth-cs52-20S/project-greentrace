@@ -31,7 +31,9 @@ class RiskDial extends Component {
 // };
 
 const mapStateToProps = (reduxState) => {
-  reduxState.risk.riskLevel,
-}
+  return {
+    riskLevel: reduxState.risk.riskLevel,
+  };
+};
 
 export default RiskDial;

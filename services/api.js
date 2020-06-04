@@ -145,11 +145,20 @@ export const sendMessage = (message) => {
     //   dispatch({ type: ActionTypes.UPDATE_USER, payload: response.data });
     // });
     // userId: '5ecb18190801600038902186',
-  };
+  }; // consol.e.olog()''getHeadtMapp,', erorro
 };
 
 export const getRiskScore = () => {
-
+  AsyncStorage.getItem('currUser')
+    .then((result) => {
+      if (result !== null) {
+        const parsed = JSON.parse(result);
+        axios.get(`${API_URL}/${parsed.id}/risk`);
+      }
+    })
+    .catch((error) => {
+      console.log('getRiskScore error line 160', error);
+    });
 };
 
 export const getUser = (id) => {
