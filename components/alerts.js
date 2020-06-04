@@ -7,12 +7,12 @@ import {
   ActivityIndicator,
   StyleSheet,
   ScrollView,
-  // Button,
+  Button,
 } from 'react-native';
-// import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/FontAwesome';
 import { FlatList } from 'react-native-gesture-handler';
 // import getDateUSFormatString from '../lib/date-lib';
+import { connect } from 'react-redux';
 import { fetchMessages } from '../services/api';
 
 class Alerts extends Component {
@@ -35,19 +35,16 @@ class Alerts extends Component {
     super(props);
     this.state = {
       isLoading: true,
-      messages: [],
     };
   }
 
   componentDidMount() {
-    const messages = fetchMessages();
-    console.log('fetched messages', messages);
-    if (messages === undefined) {
-      this.setState({ messages: [] });
-    } else this.setState({ messages });
+    // eslint-disable-next-line react/destructuring-assignment
+    // const messages = this.props.fetchMessages();
+    // console.log('fetched messages', messages);
     // eslint-disable-next-line react/destructuring-assignment
     // this.props.fetchMessages();
-    console.log('messages');
+    // console.log('messages');
     // eslint-disable-next-line react/destructuring-assignment
     // console.log(this.props.messages);
     this.setState({ isLoading: false });
@@ -69,7 +66,26 @@ class Alerts extends Component {
   renderEmptyState() {
     return (
       <View style={styles.emptyState}>
-        <Text style={styles.emptyStateMessage}>No alerts yet</Text>
+        <Text style={styles.emptyStateMessage}>No alerts yet! :(</Text>
+        <Button onPress={() => {
+          // eslint-disable-next-line react/destructuring-assignment
+          const messages = this.props.fetchMessages();
+          // const { messages } = this.props;
+          console.log('IN ALERTS.JS LINE 75', messages);
+          // console.log('fetched messages', messages);
+          // if (messages === undefined) {
+          //   this.setState({ messages: [] });
+          // } else this.setState({ messages });
+          // eslint-disable-next-line react/destructuring-assignment
+          // this.props.fetchMessages();
+          // console.log('messages');
+          // eslint-disable-next-line react/destructuring-assignment
+          // console.log(this.props.messages);
+          this.setState({ isLoading: false });
+        }}
+          color="white"
+          title="refresh"
+        />
       </View>
     );
   }
@@ -107,29 +123,57 @@ class Alerts extends Component {
     // const { messages } = this.props;
     // const messages = iMessages;
     const { isLoading } = this.state;
-    const { messages } = this.state;
-    // console.log('messages in alerts:', messages);
+    const { messages } = this.props;
+    // eslint-disable-next-line react/destructuring-assignment
+    console.log('in render', this.props.messages);
     if (isLoading) {
       return this.renderLoadingView();
     // eslint-disable-next-line react/destructuring-assignment
     } else if (messages.length === 0) {
       return this.renderEmptyState();
     } else {
+      // eslint-disable-next-line react/destructuring-assignment
+      // console.log('in display line 139', this.state.messages);
+      // this.state.messages.forEach((message) => { console.log('made it to display messages', message); });
+      // eslint-disable-next-line react/destructuring-assignment
+      // console.log('LINE 142 TRYING TO DISPLAY', this.props.messages);
       return (
-        <ScrollView>
-          <FlatList
+        <View>
+          <Button onPress={() => {
+          // eslint-disable-next-line react/destructuring-assignment
+            this.props.fetchMessages();
+            // const { messages } = this.props;
+            // console.log('fetched messages', messages);
+            // if (this.props.messages === undefined) {
+            //   this.setState({ messages: [] });
+            // } else this.setState({ messages: messages2 });
             // eslint-disable-next-line react/destructuring-assignment
-            data={this.state.messages}
-            renderItem={({ item }) => { return this.renderMessageThumbnail(item); }}
-            keyExtractor={(item) => item.timestamp}
-            contentContainerStyle={styles.container}
-            style={{ flex: 1 }}
+            // this.props.fetchMessages();
+            // console.log('messages');
+            // eslint-disable-next-line react/destructuring-assignment
+            // console.log(this.props.messages);
+            this.setState({ isLoading: false });
+          }}
+            color="white"
+            title="refresh"
           />
-        </ScrollView>
+          <ScrollView>
+            <FlatList
+            // eslint-disable-next-line react/destructuring-assignment
+              data={this.props.messages}
+              renderItem={({ item }) => { return this.renderMessageThumbnail(item); }}
+              keyExtractor={(item) => item.timestamp}
+              contentContainerStyle={styles.container}
+              style={{ flex: 1 }}
+            />
+          </ScrollView>
+        </View>
       );
     }
   }
 }
+
+/*  */
 
 const styles = StyleSheet.create({
   container: {
@@ -168,8 +212,14 @@ const styles = StyleSheet.create({
   },
 });
 
-// const mapStateToProps = (reduxState) => ({
-//   messages: reduxState.messages.messages,
-// });
+const mapStateToProps = (reduxState) => ({
+  messages: reduxState.messages.messages,
+});
 
-export default Alerts;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchMessages: () => dispatch(fetchMessages()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Alerts);
