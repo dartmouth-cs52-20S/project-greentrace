@@ -144,6 +144,10 @@ export const sendMessage = (message) => {
   };
 };
 
+export const getRiskScore = () => {
+
+};
+
 export const getUser = (id) => {
   return (dispatch) => {
     axios.get(`${API_URL}/user/${id}`)
