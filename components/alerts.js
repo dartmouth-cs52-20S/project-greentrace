@@ -72,6 +72,7 @@ class Alerts extends Component {
         <Button onPress={() => {
           // eslint-disable-next-line react/destructuring-assignment
           const messages = this.props.fetchMessages();
+          console.log(messages);
           // const { messages } = this.props;
           // console.log('fetched messages', messages);
           // if (messages === undefined) {
