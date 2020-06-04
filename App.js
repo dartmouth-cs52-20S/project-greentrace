@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import { AsyncStorage } from 'react-native';
 import reducers from './reducers';
 // import MainTabBar from './navigation/main_tab_bar';
 import LocationTracking from './components/Location';
@@ -25,6 +26,7 @@ class App extends Component {
   }
 
   render() {
+    AsyncStorage.clear();
     return (
       <Provider store={store}>
         <LocationTracking />

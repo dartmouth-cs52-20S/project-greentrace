@@ -9,7 +9,7 @@ import {
   ScrollView,
   // Button,
 } from 'react-native';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/FontAwesome';
 import { FlatList } from 'react-native-gesture-handler';
 // import getDateUSFormatString from '../lib/date-lib';
@@ -35,15 +35,21 @@ class Alerts extends Component {
     super(props);
     this.state = {
       isLoading: true,
+      messages: [],
     };
   }
 
   componentDidMount() {
+    const messages = fetchMessages();
+    console.log('fetched messages', messages);
+    if (messages === undefined) {
+      this.setState({ messages: [] });
+    } else this.setState({ messages });
     // eslint-disable-next-line react/destructuring-assignment
-    this.props.fetchMessages();
+    // this.props.fetchMessages();
     console.log('messages');
     // eslint-disable-next-line react/destructuring-assignment
-    console.log(this.props.messages);
+    // console.log(this.props.messages);
     this.setState({ isLoading: false });
   }
 
@@ -98,17 +104,22 @@ class Alerts extends Component {
     //     console.log(response);
     //   });
     // console.log(AsyncStorage.getItem('currUser').then(response));
-    const { messages } = this.props;
+    // const { messages } = this.props;
+    // const messages = iMessages;
     const { isLoading } = this.state;
+    const { messages } = this.state;
+    // console.log('messages in alerts:', messages);
     if (isLoading) {
       return this.renderLoadingView();
+    // eslint-disable-next-line react/destructuring-assignment
     } else if (messages.length === 0) {
       return this.renderEmptyState();
     } else {
       return (
         <ScrollView>
           <FlatList
-            data={messages}
+            // eslint-disable-next-line react/destructuring-assignment
+            data={this.state.messages}
             renderItem={({ item }) => { return this.renderMessageThumbnail(item); }}
             keyExtractor={(item) => item.timestamp}
             contentContainerStyle={styles.container}
@@ -157,8 +168,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (reduxState) => ({
-  messages: reduxState.messages.messages,
-});
+// const mapStateToProps = (reduxState) => ({
+//   messages: reduxState.messages.messages,
+// });
 
-export default connect(mapStateToProps, { fetchMessages })(Alerts);
+export default Alerts;

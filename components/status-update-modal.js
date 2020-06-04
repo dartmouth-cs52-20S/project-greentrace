@@ -3,30 +3,12 @@ import React from 'react';
 import {
   Text, View, TouchableOpacity, StyleSheet,
 } from 'react-native';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 // import Ionicons from 'react-native-vector-icons/FontAwesome';
-import { sendMessage } from '../services/api';
 
 const UpdateModalContent = (props) => {
   const { original, update } = props;
-  console.log('update modal content props');
-  console.log(props);
 
-  const stringifyCovidStatus = (covid) => {
-    if (covid === true) {
-      return 'Positive';
-    } else {
-      return 'Negative';
-    }
-  };
-
-  const stringifyTestingStatus = (tested) => {
-    if (tested === true) {
-      return 'Tested';
-    } else {
-      return 'Untested';
-    }
-  };
 
   return (
     <View style={styles.container}>
@@ -34,15 +16,15 @@ const UpdateModalContent = (props) => {
       <View style={styles.status}>
         <Text style={styles.statusTitle}>Current Status</Text>
         <View style={styles.statusInfo}>
-          <Text>{stringifyCovidStatus(original.covid)}</Text>
-          <Text>{stringifyTestingStatus(original.tested)}</Text>
+          <Text>{original.covid}</Text>
+          <Text>{original.tested}</Text>
         </View>
       </View>
       <View style={styles.status}>
         <Text style={styles.statusTitle}>Updated Status</Text>
         <View style={styles.statusInfo}>
-          <Text>{stringifyCovidStatus(update.covid)}</Text>
-          <Text>{stringifyTestingStatus(update.tested)}</Text>
+          <Text>{update.covid}</Text>
+          <Text>{update.tested}</Text>
         </View>
       </View>
       <View style={styles.buttons}>
@@ -94,5 +76,5 @@ const styles = StyleSheet.create({
   },
 });
 
-// export default UpdateModalContent;
-export default connect(null, { sendMessage })(UpdateModalContent);
+export default UpdateModalContent;
+// export default connect(null, null)(UpdateModalContent);
