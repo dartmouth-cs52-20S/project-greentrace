@@ -1,10 +1,10 @@
 /* eslint-disable object-curly-newline */
 import axios from 'axios';
 import { AsyncStorage } from 'react-native';
-import { SENDGRID_API_KEY } from 'react-native-dotenv';
+// import { SENDGRID_API_KEY } from 'react-native-dotenv';
 
-const API_URL = 'https://greentrace-server.herokuapp.com/api';
-// const API_URL = 'http://localhost:9090/api';
+// const API_URL = 'https://greentrace-server.herokuapp.com/api';
+const API_URL = 'http://localhost:9090/api';
 
 export const ActionTypes = {
   STORE_LOCATION: 'STORE_LOCATION',
@@ -21,13 +21,11 @@ export const getLocations = () => {
     return new Promise((resolve, reject) => {
       axios.get(`${API_URL}/location`)
         .then((response) => {
-          // console.log('getlocations -> response');
-          // console.log(response.data.message);
           resolve(response.data.message);
           dispatch({ type: ActionTypes.STORE_LOCATION, payload: response.data.message });
         })
         .catch((error) => {
-          console.log(`backend api error: ${error}`);
+          console.log(`backend api error in getLocations: ${error}`);
           reject(error);
         });
     });
@@ -42,43 +40,24 @@ export function sendLocation({ sourceUserID, latitude, longitude, dataCollection
       console.log(response.data);
     })
     .catch((error) => {
-      console.log(`backend api error: ${error}`);
+      console.log(`backend api error inSendLocation: ${error}`);
     });
 }
 
 export const signup = ({ email, password }) => {
   return (dispatch) => {
-    console.log('test');
     axios.post(`${API_URL}/signup`, { email, password }).then((response) => {
-      console.log('test');
-      const { token } = response.data;
-      // eslint-disable-next-line no-shadow
-      const { email, id } = response.data.user;
-      console.log('stuff returned from axios call', token, email, id);
-
-      const msg = {
-        personalizations: [{ to: [{ email }] }], from: { email: 'greentracedartmouth@gmail.com' }, subject: 'Your GreenTrace Token', content: [{ type: 'text/plain', value: `${token}` }],
-      };
-      axios.post('https://api.sendgrid.com/v3/mail/send', msg, { headers: { Authorization: `Bearer ${SENDGRID_API_KEY}` } }).then(() => {
-        console.log('success');
-      }).catch(() => {
-        console.log('not success');
-      });
       AsyncStorage.setItem('currUser', JSON.stringify(response.data.user));
-      // AsyncStorage.setItem('currUser', response.data.id);
       dispatch({ type: ActionTypes.AUTH_USER, payload: response.data });
     }).catch((error) => {
-      console.log(error);
       dispatch({ type: ActionTypes.AUTH_ERROR });
     });
   };
 };
 
-export const signin = ({ email, password }) => {
+export const signin = ({ phraseToken, password }) => {
   return (dispatch) => {
-    axios.post(`${API_URL}/signin`, { email, password }).then((response) => {
-      // console.log('data', response.data);
-      // console.log('user', response.data.user);
+    axios.post(`${API_URL}/signin`, { phraseToken, password }).then((response) => {
       AsyncStorage.setItem('currUser', JSON.stringify(response.data.user));
       AsyncStorage.getItem('currUser').then((result) => { console.log(result); }).catch((error) => { console.log(error); });
 

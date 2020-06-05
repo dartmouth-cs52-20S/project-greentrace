@@ -10,33 +10,33 @@ class SignIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
+      phraseToken: '',
       password: '',
     };
   }
 
   submit() {
-    const { email, password } = this.state;
+    const { phraseToken, password } = this.state;
     // eslint-disable-next-line no-shadow
     const { signin } = this.props;
-    if (email !== '' && password !== '') {
-      signin({ email, password });
+    if (phraseToken !== '' && password !== '') {
+      signin({ phraseToken, password });
       this.props.navigation.navigate('Tab Bar');
     }
   }
 
   render() {
-    const { email, password } = this.state;
+    const { phraseToken, password } = this.state;
     return (
       <View style={styles.container}>
         <Text style={styles.pageTitle}>GreenTrace</Text>
         <View style={styles.field}>
-          <Text style={styles.fieldTitle}>Email</Text>
-          <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ email: text }); }} value={email} placeholder="email" />
+          <Text style={styles.fieldTitle}>Your Token</Text>
+          <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ phraseToken: text }); }} value={phraseToken} placeholder="Your token" />
         </View>
         <View>
           <Text style={styles.fieldTitle}>Password</Text>
-          <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ password: text }); }} value={password} placeholder="password" />
+          <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ password: text }); }} value={password} placeholder="Password" />
         </View>
         <Button onPress={() => { this.submit(); }} style={styles.button} color="white" title="Log In" />
         <Button onPress={() => { this.props.navigation.navigate('Sign Up'); }} color="white" title="New user? Sign Up" />
