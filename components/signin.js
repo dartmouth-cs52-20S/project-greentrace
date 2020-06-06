@@ -28,6 +28,7 @@ class SignIn extends Component {
 
   render() {
     const { email, password } = this.state;
+    // console.log('dimensions', Dimensions.get('window').width, Dimensions.get('window').height);
     return (
       <View style={styles.container}>
         <Text style={styles.pageTitle}>GreenTrace</Text>
