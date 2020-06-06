@@ -151,7 +151,7 @@ export const getHeatpmap = () => {
       return response.data.message;
     })
     .catch((error) => {
-      console.log(`backend api error: ${error}`);
+      console.log(`backend api error in getHeatpmap: ${error}`);
     });
 };
 

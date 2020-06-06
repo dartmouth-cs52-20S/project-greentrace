@@ -9,6 +9,7 @@ const initialState = {
 const AuthReducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.AUTH_USER:
+      console.log('auth success');
       return {
         ...state, authenticated: true, token: action.payload.token, user: action.payload.user,
       };
@@ -17,6 +18,7 @@ const AuthReducer = (state = initialState, action) => {
         ...state, authenticated: false, token: '', user: null,
       };
     case ActionTypes.AUTH_ERROR:
+      console.log('auth error');
       return {
         ...state, authenticated: false, token: '', user: null,
       };
