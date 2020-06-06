@@ -2,11 +2,10 @@ import { ActionTypes } from '../services/api';
 
 const initialState = {
   messages: [],
-  currMessage: {},
+  currMessage: '',
 };
 
 const MessagesReducer = (state = initialState, action) => {
-  console.log('PRINT THIS PLEASE');
   switch (action.type) {
     case ActionTypes.FETCH_MESSAGES:
       return { ...state, messages: action.payload };
