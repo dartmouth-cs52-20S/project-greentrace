@@ -1,0 +1,9 @@
+{
+    "risk": [
+        {
+            "level": "1",
+            "color": "red",
+            "description": "This isn't good!"
+        }
+    ]
+}
