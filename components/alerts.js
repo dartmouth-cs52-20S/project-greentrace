@@ -13,7 +13,7 @@ import Ionicons from 'react-native-vector-icons/FontAwesome';
 import { FlatList } from 'react-native-gesture-handler';
 // import getDateUSFormatString from '../lib/date-lib';
 import { connect } from 'react-redux';
-import { fetchMessages } from '../services/api';
+import { fetchMessages, setCurrMessage } from '../services/api';
 
 class Alerts extends Component {
   static navigationOptions = {
@@ -52,6 +52,8 @@ class Alerts extends Component {
 
   showMessageDetail(message) {
     // eslint-disable-next-line react/destructuring-assignment
+    this.props.setCurrMessage(message.id);
+    // eslint-disable-next-line react/destructuring-assignment
     this.props.navigation.navigate('AlertsDetail', message);
   }
 
@@ -65,13 +67,13 @@ class Alerts extends Component {
 
   renderEmptyState() {
     return (
-      <View>
-        <Text>No alerts yet! :(</Text>
+      <View style={styles.emptyState}>
+        <Text style={styles.emptyStateMessage}>No alerts yet! :(</Text>
         <Button onPress={() => {
           // eslint-disable-next-line react/destructuring-assignment
           const messages = this.props.fetchMessages();
+          console.log(messages);
           // const { messages } = this.props;
-          console.log('IN ALERTS.JS LINE 75', messages);
           // console.log('fetched messages', messages);
           // if (messages === undefined) {
           //   this.setState({ messages: [] });
@@ -125,7 +127,6 @@ class Alerts extends Component {
     const { isLoading } = this.state;
     const { messages } = this.props;
     // eslint-disable-next-line react/destructuring-assignment
-    console.log('in render', this.props.messages);
     if (isLoading) {
       return this.renderLoadingView();
     // eslint-disable-next-line react/destructuring-assignment
@@ -201,6 +202,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
     flexWrap: 'wrap',
   },
+  emptyState: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  emptyStateMessage: {
+    fontSize: 15,
+  },
 });
 
 const mapStateToProps = (reduxState) => ({
@@ -210,6 +220,7 @@ const mapStateToProps = (reduxState) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchMessages: () => dispatch(fetchMessages()),
+    setCurrMessage: (id) => dispatch(setCurrMessage(id)),
   };
 };
 

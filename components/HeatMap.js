@@ -25,8 +25,9 @@ class HeatMap extends React.Component {
   componentDidMount() {
     this.updateLocation();
     this.getInitialLocation();
-    const heatmap = getHeatpmap();
-    this.setState({ heatmap });
+    getHeatpmap().then(((heatmap) => {
+      this.setState({ heatmap });
+    }));
   }
 
   async getInitialLocation() {
@@ -59,6 +60,7 @@ class HeatMap extends React.Component {
 
 
   render() {
+    // console.log(this.state.heatmap);
     return (
       <View style={styles.container}>
         <MapView
@@ -75,6 +77,8 @@ class HeatMap extends React.Component {
           <MapView.Heatmap points={this.state.heatmap}
             opacity={1}
             radius={20}
+            gradientSmoothing={10}
+            heatmapMode="POINTS_DENSITY"
           />
         </MapView>
       </View>

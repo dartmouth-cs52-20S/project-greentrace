@@ -25,11 +25,17 @@ class Status extends Component {
       edited: false,
       id: null,
     };
-    this.fetchCurrentStatus();
   }
 
   componentDidMount() {
+    this.fetchCurrentStatus();
   }
+
+  // onHandleChange = (event) => {
+  //   if (event === 'Positive' || event === 'Negative') {
+  //     this.setState({ covid: event, edited: true });
+  //   }
+  // }
 
   fetchCurrentStatus = () => {
     AsyncStorage.getItem('currUser')
@@ -85,6 +91,7 @@ class Status extends Component {
   renderSubmit() {
     if (this.state.edited) {
       return (
+        // <TouchableOpacity style={styles.actionButton} onPress={() => { this.setState({ modalIsVisible: true }); }}>
         <TouchableOpacity onPress={() => { this.setState({ confirmModal: true }); }}>
           <Text>
             Submit
@@ -221,20 +228,30 @@ class Status extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
+    backgroundColor: 'white',
   },
   dropdown: {
     width: 250,
   },
   field: {
+    flex: 1,
+    justifyContent: 'space-around',
+    alignItems: 'stretch',
     width: 200,
+    // flexDirection: 'column',
+    // alignItems: 'center',
+    marginTop: 30,
   },
   hamburger: {
     alignSelf: 'flex-end',
     padding: 0,
     marginRight: 50,
+    marginTop: 50,
+  },
+  actionButton: {
     marginTop: 50,
   },
 });
