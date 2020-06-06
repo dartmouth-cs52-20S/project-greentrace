@@ -1,17 +1,27 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet, View, Text,
+  StyleSheet, View, Text, // TouchableOpacity,
 } from 'react-native';
 import RiskDial from './risk-dial';
-import RiskInfo from './risk-info';
+import RiskDetail from './risk-detail';
 
 class Risk extends Component {
+  // static HeaderRight = (props) => {
+  //   console.log('in risk headerright!');
+  //   const { navigation } = props;
+  //   return (
+  //     <TouchableOpacity onPress={() => { navigation.navigate('RiskInfo'); }}>
+  //       <Ionicons iconName="info-circle" color="white" />
+  //     </TouchableOpacity>
+  //   );
+  // }
+
   render() {
     return (
       <View style={styles.container}>
         <Text>Welcome to the risk assessment page!</Text>
         <RiskDial />
-        <RiskInfo />
+        <RiskDetail />
       </View>
     );
   }

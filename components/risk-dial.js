@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import Speedometer from 'react-native-speedometer-chart';
 import { connect } from 'react-redux';
@@ -14,60 +13,62 @@ class RiskDial extends Component {
   }
 
   componentDidMount = () => {
+    // eslint-disable-next-line react/destructuring-assignment
     this.props.getRiskScore();
   }
 
   renderAppropriateSpeedometer() {
-    if (this.props.riskLevel === 0) {
+    const { riskLevel } = this.props;
+    if (riskLevel === 0) {
       return (
         <View>
           <Speedometer value={0} totalValue={7} showIndicator outerColor="lightgray" showLabels labelStyle={{ color: 'black' }} />
           <Text> Risk Level: 0</Text>
         </View>
       );
-    } else if (this.props.riskLevel === 1) {
+    } else if (riskLevel === 1) {
       return (
         <View>
           <Speedometer value={1} totalValue={7} showIndicator outerColor="lightgray" internalColor="green" showLabels labelStyle={{ color: 'black' }} />
           <Text> Risk Level: 1</Text>
         </View>
       );
-    } else if (this.props.riskLevel === 2) {
+    } else if (riskLevel === 2) {
       return (
         <View>
           <Speedometer value={2} totalValue={7} showIndicator outerColor="lightgray" internalColor="green" showLabels labelStyle={{ color: 'black' }} />
           <Text> Risk Level: 2</Text>
         </View>
       );
-    } else if (this.props.riskLevel === 3) {
+    } else if (riskLevel === 3) {
       return (
         <View>
           <Speedometer value={3} totalValue={7} showIndicator outerColor="lightgray" internalColor="green" showLabels labelStyle={{ color: 'black' }} />
           <Text> Risk Level: 3</Text>
         </View>
       );
-    } else if (this.props.riskLevel === 4) {
+    } else if (riskLevel === 4) {
       return (
         <View>
           <Speedometer value={4} totalValue={7} showIndicator outerColor="lightgray" internalColor="yellow" showLabels labelStyle={{ color: 'black' }} />
           <Text> Risk Level: 4</Text>
         </View>
       );
-    } else if (this.props.riskLevel === 5) {
+    } else if (riskLevel === 5) {
       return (
         <View>
           <Speedometer value={5} totalValue={7} showIndicator outerColor="lightgray" internalColor="yellow" showLabels labelStyle={{ color: 'black' }} />
           <Text> Risk Level: 5</Text>
         </View>
       );
-    } else if (this.props.riskLevel === 6) {
+    } else if (riskLevel === 6) {
       return (
         <View>
           <Speedometer value={6} totalValue={7} showIndicator outerColor="lightgray" internalColor="red" showLabels labelStyle={{ color: 'black' }} />
           <Text> Risk Level: 6</Text>
         </View>
       );
-    } else if (this.props.riskLevel === 7) {
+    } else if (riskLevel === 7) {
       return (
         <View>
           <Speedometer value={7} totalValue={7} showIndicator outerColor="lightgray" internalColor="red" showLabels labelStyle={{ color: 'black' }} />
@@ -75,7 +76,7 @@ class RiskDial extends Component {
         </View>
       );
     } else {
-      console.log('this.props.riskLevel', this.props.riskLevel);
+      console.log('this.props.riskLevel', riskLevel);
       return 0;
     }
   }
