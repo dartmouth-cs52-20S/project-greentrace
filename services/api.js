@@ -193,9 +193,9 @@ export const getUser = (id) => {
 };
 
 export const getHeatpmap = () => {
-  axios.get(`${API_URL}/heatmap`)
+  return axios.get(`${API_URL}/heatmap`)
     .then((response) => {
-      return response.message;
+      return response.data.message;
     })
     .catch((error) => {
       console.log(`backend api error: ${error}`);
