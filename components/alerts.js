@@ -13,6 +13,7 @@ import Ionicons from 'react-native-vector-icons/FontAwesome';
 import { FlatList } from 'react-native-gesture-handler';
 // import getDateUSFormatString from '../lib/date-lib';
 import { connect } from 'react-redux';
+import MapBackground from './map-background';
 import { fetchMessages, setCurrMessage } from '../services/api';
 
 class Alerts extends Component {
@@ -67,28 +68,30 @@ class Alerts extends Component {
 
   renderEmptyState() {
     return (
-      <View style={styles.emptyState}>
-        <Text style={styles.emptyStateMessage}>No alerts yet! :(</Text>
-        <Button onPress={() => {
+      <MapBackground style={styles.emptyState}>
+        <View style={styles.emptyState}>
+          <Text style={styles.emptyStateMessage}>No alerts yet! :(</Text>
+          <Button onPress={() => {
           // eslint-disable-next-line react/destructuring-assignment
-          const messages = this.props.fetchMessages();
-          console.log(messages);
-          // const { messages } = this.props;
-          // console.log('fetched messages', messages);
-          // if (messages === undefined) {
-          //   this.setState({ messages: [] });
-          // } else this.setState({ messages });
-          // eslint-disable-next-line react/destructuring-assignment
-          // this.props.fetchMessages();
-          // console.log('messages');
-          // eslint-disable-next-line react/destructuring-assignment
-          // console.log(this.props.messages);
-          this.setState({ isLoading: false });
-        }}
-          color="white"
-          title="refresh"
-        />
-      </View>
+            const messages = this.props.fetchMessages();
+            console.log(messages);
+            // const { messages } = this.props;
+            // console.log('fetched messages', messages);
+            // if (messages === undefined) {
+            //   this.setState({ messages: [] });
+            // } else this.setState({ messages });
+            // eslint-disable-next-line react/destructuring-assignment
+            // this.props.fetchMessages();
+            // console.log('messages');
+            // eslint-disable-next-line react/destructuring-assignment
+            // console.log(this.props.messages);
+            this.setState({ isLoading: false });
+          }}
+            color="white"
+            title="refresh"
+          />
+        </View>
+      </MapBackground>
     );
   }
 
@@ -139,7 +142,7 @@ class Alerts extends Component {
       // eslint-disable-next-line react/destructuring-assignment
       // console.log('LINE 142 TRYING TO DISPLAY', this.props.messages);
       return (
-        <View>
+        <MapBackground>
           <Button onPress={() => {
           // eslint-disable-next-line react/destructuring-assignment
             this.props.fetchMessages();
@@ -168,7 +171,7 @@ class Alerts extends Component {
               style={{ flex: 1 }}
             />
           </ScrollView>
-        </View>
+        </MapBackground>
       );
     }
   }
