@@ -11,30 +11,30 @@ class SignIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      token: '',
+      email: '',
       password: '',
     };
   }
 
   submit() {
-    const { token, password } = this.state;
+    const { email, password } = this.state;
     // eslint-disable-next-line no-shadow
     const { signin } = this.props;
-    if (token !== '' && password !== '') {
-      signin({ token, password });
+    if (email !== '' && password !== '') {
+      signin({ email, password });
       this.props.navigation.navigate('Tab Bar');
     }
   }
 
   render() {
-    const { token, password } = this.state;
+    const { email, password } = this.state;
     // console.log('dimensions', Dimensions.get('window').width, Dimensions.get('window').height);
     return (
       <View style={styles.container}>
         <Text style={styles.pageTitle}>GreenTrace</Text>
         <View style={styles.field}>
           <Text style={styles.fieldTitle}>Email</Text>
-          <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ token: text }); }} value={token} placeholder="token" />
+          <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ email: text }); }} value={email} placeholder="token" />
         </View>
         <View>
           <Text style={styles.fieldTitle}>Password</Text>
