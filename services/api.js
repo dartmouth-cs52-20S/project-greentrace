@@ -12,8 +12,14 @@ export const ActionTypes = {
   DEAUTH_USER: 'DEAUTH_USER',
   AUTH_ERROR: 'AUTH_ERROR',
   FETCH_MESSAGES: 'FETCH_MESSAGES',
+  FETCH_MESSAGE: 'FETCH_MESSAGE',
   UPDATE_USER: 'UPDATE_USER',
   GET_USER: 'GET_USER',
+  GET_RISK: 'GET_RISK',
+  NUM_CONTACTS: 'NUM_CONTACTS',
+  NUM_SYMPTOMS: 'NUM_SYMPTOMS',
+  NUM_TESTED: 'NUM_TESTED',
+  NUM_POSITIVE: 'NUM_POSITIVE',
 };
 
 export const getLocations = () => {
@@ -105,6 +111,7 @@ export const fetchMessages = () => {
             // console.log('in return dispatch message', response.data.messages);
           // console.log('in API, line 105', response.data);
           // console.log(tempArray);
+            console.log('api.js line 113', response.data);
             dispatch({ type: ActionTypes.FETCH_MESSAGES, payload: response.data });
           });
         }
@@ -119,6 +126,12 @@ export const fetchMessages = () => {
   //   console.log(response);
   //   dispatch({ type: ActionTypes.FETCH_MESSAGES, payload: response.data.message });
   // });
+};
+
+export const setCurrMessage = (id) => {
+  return (dispatch) => {
+    dispatch({ type: ActionTypes.FETCH_MESSAGE, payload: id });
+  };
 };
 
 export const sendMessage = (message) => {
@@ -149,16 +162,22 @@ export const sendMessage = (message) => {
 };
 
 export const getRiskScore = () => {
-  AsyncStorage.getItem('currUser')
-    .then((result) => {
-      if (result !== null) {
-        const parsed = JSON.parse(result);
-        axios.get(`${API_URL}/${parsed.id}/risk`);
-      }
-    })
-    .catch((error) => {
-      console.log('getRiskScore error line 160', error);
-    });
+  return (dispatch) => {
+    AsyncStorage.getItem('currUser')
+      .then((result) => {
+        if (result !== null) {
+          const parsed = JSON.parse(result);
+          axios.get(`${API_URL}/user/${parsed.id}/risk`)
+            .then((response) => {
+              dispatch({ type: ActionTypes.GET_RISK, payload: response.data });
+            })
+            .catch((err) => { console.log('getRiskScore error line 161', err); });
+        }
+      })
+      .catch((error) => {
+        console.log('getRiskScore error line 166', error);
+      });
+  };
 };
 
 export const getUser = (id) => {
@@ -174,9 +193,9 @@ export const getUser = (id) => {
 };
 
 export const getHeatpmap = () => {
-  axios.get(`${API_URL}/heatmap`)
+  return axios.get(`${API_URL}/heatmap`)
     .then((response) => {
-      return response.message;
+      return response.data.message;
     })
     .catch((error) => {
       console.log(`backend api error: ${error}`);
@@ -193,4 +212,73 @@ export const updateUser = (id, update) => {
       console.log('Backend API error', error);
       return error;
     });
+};
+
+export const getNumContactsPositive = () => {
+  return (dispatch) => {
+    AsyncStorage.getItem('currUser')
+      .then((result) => {
+        if (result !== null) {
+          const parsed = JSON.parse(result);
+          console.log('ayo, id: ', parsed.id);
+          axios.get(`${API_URL}/user/${parsed.id}/numcontacts`)
+            .then((res) => {
+              dispatch({ type: ActionTypes.NUM_CONTACTS, payload: res.data });
+            })
+            .catch((err) => {
+              console.log('error getting number of contacts line 216', err);
+            });
+        }
+      })
+      .catch((error) => {
+        console.log('error finding curr user 221', error);
+      });
+  };
+};
+
+export const getNumSymptoms = () => {
+  return (dispatch) => {
+    AsyncStorage.getItem('currUser')
+      .then((result) => {
+        if (result !== null) {
+          const parsed = JSON.parse(result);
+          console.log('ayo, id: ', parsed.id);
+          axios.get(`${API_URL}/user/${parsed.id}/numSymptoms`)
+            .then((res) => {
+              dispatch({ type: ActionTypes.NUM_SYMPTOMS, payload: res.data });
+            })
+            .catch((err) => {
+              console.log('error getting number of symptoms line 241', err);
+            });
+        }
+      })
+      .catch((error) => {
+        console.log('error finding curr user 246', error);
+      });
+  };
+};
+
+export const getNumTested = () => {
+  return (dispatch) => {
+    axios.get(`${API_URL}/stats`)
+      .then((result) => {
+        dispatch({ type: ActionTypes.NUM_TESTED, payload: result.data });
+      })
+      .catch((error) => {
+        console.log('error fetching number of users tested', error);
+      });
+  };
+};
+
+export const getNumPositive = () => {
+  return (dispatch) => {
+    axios.get(`${API_URL}/numPositive`)
+      .then((result) => {
+        console.log('what is being sent: ', result.data);
+        dispatch({ type: ActionTypes.NUM_POSITIVE, payload: result.data });
+      })
+      .catch((error) => {
+        console.log('error getting number of positive cases', error);
+      });
+  };
 };
