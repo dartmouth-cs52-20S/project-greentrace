@@ -1,9 +1,20 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet, View, Text,
+  StyleSheet, View, Text, TouchableOpacity,
 } from 'react-native';
+import Ionicons from 'react-native-vector-icons/FontAwesome';
 
 class Risk extends Component {
+  static HeaderRight = (props) => {
+    console.log('in risk headerright!');
+    const { navigation } = props;
+    return (
+      <TouchableOpacity onPress={() => { navigation.navigate('RiskInfo'); }}>
+        <Ionicons iconName="info-circle" color="white" />
+      </TouchableOpacity>
+    );
+  }
+
   render() {
     return (
       <View style={styles.container}>

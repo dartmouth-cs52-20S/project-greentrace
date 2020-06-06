@@ -3,7 +3,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/FontAwesome';
 import MapTab from './map_tab';
-// import RiskTab from './risk_tab';
+import RiskTab from './risk_tab';
 import AlertTab from './alert_tab';
 import StatusTab from './status_tab';
 import InfoTab from './info_tab';
@@ -39,7 +39,7 @@ const MainTabBar = () => {
       })}
     >
       <Tab.Screen name="Map" component={MapTab} />
-      {/* <Tab.Screen name="Risk" component={RiskTab} /> */}
+      <Tab.Screen name="Risk" component={RiskTab} />
       <Tab.Screen name="Alerts" component={AlertTab} />
       <Tab.Screen name="Status" component={StatusTab} />
       <Tab.Screen name="Info" component={InfoTab} />

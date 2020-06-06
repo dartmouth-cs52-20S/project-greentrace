@@ -16,9 +16,9 @@ class RiskDial extends Component {
   }
 
   render() {
-    const riskScore = this.props.riskLevel;
+    const { riskLevel } = this.props;
     return (
-      <Speedometer value={riskScore} totalValue={100} />
+      <Speedometer value={riskLevel} totalValue={100} />
     );
   }
 }
@@ -30,10 +30,10 @@ class RiskDial extends Component {
 //   };
 // };
 
-const mapStateToProps = (reduxState) => {
-  return {
-    riskLevel: reduxState.risk.riskLevel,
-  };
-};
+// const mapStateToProps = (reduxState) => {
+//   return {
+//     riskLevel: reduxState.risk.riskLevel,
+//   };
+// };
 
 export default RiskDial;
