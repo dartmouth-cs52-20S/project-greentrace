@@ -45,8 +45,8 @@ class SymptomCheck extends Component {
   }
 
   onhandleChange = (event) => {
-    console.log('event', event);
     const { name } = event;
+    console.log('event', event);
     this.setState((prevState) => ({ checkedItems: prevState.checkedItems.set(name, event.value) }));
   }
 

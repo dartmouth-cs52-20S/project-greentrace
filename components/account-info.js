@@ -1,12 +1,11 @@
 import React from 'react';
 import {
-  StyleSheet, Text, View, TouchableOpacity, Button, AsyncStorage,
+  StyleSheet, Text, View, TouchableOpacity,
 } from 'react-native';
 // import { connect } from 'react-redux';
 
 const AccountInformation = (props) => {
 //   const { userId } = props.userId;
-  console.log('in account info');
   const userId = 'USERID';
   const warningMessage = 'We don’t store any personally-identifying information, so if you lose this token, you’ll have to sign up again.';
   return (
@@ -19,8 +18,7 @@ const AccountInformation = (props) => {
       </Text>
       <Text>{warningMessage}</Text>
       <TouchableOpacity><Text>Change Password</Text></TouchableOpacity>
-      <TouchableOpacity><Text>LOG OUT</Text></TouchableOpacity>
-      <Button onPress={() => { AsyncStorage.clear(); }} style={styles.button} color="white" title="Sign Out" />
+      <TouchableOpacity onPress={() => { props.logout(); }}><Text>LOG OUT</Text></TouchableOpacity>
     </View>
   );
 };

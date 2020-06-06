@@ -24,7 +24,6 @@ const AlertsDetail = (props) => {
   }
   return (
     <View style={styles.modalView}>
-      <Ionicons name="arrow-back" />
       <Text>{timestamp}</Text>
       <Ionicons name="warning" />
       <Text>{notification}</Text>

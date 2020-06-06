@@ -1,7 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import {
-  StyleSheet, View, Text, TextInput, Button, AsyncStorage,
+  StyleSheet, View, Text, TextInput, Button, // AsyncStorage,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { signin } from '../services/api';
@@ -40,7 +40,7 @@ class SignIn extends Component {
         </View>
         <Button onPress={() => { this.submit(); }} style={styles.button} color="white" title="Log In" />
         <Button onPress={() => { this.props.navigation.navigate('Sign Up'); }} color="white" title="New user? Sign Up" />
-        <Button onPress={() => { AsyncStorage.clear(); }} style={styles.button} color="white" title="Sign Out" />
+        {/* <Button onPress={() => { AsyncStorage.clear(); }} style={styles.button} color="white" title="Sign Out" /> */}
       </View>
     );
   }
