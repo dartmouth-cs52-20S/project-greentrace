@@ -16,6 +16,9 @@ const MainNavigation = () => {
         <Stack.Screen
           name="Sign In"
           component={SignIn}
+          options={{
+            headerShown: false,
+          }}
         />
         <Stack.Screen
           name="Sign Up"

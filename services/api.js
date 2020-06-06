@@ -2,8 +2,8 @@
 import axios from 'axios';
 import { AsyncStorage } from 'react-native';
 
-// const API_URL = 'https://greentrace-server.herokuapp.com/api';
-const API_URL = 'http://localhost:9090/api';
+const API_URL = 'https://greentrace-server.herokuapp.com/api';
+// const API_URL = 'http://localhost:9090/api';
 
 export const ActionTypes = {
   STORE_LOCATION: 'STORE_LOCATION',

@@ -256,9 +256,4 @@ const styles = StyleSheet.create({
   },
 });
 
-// const mapStateToProps = (reduxState) => ({
-//   covid: reduxState.user.covid,
-//   tested: reduxState.user.tested,
-// });
-
 export default connect(null, { updateUser })(Status);

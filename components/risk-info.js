@@ -1,96 +1,60 @@
-/* eslint-disable react/destructuring-assignment */
-import { View, Text } from 'react-native';
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+// currently contains the same stuff as resources; will be updated to show risk stuff when we decide on what that should look like
+
+import React from 'react';
 import {
-  getNumContactsPositive, getNumSymptoms, getNumTested, getNumPositive,
-} from '../services/api';
+  StyleSheet, Text, View, FlatList, TouchableOpacity, Linking,
+} from 'react-native';
+// import getDateUSFormatString from '../lib/date-lib';
 
-class RiskInfo extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
+const riskObject = require('../lib/resources.json');
 
-  determineNumberOfCovidContacts() {
-    this.props.getNumContactsPositive();
-    const num = this.props.numPositiveContacts;
-    console.log('numPositiveContacts:', num);
+const { riskInfo } = riskObject;
+
+const RiskInfo = (props) => {
+  const headerText = 'Risk';
+
+  const renderRisk = (item) => {
+    const { name, website, phone } = item;
     return (
-      <Text>
-        Number of Contacts That Have Tested Positive:
-        {' '}
-        {num}
-      </Text>
-    );
-  }
-
-  determineNumberOfTested() {
-    this.props.getNumTested();
-    const num = this.props.numTested;
-    return (
-      <Text>
-        Number of Users Tested:
-        {' '}
-        {num}
-      </Text>
-    );
-  }
-
-  determineNumberOfSymptoms() {
-    this.props.getNumSymptoms();
-    const num = this.props.numSymptoms;
-    return (
-      <Text>
-        Number of Symptoms:
-        {' '}
-        {num}
-      </Text>
-    );
-  }
-
-  determineNumberOfPeopleInfected() {
-    this.props.getNumPositive();
-    const num = this.props.numPositive;
-    console.log('Number of people infected', num);
-    return (
-      <Text>
-        Number of Positive Users:
-        {' '}
-        {num}
-      </Text>
-    );
-  }
-
-  render() {
-    return (
-      <View>
-        {this.determineNumberOfCovidContacts()}
-        {this.determineNumberOfSymptoms()}
-        {this.determineNumberOfTested()}
-        {this.determineNumberOfPeopleInfected()}
+      <View style={styles.resource} key={name}>
+        <Text>{name}</Text>
+        <TouchableOpacity onPress={() => { Linking.openURL(website); }}><Text>Website</Text></TouchableOpacity>
+        <TouchableOpacity onPress={() => { Linking.openURL(`tel:${phone}`); }}><Text>Call</Text></TouchableOpacity>
       </View>
     );
-  }
-}
-
-const mapStateToProps = (reduxState) => {
-  return {
-    numPositiveContacts: reduxState.risk.numPositiveContacts,
-    numSymptoms: reduxState.risk.numSymptoms,
-    numTested: reduxState.risk.numTested,
-    numPositive: reduxState.risk.numPositive,
   };
+
+  return (
+    <View style={styles.container}>
+      <Text>{headerText}</Text>
+      <FlatList
+        data={riskInfo}
+        renderItem={({ item }) => { return renderRisk(item); }}
+        keyExtractor={(item) => item.name}
+        contentContainerStyle={styles.container}
+      />
+    </View>
+  );
+//   }
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getNumContactsPositive: () => dispatch(getNumContactsPositive()),
-    getNumSymptoms: () => dispatch(getNumSymptoms()),
-    getNumTested: () => dispatch(getNumTested()),
-    getNumPositive: () => dispatch(getNumPositive()),
-  };
-};
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    // justifyContent: 'space-around',
+    alignItems: 'center',
+    marginHorizontal: 15,
+    marginVertical: 10,
+    minHeight: 700,
+  },
+  resource: {
+    flexDirection: 'column',
+    marginHorizontal: 10,
+    marginVertical: 10,
+    padding: 10,
+    borderRadius: 7,
+    backgroundColor: 'white',
+  },
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(RiskInfo);
+export default RiskInfo;
