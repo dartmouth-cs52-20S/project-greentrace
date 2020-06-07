@@ -13,11 +13,11 @@ class AccountInformation extends Component {
     super(props);
     this.state = {
       passwordModal: false,
-      token: '',
+      // token: '',
       id: '',
-      email: '',
+      phraseToken: '',
     };
-    this.fetchToken();
+    // this.fetchToken();
     this.fetchUser();
   }
 
@@ -26,8 +26,8 @@ class AccountInformation extends Component {
       .then((result) => {
         if (result !== null) {
           const user = JSON.parse(result);
-          const { id, email } = user;
-          this.setState({ id, email });
+          const { id, phraseToken } = user;
+          this.setState({ id, phraseToken });
         }
       })
       .catch((err) => {
@@ -35,18 +35,18 @@ class AccountInformation extends Component {
       });
   }
 
-  fetchToken = () => {
-    AsyncStorage.getItem('token')
-      .then((result) => {
-        if (result !== null) {
-          const token = JSON.parse(result);
-          this.setState({ token });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+  // fetchToken = () => {
+  //   AsyncStorage.getItem('token')
+  //     .then((result) => {
+  //       if (result !== null) {
+  //         const token = JSON.parse(result);
+  //         this.setState({ token });
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }
 
   closePasswordModal = () => {
     this.setState({ passwordModal: false });
@@ -67,7 +67,7 @@ class AccountInformation extends Component {
           hideModalContentWhileAnimating // Better performance, try with/without
           propagateSwipe // Allows swipe events to propagate to children components (eg a ScrollView inside a modal)
         >
-          <PasswordChange closeModal={this.closePasswordModal} id={this.state.id} email={this.state.email} logout={this.props.logout} />
+          <PasswordChange closeModal={this.closePasswordModal} id={this.state.id} phraseToken={this.state.phraseToken} logout={this.props.logout} />
         </Modal>
       );
     } else {
@@ -83,7 +83,7 @@ class AccountInformation extends Component {
         <Text>
           User Token:
           {' '}
-          {this.state.token}
+          {this.state.phraseToken}
         </Text>
         <Text>{warningMessage}</Text>
         <TouchableOpacity onPress={() => { this.setState({ passwordModal: true }); }}><Text>Change Password</Text></TouchableOpacity>

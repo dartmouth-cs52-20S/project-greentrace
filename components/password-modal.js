@@ -28,7 +28,8 @@ class PasswordChange extends Component {
     if (newPass !== confirmPass) {
       this.setState({ error: true });
     } else {
-      changePassword({ id: this.props.id, email: this.props.email, password: currPass, newPass })
+      console.log('WHAT IS IN PROPS', this.props);
+      changePassword({ id: this.props.id, phraseToken: this.props.phraseToken, password: currPass, newPass })
         .then((result) => {
           console.log(result);
           if (result === 'success') {
@@ -61,15 +62,15 @@ class PasswordChange extends Component {
         {this.rendererror()}
         <View style={styles.field}>
           <Text style={styles.fieldTitle}>Current Password</Text>
-          <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ currPass: text }); }} value={currPass} placeholder="Current Password" />
+          <TextInput secureTextEntry style={styles.textInput} onChangeText={(text) => { this.setState({ currPass: text }); }} value={currPass} placeholder="Current Password" />
         </View>
         <View>
           <Text style={styles.fieldTitle}>New Password</Text>
-          <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ newPass: text }); }} value={newPass} placeholder="New Password" />
+          <TextInput secureTextEntry style={styles.textInput} onChangeText={(text) => { this.setState({ newPass: text }); }} value={newPass} placeholder="New Password" />
         </View>
         <View>
           <Text style={styles.fieldTitle}>Confirm Password</Text>
-          <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ confirmPass: text }); }} value={confirmPass} placeholder="Confirm Password" />
+          <TextInput secureTextEntry style={styles.textInput} onChangeText={(text) => { this.setState({ confirmPass: text }); }} value={confirmPass} placeholder="Confirm Password" />
         </View>
         <Button
           buttonStyle={styles.button}

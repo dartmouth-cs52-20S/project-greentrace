@@ -56,7 +56,7 @@ export const signup = ({ email, password }) => {
   return (dispatch) => {
     console.log('test');
     axios.post(`${API_URL}/signup`, { email, password }).then((response) => {
-      console.log('test');
+      console.log('IN SIGNUP RESPONSE', response.data);
       const { token } = response.data;
       // eslint-disable-next-line no-shadow
       const { email, id } = response.data.user;
@@ -81,8 +81,9 @@ export const signup = ({ email, password }) => {
   };
 };
 
-export const changePassword = ({ id, email, password, newPass }) => {
-  return axios.post(`${API_URL}/user/${id}/changePassword`, { email, password, newPass })
+export const changePassword = ({ id, phraseToken, password, newPass }) => {
+  console.log('IN API.JS CHANGE PASS', phraseToken);
+  return axios.post(`${API_URL}/user/${id}/changePassword`, { phraseToken, password, newPass })
     .then((response) => {
       return 'success';
     }).catch((error) => {
@@ -91,9 +92,11 @@ export const changePassword = ({ id, email, password, newPass }) => {
 };
 
 export const signin = ({ email, password }) => {
-  return axios.post(`${API_URL}/signin`, { email, password }).then((response) => {
+  console.log(email, password);
+  return axios.post(`${API_URL}/signin`, { phraseToken: email, password }).then((response) => {
     // console.log('data', response.data);
     // console.log('user', response.data.user);
+    console.log('SIGN IN RESPONSE', response);
     AsyncStorage.setItem('currUser', JSON.stringify(response.data.user));
     AsyncStorage.setItem('token', JSON.stringify(response.data.token));
     AsyncStorage.getItem('currUser').then((result) => { console.log(result); }).catch((error) => { console.log(error); });
