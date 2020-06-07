@@ -37,7 +37,7 @@ class SignIn extends Component {
         <View style={styles.container}>
           <Text style={styles.pageTitle}>GreenTrace</Text>
           <View style={styles.field}>
-            <Text style={styles.fieldTitle}>Email</Text>
+            <Text style={styles.fieldTitle}>Token</Text>
             <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ email: text }); }} value={email} placeholder="token" />
           </View>
           <View>
@@ -60,12 +60,12 @@ class SignIn extends Component {
         <View style={styles.container}>
           <Text style={styles.pageTitle}>GreenTrace</Text>
           <View style={styles.field}>
-            <Text style={styles.fieldTitle}>Email</Text>
+            <Text style={styles.fieldTitle}>Token</Text>
             <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ email: text }); }} value={email} placeholder="token" />
           </View>
           <View>
             <Text style={styles.fieldTitle}>Password</Text>
-            <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ password: text }); }} value={password} placeholder="password" />
+            <TextInput secureTextEntry style={styles.textInput} onChangeText={(text) => { this.setState({ password: text }); }} value={password} placeholder="password" />
             <Text style={styles.errorText}>Incorrect username or password</Text>
           </View>
           <TouchableOpacity onPress={() => { this.submit(); }} style={styles.button}>

@@ -81,8 +81,9 @@ export const signup = ({ email, password }) => {
   };
 };
 
-export const changePassword = ({ id, email, password, newPass }) => {
-  return axios.post(`${API_URL}/user/${id}/changePassword`, { email, password, newPass })
+export const changePassword = ({ id, phraseToken, password, newPass }) => {
+  console.log('IN API.JS CHANGE PASS', phraseToken);
+  return axios.post(`${API_URL}/user/${id}/changePassword`, { phraseToken, password, newPass })
     .then((response) => {
       return 'success';
     }).catch((error) => {
