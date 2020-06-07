@@ -3,8 +3,8 @@ import axios from 'axios';
 import { AsyncStorage } from 'react-native';
 import { SENDGRID_API_KEY } from 'react-native-dotenv';
 
-// const API_URL = 'https://greentrace-server.herokuapp.com/api';
-const API_URL = 'http://localhost:9090/api';
+const API_URL = 'https://greentrace-server.herokuapp.com/api';
+// const API_URL = 'http://localhost:9090/api';
 
 export const ActionTypes = {
   STORE_LOCATION: 'STORE_LOCATION',
@@ -102,7 +102,6 @@ export const signin = ({ email, password }) => {
     return 'not success';
   });
 };
-
 export const fetchMessages = () => {
   return (dispatch) => {
     console.log('fetchMessages');
