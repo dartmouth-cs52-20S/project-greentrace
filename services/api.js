@@ -81,20 +81,15 @@ export const signup = ({ email, password }) => {
 };
 
 export const signin = ({ email, password }) => {
-  return (dispatch) => {
-    axios.post(`${API_URL}/signin`, { email, password }).then((response) => {
-      // console.log('data', response.data);
-      // console.log('user', response.data.user);
-      AsyncStorage.setItem('currUser', JSON.stringify(response.data.user));
-      AsyncStorage.getItem('currUser').then((result) => { console.log(result); }).catch((error) => { console.log(error); });
-
-      dispatch({ type: ActionTypes.AUTH_USER, payload: response.data });
-    }).catch((error) => {
-      dispatch({ type: ActionTypes.AUTH_ERROR });
-      console.log('entered error');
-      console.log('line 89 error', error);
-    });
-  };
+  return axios.post(`${API_URL}/signin`, { email, password }).then((response) => {
+    // console.log('data', response.data);
+    // console.log('user', response.data.user);
+    AsyncStorage.setItem('currUser', JSON.stringify(response.data.user));
+    AsyncStorage.getItem('currUser').then((result) => { console.log(result); }).catch((error) => { console.log(error); });
+    return 'success';
+  }).catch((error) => {
+    return 'not success';
+  });
 };
 
 export const fetchMessages = () => {
