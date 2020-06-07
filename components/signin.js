@@ -42,7 +42,7 @@ class SignIn extends Component {
           </View>
           <View>
             <Text style={styles.fieldTitle}>Password</Text>
-            <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ password: text }); }} value={password} placeholder="password" />
+            <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ password: text }); }} secureTextEntry value={password} placeholder="password" />
           </View>
           <TouchableOpacity onPress={() => { this.submit(); }} style={styles.button}>
             <Text>Log In</Text>

@@ -71,6 +71,7 @@ export const signup = ({ email, password }) => {
         console.log('not success');
       });
       AsyncStorage.setItem('currUser', JSON.stringify(response.data.user));
+      AsyncStorage.setItem('token', JSON.stringify(response.data.token));
       // AsyncStorage.setItem('currUser', response.data.id);
       dispatch({ type: ActionTypes.AUTH_USER, payload: response.data });
     }).catch((error) => {
@@ -80,6 +81,15 @@ export const signup = ({ email, password }) => {
   };
 };
 
+export const changePassword = ({ id, email, password, newPass }) => {
+  return axios.post(`${API_URL}/user/${id}/changePassword`, { email, password, newPass })
+    .then((response) => {
+      return 'success';
+    }).catch((error) => {
+      return 'not success';
+    });
+};
+
 export const signin = ({ email, password }) => {
   console.log(email, password);
   return axios.post(`${API_URL}/signin`, { phraseToken: email, password }).then((response) => {
@@ -87,13 +97,13 @@ export const signin = ({ email, password }) => {
     // console.log('user', response.data.user);
     console.log('SIGN IN RESPONSE', response);
     AsyncStorage.setItem('currUser', JSON.stringify(response.data.user));
+    AsyncStorage.setItem('token', JSON.stringify(response.data.token));
     AsyncStorage.getItem('currUser').then((result) => { console.log(result); }).catch((error) => { console.log(error); });
     return 'success';
   }).catch((error) => {
     return 'not success';
   });
 };
-
 export const fetchMessages = () => {
   return (dispatch) => {
     console.log('fetchMessages');
@@ -106,8 +116,8 @@ export const fetchMessages = () => {
             // console.log('in return dispatch', response.data);
             // dispatch({ type: ActionTypes.FETCH_MESSAGES, payload: response.data.message });
             // console.log('in return dispatch message', response.data.messages);
-          // console.log('in API, line 105', response.data);
-          // console.log(tempArray);
+            // console.log('in API, line 105', response.data);
+            // console.log(tempArray);
             console.log('api.js line 113', response.data);
             dispatch({ type: ActionTypes.FETCH_MESSAGES, payload: response.data });
           });
