@@ -3,8 +3,8 @@ import axios from 'axios';
 import { AsyncStorage } from 'react-native';
 import { SENDGRID_API_KEY } from 'react-native-dotenv';
 
-const API_URL = 'https://greentrace-server.herokuapp.com/api';
-// const API_URL = 'http://localhost:9090/api';
+// const API_URL = 'https://greentrace-server.herokuapp.com/api';
+const API_URL = 'http://localhost:9090/api';
 
 export const ActionTypes = {
   STORE_LOCATION: 'STORE_LOCATION',
@@ -56,7 +56,7 @@ export const signup = ({ email, password }) => {
   return (dispatch) => {
     console.log('test');
     axios.post(`${API_URL}/signup`, { email, password }).then((response) => {
-      console.log('test');
+      console.log('IN SIGNUP RESPONSE', response.data);
       const { token } = response.data;
       // eslint-disable-next-line no-shadow
       const { email, id } = response.data.user;
@@ -81,9 +81,11 @@ export const signup = ({ email, password }) => {
 };
 
 export const signin = ({ email, password }) => {
-  return axios.post(`${API_URL}/signin`, { email, password }).then((response) => {
+  console.log(email, password);
+  return axios.post(`${API_URL}/signin`, { phraseToken: email, password }).then((response) => {
     // console.log('data', response.data);
     // console.log('user', response.data.user);
+    console.log('SIGN IN RESPONSE', response);
     AsyncStorage.setItem('currUser', JSON.stringify(response.data.user));
     AsyncStorage.getItem('currUser').then((result) => { console.log(result); }).catch((error) => { console.log(error); });
     return 'success';
