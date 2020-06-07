@@ -44,7 +44,7 @@ class SignUp extends Component {
           </View>
           <View>
             <Text style={styles.fieldTitle}>Confirm Password</Text>
-            <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ passwordConfirm: text }); }} value={passwordConfirm} placeholder="password" />
+            <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ passwordConfirm: text }); }} secureTextEntry value={passwordConfirm} placeholder="password" />
           </View>
           <TouchableOpacity onPress={() => { this.submit(); }} style={styles.button}>
             <Text>Sign Up</Text>
