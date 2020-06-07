@@ -50,7 +50,7 @@ class SignIn extends Component {
         <View style={styles.container}>
           <Text style={styles.pageTitle}>GreenTrace</Text>
           <View style={styles.field}>
-            <Text style={styles.fieldTitle}>Email</Text>
+            <Text style={styles.fieldTitle}>Token</Text>
             <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ email: text }); }} value={email} placeholder="token" />
           </View>
           <View>
