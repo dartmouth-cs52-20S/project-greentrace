@@ -10,7 +10,6 @@ const SignInUpStyles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: hp('15%'),
     paddingBottom: hp('15%'),
-    // backgroundColor: 'salmon',
   },
   textInput: {
     borderColor: 'black',
@@ -48,6 +47,12 @@ const SignInUpStyles = StyleSheet.create({
   redirectButtonText: {
     color: 'white',
     fontSize: wp('4%'),
+  },
+  errorText: {
+    color: 'white',
+    width: wp('66%'),
+    textAlign: 'center',
+    fontWeight: '600',
   },
 });
 
