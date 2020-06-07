@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import {
   StyleSheet, View, Text, TextInput, TouchableOpacity, // Dimensions, // AsyncStorage,
 } from 'react-native';
-import { connect } from 'react-redux';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { signin } from '../services/api';
 
@@ -13,44 +12,74 @@ class SignIn extends Component {
     this.state = {
       email: '',
       password: '',
+      error: false,
     };
   }
 
   submit() {
     const { email, password } = this.state;
     // eslint-disable-next-line no-shadow
-    const { signin } = this.props;
     if (email !== '' && password !== '') {
-      signin({ email, password });
-      this.props.navigation.navigate('Tab Bar');
+      signin({ email, password }).then((response) => {
+        if (response === 'success') {
+          this.props.navigation.navigate('Tab Bar');
+          this.setState({ error: false });
+        } else this.setState({ error: true });
+      });
     }
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, error } = this.state;
     // console.log('dimensions', Dimensions.get('window').width, Dimensions.get('window').height);
-    return (
-      <View style={styles.container}>
-        <Text style={styles.pageTitle}>GreenTrace</Text>
-        <View style={styles.field}>
-          <Text style={styles.fieldTitle}>Email</Text>
-          <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ email: text }); }} value={email} placeholder="token" />
+    if (!error) {
+      return (
+        <View style={styles.container}>
+          <Text style={styles.pageTitle}>GreenTrace</Text>
+          <View style={styles.field}>
+            <Text style={styles.fieldTitle}>Email</Text>
+            <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ email: text }); }} value={email} placeholder="token" />
+          </View>
+          <View>
+            <Text style={styles.fieldTitle}>Password</Text>
+            <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ password: text }); }} value={password} placeholder="password" />
+          </View>
+          <TouchableOpacity onPress={() => { this.submit(); }} style={styles.button}>
+            <Text>Log In</Text>
+          </TouchableOpacity>
+          {/* <Button onPress={() => { this.submit(); }} style={styles.button} color="white" title="Log In" /> */}
+          <TouchableOpacity onPress={() => { this.props.navigation.navigate('Sign Up'); }} style={styles.redirectButton}>
+            <Text style={styles.redirectButtonText}>New user? Sign Up</Text>
+          </TouchableOpacity>
+          {/* <Button onPress={() => { this.props.navigation.navigate('Sign Up'); }} color="white" title="New user? Sign Up" /> */}
+          {/* <Button onPress={() => { AsyncStorage.clear(); }} style={styles.button} color="white" title="Sign Out" /> */}
         </View>
-        <View>
-          <Text style={styles.fieldTitle}>Password</Text>
-          <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ password: text }); }} value={password} placeholder="password" />
+      );
+    } else {
+      return (
+        <View style={styles.container}>
+          <Text style={styles.pageTitle}>GreenTrace</Text>
+          <View style={styles.field}>
+            <Text style={styles.fieldTitle}>Email</Text>
+            <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ email: text }); }} value={email} placeholder="token" />
+          </View>
+          <View>
+            <Text style={styles.fieldTitle}>Password</Text>
+            <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ password: text }); }} value={password} placeholder="password" />
+            <Text style={styles.errorText}>Incorrect username or password</Text>
+          </View>
+          <TouchableOpacity onPress={() => { this.submit(); }} style={styles.button}>
+            <Text>Log In</Text>
+          </TouchableOpacity>
+          {/* <Button onPress={() => { this.submit(); }} style={styles.button} color="white" title="Log In" /> */}
+          <TouchableOpacity onPress={() => { this.props.navigation.navigate('Sign Up'); }} style={styles.redirectButton}>
+            <Text style={styles.redirectButtonText}>New user? Sign Up</Text>
+          </TouchableOpacity>
+          {/* <Button onPress={() => { this.props.navigation.navigate('Sign Up'); }} color="white" title="New user? Sign Up" /> */}
+          {/* <Button onPress={() => { AsyncStorage.clear(); }} style={styles.button} color="white" title="Sign Out" /> */}
         </View>
-        <TouchableOpacity onPress={() => { this.submit(); }} style={styles.button}>
-          <Text>Log In</Text>
-        </TouchableOpacity>
-        {/* <Button onPress={() => { this.submit(); }} style={styles.button} color="white" title="Log In" /> */}
-        <TouchableOpacity onPress={() => { this.props.navigation.navigate('Sign Up'); }} style={styles.redirectButton}>
-          <Text style={styles.redirectButtonText}>New user? Sign Up</Text>
-        </TouchableOpacity>
-        {/* <Button onPress={() => { this.props.navigation.navigate('Sign Up'); }} color="white" title="New user? Sign Up" /> */}
-        {/* <Button onPress={() => { AsyncStorage.clear(); }} style={styles.button} color="white" title="Sign Out" /> */}
-      </View>
-    );
+      );
+    }
   }
 }
 
@@ -81,6 +110,9 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: wp('5.33333333%'),
   },
+  errorText: {
+    color: 'white',
+  },
   pageTitle: {
     color: 'white',
     fontWeight: '600',
@@ -102,4 +134,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(null, { signin })(SignIn);
+export default SignIn;
