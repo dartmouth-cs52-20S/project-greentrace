@@ -37,11 +37,11 @@ class SignUp extends Component {
         </View>
         <View>
           <Text style={styles.fieldTitle}>Password</Text>
-          <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ password: text }); }} value={password} placeholder="password" />
+          <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ password: text }); }} secureTextEntry value={password} placeholder="password" />
         </View>
         <View>
           <Text style={styles.fieldTitle}>Confirm Password</Text>
-          <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ passwordConfirm: text }); }} value={passwordConfirm} placeholder="password" />
+          <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ passwordConfirm: text }); }} secureTextEntry value={passwordConfirm} placeholder="password" />
         </View>
         <Button onPress={() => { this.submit(); }} title="Sign Up" />
       </View>
