@@ -16,6 +16,11 @@ const MainTabBar = () => {
   // <NavigationContainer>
     <Tab.Navigator
       initialRouteName="Map"
+      tabBarOptions={{
+        activeBackgroundColor: 'black',
+        inactiveBackgroundColor: 'black',
+        activeTintColor: '#03fc35',
+      }}
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => {
           let iconName;
@@ -34,7 +39,7 @@ const MainTabBar = () => {
           if (route.name === 'Info') {
             iconName = 'info-circle';
           }
-          return <Ionicons name={iconName} size={26} color={focused ? '#58AADA' : 'grey'} />;
+          return <Ionicons name={iconName} size={26} color={focused ? '#03fc35' : 'white'} />;
         },
       })}
     >
