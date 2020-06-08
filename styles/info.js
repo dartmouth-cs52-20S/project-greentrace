@@ -15,10 +15,12 @@ const styles = StyleSheet.create({
   },
   toggleItemText: {
     color: 'white',
+    fontWeight: '500',
     fontSize: wp('5%'),
   },
   selectedToggleText: {
     color: 'white',
+    fontWeight: '600',
     textDecorationLine: 'underline',
     fontSize: wp('5%'),
   },
@@ -61,6 +63,7 @@ const styles = StyleSheet.create({
   userToken: {
     textAlign: 'center',
     fontSize: wp('4%'),
+    fontWeight: '500',
   },
   actionButton: {
     // flex: 1,
@@ -95,6 +98,48 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     maxHeight: hp('60%'),
     width: wp('80%'),
+  },
+  // privacyContainer: {
+  //   flex: 1,
+  //   // justifyContent: 'space-around',
+  //   alignItems: 'center',
+  //   marginHorizontal: 15,
+  //   marginVertical: 10,
+  //   minHeight: 700,
+  // },
+  resourceContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    height: hp('80%'),
+    alignItems: 'center',
+  },
+  resourceList: {
+    height: hp('64%'),
+    marginTop: hp('3%'),
+  },
+  resource: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    width: wp('70%'),
+    padding: wp('4%'),
+    borderRadius: 7,
+    backgroundColor: 'white',
+    marginVertical: hp('1%'),
+  },
+  resourceTitle: {
+    textAlign: 'center',
+    fontSize: wp('4.5%'),
+    fontWeight: '500',
+  },
+  resourceContact: {
+    textAlign: 'center',
+    color: '#28AC45',
+  },
+  resourceContactContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: hp('1%'),
   },
 });
 
