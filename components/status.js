@@ -19,7 +19,6 @@ class Status extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      prev: {},
       prevCovid: 'Negative',
       prevTested: 'Untested',
       covid: 'Negative',
@@ -41,23 +40,23 @@ class Status extends Component {
         if (result !== null) {
           const user = JSON.parse(result);
           console.log('Getting curr user', result);
-          const prev = {};
+          let prevCovid = '';
+          let prevTested = '';
           const { covid, tested, id } = user;
           if (covid) {
-            prev.covid = 'Positive';
+            prevCovid = 'Positive';
           } else {
-            prev.covid = 'Negative';
+            prevCovid = 'Negative';
           }
           if (tested) {
-            prev.tested = 'Tested';
+            prevTested = 'Tested';
           } else {
-            prev.tested = 'Untested';
+            prevTested = 'Untested';
           }
           // eslint-disable-next-line object-curly-newline
           console.log('setting prev');
-          console.log(JSON.stringify(prev));
           this.setState({
-            prevCovid: prev.covid, prevTested: prev.tested, covid: prev.covid, tested: prev.tested, id,
+            prevCovid, prevTested, covid: prevCovid, tested: prevTested, id,
           });
         }
       })
@@ -109,7 +108,7 @@ class Status extends Component {
     console.log('in render modal');
     const { confirmModal } = this.state;
     if (confirmModal) {
-      const original = { covid: this.state.prev.covid, tested: this.state.prev.tested };
+      const original = { covid: this.state.prevCovid, tested: this.state.prevTested };
       const update = { covid: this.state.covid, tested: this.state.tested };
       return (
         <Modal
