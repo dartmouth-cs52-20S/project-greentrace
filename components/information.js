@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import {
-  Text, View, TouchableOpacity, AsyncStorage, StyleSheet,
+  Text, View, TouchableOpacity, AsyncStorage,
 } from 'react-native';
+
+import MapBackground from './map-background';
+import styles from '../styles/info';
 
 import AccountInformation from './account-info';
 import PrivacyInformation from './privacy-info';
@@ -27,9 +30,10 @@ class Information extends Component {
   }
 
   renderToggleItem(title) {
+    const { current } = this.state;
     return (
       <TouchableOpacity key={title} onPress={() => { this.switchView(title); }}>
-        <Text>{title}</Text>
+        <Text style={(title === current) ? styles.selectedToggleText : styles.toggleItemText}>{title}</Text>
       </TouchableOpacity>
     );
   }
@@ -70,22 +74,12 @@ class Information extends Component {
 
   render() {
     return (
-      <View>
+      <MapBackground>
         {this.renderToggle()}
         {this.renderSubstance()}
-      </View>
+      </MapBackground>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  toggle: {
-    flexDirection: 'row',
-    width: 200,
-    justifyContent: 'space-evenly',
-    alignSelf: 'center',
-    marginVertical: 30,
-  },
-});
 
 export default Information;

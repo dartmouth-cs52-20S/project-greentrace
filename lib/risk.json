@@ -1,7 +1,7 @@
 {
     "risk": [
         {
-            "level": "1",
+            "level": "0",
             "color": "red",
             "description": "This isn't good!"
         }

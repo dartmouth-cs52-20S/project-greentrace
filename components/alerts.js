@@ -7,7 +7,6 @@ import {
   ActivityIndicator,
   StyleSheet,
   ScrollView,
-  Button,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/FontAwesome';
 import { FlatList } from 'react-native-gesture-handler';
@@ -58,15 +57,14 @@ class Alerts extends Component {
       <MapBackground style={styles.emptyState}>
         <View style={styles.emptyState}>
           <Text style={styles.emptyStateMessage}>No alerts yet! :(</Text>
-          <Button onPress={() => {
-          // eslint-disable-next-line react/destructuring-assignment
-            const messages = this.props.fetchMessages();
-            console.log(messages);
+          <TouchableOpacity onPress={() => {
+            // eslint-disable-next-line react/destructuring-assignment
+            this.props.fetchMessages();
             // const { messages } = this.props;
             // console.log('fetched messages', messages);
-            // if (messages === undefined) {
+            // if (this.props.messages === undefined) {
             //   this.setState({ messages: [] });
-            // } else this.setState({ messages });
+            // } else this.setState({ messages: messages2 });
             // eslint-disable-next-line react/destructuring-assignment
             // this.props.fetchMessages();
             // console.log('messages');
@@ -74,9 +72,10 @@ class Alerts extends Component {
             // console.log(this.props.messages);
             this.setState({ isLoading: false });
           }}
-            color="white"
-            title="refresh"
-          />
+          >
+            <Text>Refresh</Text>
+            {/* <Ionicons name="redo" /> */}
+          </TouchableOpacity>
         </View>
       </MapBackground>
     );
@@ -121,24 +120,15 @@ class Alerts extends Component {
       // console.log('LINE 142 TRYING TO DISPLAY', this.props.messages);
       return (
         <MapBackground>
-          <Button onPress={() => {
+          <TouchableOpacity onPress={() => {
           // eslint-disable-next-line react/destructuring-assignment
             this.props.fetchMessages();
-            // const { messages } = this.props;
-            // console.log('fetched messages', messages);
-            // if (this.props.messages === undefined) {
-            //   this.setState({ messages: [] });
-            // } else this.setState({ messages: messages2 });
-            // eslint-disable-next-line react/destructuring-assignment
-            // this.props.fetchMessages();
-            // console.log('messages');
-            // eslint-disable-next-line react/destructuring-assignment
-            // console.log(this.props.messages);
             this.setState({ isLoading: false });
           }}
-            color="white"
-            title="refresh"
-          />
+          >
+            <Text>Refresh</Text>
+            {/* <Ionicons name="redo" size="26" /> */}
+          </TouchableOpacity>
           <ScrollView>
             <FlatList
             // eslint-disable-next-line react/destructuring-assignment
