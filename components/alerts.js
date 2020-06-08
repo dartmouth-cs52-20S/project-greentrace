@@ -13,8 +13,10 @@ import Ionicons from 'react-native-vector-icons/FontAwesome';
 import { FlatList } from 'react-native-gesture-handler';
 // import getDateUSFormatString from '../lib/date-lib';
 import { connect } from 'react-redux';
+
 import MapBackground from './map-background';
 import { fetchMessages, setCurrMessage } from '../services/api';
+
 
 class Alerts extends Component {
   constructor(props) {
@@ -81,24 +83,15 @@ class Alerts extends Component {
   }
 
   renderMessageThumbnail(message) {
-    const {
-      timestamp, covid, tested,
-    } = message;
-    let text;
-    if (covid && tested) {
-      text = 'Contact with COVID-19 positive individual';
-    } else if (!covid && tested) {
-      text = 'Contact with COVID-19 negative individual';
-    } else { // not tested/is being tested
-      text = 'Contact with individual being tested for COVID-19';
-    }
+    console.log('message', message);
+    const { contactDate } = message;
+    const text = new Date(contactDate).toDateString();
 
     return (
-      <TouchableOpacity key={timestamp} style={styles.thumbnail} onPress={() => { this.showMessageDetail(message); }}>
+      <TouchableOpacity key={contactDate} style={styles.thumbnail} onPress={() => { this.showMessageDetail(message); }}>
         <Ionicons name="warning" style={styles.thumbnailIcon} />
         <View>
           <Text style={styles.thumbnailMessage}>{text}</Text>
-          <Text style={styles.thumbnailTime}>{timestamp}</Text>
         </View>
       </TouchableOpacity>
     );

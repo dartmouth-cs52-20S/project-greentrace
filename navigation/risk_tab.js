@@ -13,7 +13,7 @@ const RiskTab = () => {
         name="Risk"
         component={Risk}
         options={({ navigation, route }) => ({
-          title: 'Your Risk',
+          title: 'Risk Assessment',
           headerStyle: {
             backgroundColor: 'black',
           },
