@@ -6,9 +6,6 @@ import {
 } from 'react-native';
 import { CheckBox, Button } from 'react-native-elements';
 import { updateUser } from '../services/api';
-// import { connect } from 'react-redux';
-// import { CheckBox } from 'react-native-elements';
-// import { logSymptoms } from '../services/api';
 
 class SymptomCheck extends Component {
   constructor(props) {

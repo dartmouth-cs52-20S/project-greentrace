@@ -41,17 +41,17 @@ class AlertsDetail extends Component {
     } = clickedMessage;
     const contactDateString = new Date(contactDate).toString().substring(0, 15);
 
-    const notification = `A student you were last in contact with on ${contactDateString} has been tested (as previously alerted) and diagnosed as positive for COVID-19.`;
+    const notification = `A student you were last in contact with on ${contactDateString} has been tested and diagnosed as positive for COVID-19.`;
     const recommendation = 'We recommend checking your symptoms and scheduling an appointment to get tested at Dick’s House or DHMC.';
 
     return (
       <MapBackground>
-        <View style={styles.container}>
-          <Ionicons name="chevron-left" onPress={() => { navigation.navigate('Alerts'); }} style={styles.backButton} />
-          <Text>{contactDateString}</Text>
-          <Ionicons name="warning" />
-          <Text style={styles.information}>{notification}</Text>
-          <Text style={styles.information}>{recommendation}</Text>
+        <View style={styles.detailContainer}>
+          <Ionicons name="angle-left" onPress={() => { navigation.navigate('Alerts'); }} style={styles.backButton} />
+          <Text style={styles.detailDate}>{contactDateString}</Text>
+          <Ionicons name="warning" style={styles.detailIcon} />
+          <Text style={styles.detailInformation}>{notification}</Text>
+          <Text style={styles.detailInformation}>{recommendation}</Text>
           <TouchableOpacity onPress={() => { this.setState({ isModalVisible: true }); }}><Text>Resources</Text></TouchableOpacity>
           {this.renderModal()}
         </View>

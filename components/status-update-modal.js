@@ -10,7 +10,6 @@ import styles from '../styles/modal';
 const UpdateModalContent = (props) => {
   const { original, update } = props;
 
-
   return (
     <View style={styles.confirmContainer}>
       <Text style={styles.confirmTitle}>Update Status</Text>

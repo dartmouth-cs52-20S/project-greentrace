@@ -15,7 +15,7 @@ const SignInUpStyles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 1,
     borderRadius: 5,
-    width: wp('30%'),
+    width: wp('32%'),
     height: hp('4.5%'),
     padding: hp('1%'),
     marginTop: hp('2.25%'),
