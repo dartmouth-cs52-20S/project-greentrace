@@ -17,21 +17,6 @@ import MapBackground from './map-background';
 import { fetchMessages, setCurrMessage } from '../services/api';
 
 class Alerts extends Component {
-  static navigationOptions = {
-    title: 'Alerts',
-    headerStyle: {
-      backgroundColor: 'green',
-    },
-    headerTintColor: '#fff',
-    // headerLeft: () => (
-    //   <Button
-    //     onPress={() => alert('This is a button!')}
-    //     title="Info"
-    //     color="#fff"
-    //   />
-    // ),
-  };
-
   constructor(props) {
     super(props);
     this.state = {

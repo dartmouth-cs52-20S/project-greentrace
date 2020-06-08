@@ -39,17 +39,19 @@ const RiskStyles = StyleSheet.create({
     maxWidth: wp('50%'),
   },
   statContainer: {
-    height: hp('50%'),
+    maxHeight: hp('40%'),
     alignSelf: 'center',
     paddingVertical: hp('2%'),
   },
   riskDialContainer: {
     paddingHorizontal: wp('10%'),
     paddingVertical: hp('5%'),
-    paddingBottom: hp('10%'),
+    // paddingBottom: hp('10%'),
   },
   dialLabel: {
     textAlign: 'center',
+    fontWeight: '500',
+    fontSize: wp('5%'),
   },
 });
 
