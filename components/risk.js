@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import {
   View, Text, TouchableOpacity, Modal, FlatList,
@@ -44,7 +45,7 @@ class Risk extends Component {
         </View>
       );
     } else {
-      return <View />;
+      return null;
     }
   }
 
@@ -66,21 +67,22 @@ class Risk extends Component {
     const { isModalVisible } = this.state;
     if (isModalVisible) {
       return (
-        // eslint-disable-next-line react/destructuring-assignment
-        <Modal isVisible={this.state.isModalVisible}>
-          <View style={styles.container}>
-            <View style={styles.riskAssessmentHeader}>
-              <Ionicons name="chevron-left" onPress={() => { this.setState({ isModalVisible: false }); }} style={styles.backButton} />
-              <Text style={styles.riskAssessmentHeaderText}>{headerText}</Text>
+        <MapBackground>
+          <Modal isVisible={this.state.isModalVisible}>
+            <View style={styles.container}>
+              <View style={styles.riskAssessmentHeader}>
+                <Ionicons name="chevron-left" onPress={() => { this.setState({ isModalVisible: false }); }} style={styles.backButton} />
+                <Text style={styles.riskAssessmentHeaderText}>{headerText}</Text>
+              </View>
+              <FlatList
+                data={riskInfo}
+                renderItem={({ item }) => { return this.renderResource(item); }}
+                keyExtractor={(item) => item.level}
+                contentContainerStyle={styles.riskAssessment}
+              />
             </View>
-            <FlatList
-              data={riskInfo}
-              renderItem={({ item }) => { return this.renderResource(item); }}
-              keyExtractor={(item) => item.level}
-              contentContainerStyle={styles.riskAssessment}
-            />
-          </View>
-        </Modal>
+          </Modal>
+        </MapBackground>
       );
     } else {
       return (

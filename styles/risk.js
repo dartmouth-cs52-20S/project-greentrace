@@ -13,12 +13,8 @@ const RiskStyles = StyleSheet.create({
     borderRadius: 10,
     marginHorizontal: hp('5%'),
     backgroundColor: 'white',
-<<<<<<< HEAD
-    paddingVertical: hp('5%'),
-=======
-    paddingHorizontal: wp('20%'),
-    // paddingVertical: hp('5%'),
->>>>>>> 72f83c86626facb5534e79f8acc95a65faf439e7
+    // paddingHorizontal: wp('20%'),
+    // paddingVertical: hp('2%'),
   },
   statistic: {
     flex: 1,
@@ -62,7 +58,8 @@ const RiskStyles = StyleSheet.create({
     paddingHorizontal: wp('2%'),
     paddingVertical: hp('1%'),
     borderRadius: 5,
-    marginBottom: hp('5%'),
+    marginBottom: hp('1%'),
+    marginTop: hp('2%'),
   },
   risk: {
     flexDirection: 'column',
@@ -70,7 +67,7 @@ const RiskStyles = StyleSheet.create({
     marginVertical: 10,
     padding: 10,
     borderRadius: 7,
-    backgroundColor: 'white',
+    backgroundColor: 'blue',
   },
   riskAssessment: {
     flex: 1,
