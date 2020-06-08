@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-alert */
 import React, { Component } from 'react';
 import {
@@ -34,6 +35,7 @@ class Alerts extends Component {
     // console.log('messages');
     // eslint-disable-next-line react/destructuring-assignment
     // console.log(this.props.messages);
+    this.props.fetchMessages();
     this.setState({ isLoading: false });
   }
 
