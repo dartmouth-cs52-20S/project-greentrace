@@ -10,14 +10,16 @@ class SignIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
+      tokenFirstPart: '',
+      tokenSecondPart: '',
       password: '',
       error: false,
     };
   }
 
   submit() {
-    const { email, password } = this.state;
+    const { tokenFirstPart, tokenSecondPart, password } = this.state;
+    const email = `${tokenFirstPart}-${tokenSecondPart}`;
     // eslint-disable-next-line no-shadow
     if (email !== '' && password !== '') {
       signin({ email, password }).then((response) => {
@@ -30,15 +32,18 @@ class SignIn extends Component {
   }
 
   render() {
-    const { email, password, error } = this.state;
+    const {
+      tokenFirstPart, tokenSecondPart, password, error,
+    } = this.state;
     // console.log('dimensions', Dimensions.get('window').width, Dimensions.get('window').height);
     if (!error) {
       return (
         <View style={styles.container}>
           <Text style={styles.pageTitle}>GreenTrace</Text>
           <View style={styles.field}>
-            <Text style={styles.fieldTitle}>Token</Text>
-            <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ email: text }); }} value={email} placeholder="token" />
+            <Text style={styles.fieldTitle}>Your Token</Text>
+            <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ tokenFirstPart: text }); }} value={tokenFirstPart} placeholder="first word" />
+            <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ tokenSecondPart: text }); }} value={tokenSecondPart} placeholder="second word" />
           </View>
           <View>
             <Text style={styles.fieldTitle}>Password</Text>
@@ -60,8 +65,9 @@ class SignIn extends Component {
         <View style={styles.container}>
           <Text style={styles.pageTitle}>GreenTrace</Text>
           <View style={styles.field}>
-            <Text style={styles.fieldTitle}>Token</Text>
-            <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ email: text }); }} value={email} placeholder="token" />
+            <Text style={styles.fieldTitle}>Your Token</Text>
+            <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ tokenFirstPart: text }); }} value={tokenFirstPart} placeholder="first word" />
+            <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ tokenSecondPart: text }); }} value={tokenSecondPart} placeholder="second word" />
           </View>
           <View>
             <Text style={styles.fieldTitle}>Password</Text>
