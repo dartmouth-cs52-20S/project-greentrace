@@ -1,10 +1,10 @@
 /* eslint-disable object-curly-newline */
 import axios from 'axios';
 import { AsyncStorage } from 'react-native';
-import { SENDGRID_API_KEY } from 'react-native-dotenv';
+// import { SENDGRID_API_KEY } from 'react-native-dotenv';
 
-// const API_URL = 'https://greentrace-server.herokuapp.com/api';
-const API_URL = 'http://localhost:9090/api';
+const API_URL = 'https://greentrace-server.herokuapp.com/api';
+// const API_URL = 'http://localhost:9090/api';
 
 export const ActionTypes = {
   STORE_LOCATION: 'STORE_LOCATION',
@@ -62,14 +62,15 @@ export const signup = ({ email, password }) => {
       const { email, id } = response.data.user;
       console.log('stuff returned from axios call', token, email, id);
 
-      const msg = {
-        personalizations: [{ to: [{ email }] }], from: { email: 'greentracedartmouth@gmail.com' }, subject: 'Your GreenTrace Token', content: [{ type: 'text/plain', value: `${token}` }],
-      };
-      axios.post('https://api.sendgrid.com/v3/mail/send', msg, { headers: { Authorization: `Bearer ${SENDGRID_API_KEY}` } }).then(() => {
-        console.log('success');
-      }).catch(() => {
-        console.log('not success');
-      });
+      // const msg = {
+      //   personalizations: [{ to: [{ email }] }], from: { email: 'greentracedartmouth@gmail.com' }, subject: 'Your GreenTrace Token', content: [{ type: 'text/plain', value: `${token}` }],
+      // };
+      // axios.post('https://api.sendgrid.com/v3/mail/send', msg, { headers: { Authorization: `Bearer ${SENDGRID_API_KEY}` } }).then(() => {
+      //   console.log('success');
+      // }).catch(() => {
+      //   console.log('not success');
+      // });
+
       AsyncStorage.setItem('currUser', JSON.stringify(response.data.user));
       AsyncStorage.setItem('token', JSON.stringify(response.data.token));
       // AsyncStorage.setItem('currUser', response.data.id);
