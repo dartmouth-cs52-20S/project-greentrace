@@ -13,9 +13,9 @@ const AlertTab = () => {
     <Stack.Navigator>
       <Stack.Screen
         name="Alerts"
-        title="Covid-Positive Contacts"
         component={Alerts}
         options={{
+          title: 'Covid-Positive Contacts',
           headerTitleStyle: {
             color: 'white',
           },
