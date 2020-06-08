@@ -7,6 +7,7 @@ import styles from '../styles/risk';
 import RiskDial from './risk-dial';
 import RiskDetail from './risk-detail';
 
+
 const Risk = (props) => {
   return (
     <MapBackground>

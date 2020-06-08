@@ -17,9 +17,11 @@ const styles = StyleSheet.create({
   dropdown: {
     width: 250,
     backgroundColor: 'white',
+    padding: 3,
   },
   dropdownContainer: {
     backgroundColor: 'white',
+    height: 30,
   },
   fieldTitle: {
     textAlign: 'center',
