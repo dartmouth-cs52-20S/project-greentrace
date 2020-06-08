@@ -75,8 +75,8 @@ class HeatMap extends React.Component {
           mapType="satellite"
         >
           <MapView.Heatmap points={this.state.heatmap}
-            opacity={1}
-            radius={20}
+            opacity={50}
+            radius={50}
             gradientSmoothing={10}
             heatmapMode="POINTS_DENSITY"
           />
