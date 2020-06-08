@@ -74,7 +74,7 @@ class Alerts extends Component {
           }}
           >
             <Text>Refresh</Text>
-            {/* <Ionicons name="redo" /> */}
+            <Ionicons name="redo" size="26" />
           </TouchableOpacity>
         </View>
       </MapBackground>

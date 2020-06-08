@@ -34,6 +34,7 @@ const MainNavigation = () => {
           component={MainTabBar}
           options={{
             headerShown: false,
+            gestureEnabled: false,
           }}
         />
         <Stack.Screen
