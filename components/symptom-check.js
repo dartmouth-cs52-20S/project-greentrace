@@ -2,13 +2,11 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import {
-  View, AsyncStorage,
+  View, AsyncStorage, Text, TouchableOpacity, FlatList,
 } from 'react-native';
-import { CheckBox, Button } from 'react-native-elements';
+import { CheckBox } from 'react-native-elements';
 import { updateUser } from '../services/api';
-// import { connect } from 'react-redux';
-// import { CheckBox } from 'react-native-elements';
-// import { logSymptoms } from '../services/api';
+import styles from '../styles/symptomcheck';
 
 class SymptomCheck extends Component {
   constructor(props) {
@@ -24,6 +22,16 @@ class SymptomCheck extends Component {
         soreThroat: false,
         lossOfTaste: false,
         lossOfSmell: false,
+      },
+      symptomLabels: {
+        persistantCough: 'Persistent Cough',
+        shortnessOfBreath: 'Shortness of Breath',
+        hasFever: 'Fever',
+        hasChills: 'Chills',
+        musclePain: 'Muscle Pain',
+        soreThroat: 'Sore Throat',
+        lossOfTaste: 'Loss of Taste',
+        lossOfSmell: 'Loss of smell',
       },
     };
     this.fetchCurrentStatus();
@@ -56,106 +64,43 @@ class SymptomCheck extends Component {
     this.props.closeModal();
   }
 
-  render() {
-    const { persistantCough, shortnessOfBreath, hasFever, hasChills, musclePain, soreThroat, lossOfTaste, lossOfSmell } = this.state.symptoms;
+  renderSymptom(symptom) {
+    const { symptomLabels, symptoms } = this.state;
+    const symptomCopy = symptoms;
     return (
-      <View>
-        <CheckBox
-          title="Persistant Cough"
-          name="persistantCough"
-          checked={persistantCough}
-          onPress={() => this.setState((prevState) => {
-            const symptoms = { ...prevState.symptoms };
-            symptoms.persistantCough = !symptoms.persistantCough;
-            return { symptoms };
-          })}
+      <CheckBox
+        title={symptomLabels[symptom]}
+        name={symptom}
+        checked={symptomCopy[symptom]}
+        onPress={() => this.setState((prevState) => {
+          // eslint-disable-next-line no-shadow
+          const symptoms = { ...prevState.symptoms };
+          symptoms[symptom] = !symptoms[symptom];
+          return { symptoms };
+        })}
+        checkedColor="#28AC45"
+      />
+    );
+  }
+
+  render() {
+    const { symptoms } = this.state;
+    return (
+      <View style={styles.container}>
+        <FlatList
+            // eslint-disable-next-line react/destructuring-assignment
+          data={Object.keys(symptoms)}
+          renderItem={({ item }) => { return this.renderSymptom(item); }}
+          keyExtractor={(item) => item.timestamp}
+              // contentContainerStyle={styles.overviewContainer}
+          style={{ flex: 1 }}
         />
-        <CheckBox
-          title="Shortness of Breath"
-          name="shortnessOfBreath"
-          checked={shortnessOfBreath}
-          onPress={() => this.setState((prevState) => {
-            const symptoms = { ...prevState.symptoms };
-            symptoms.shortnessOfBreath = !symptoms.shortnessOfBreath;
-            return { symptoms };
-          })}
-        />
-        <CheckBox
-          title="Fever"
-          name="hasFever"
-          checked={hasFever}
-          onPress={() => this.setState((prevState) => {
-            const symptoms = { ...prevState.symptoms };
-            symptoms.hasFever = !symptoms.hasFever;
-            return { symptoms };
-          })}
-        />
-        <CheckBox
-          title="Chills"
-          name="hasChills"
-          checked={hasChills}
-          onPress={() => this.setState((prevState) => {
-            const symptoms = { ...prevState.symptoms };
-            symptoms.hasChills = !symptoms.hasChills;
-            return { symptoms };
-          })}
-        />
-        <CheckBox
-          title="Muscle Pain"
-          name="musclePain"
-          checked={musclePain}
-          onPress={() => this.setState((prevState) => {
-            const symptoms = { ...prevState.symptoms };
-            symptoms.musclePain = !symptoms.musclePain;
-            return { symptoms };
-          })}
-        />
-        <CheckBox
-          title="Sore Throat"
-          name="soreThroat"
-          checked={soreThroat}
-          onPress={() => this.setState((prevState) => {
-            const symptoms = { ...prevState.symptoms };
-            symptoms.soreThroat = !symptoms.soreThroat;
-            return { symptoms };
-          })}
-        />
-        <CheckBox
-          title="Loss of Taste"
-          name="lossOfTaste"
-          checked={lossOfTaste}
-          onPress={() => this.setState((prevState) => {
-            const symptoms = { ...prevState.symptoms };
-            symptoms.lossOfTaste = !symptoms.lossOfTaste;
-            return { symptoms };
-          })}
-        />
-        <CheckBox
-          title="Loss of Smell"
-          name="lossOfSmell"
-          checked={lossOfSmell}
-          onPress={() => this.setState((prevState) => {
-            const symptoms = { ...prevState.symptoms };
-            symptoms.lossOfSmell = !symptoms.lossOfSmell;
-            return { symptoms };
-          })}
-        />
-        <Button
-          type="outline"
-          onPress={this.submit}
-          title="Submit"
-          color="#841584"
-          accessibilityLabel="Submit symptoms"
-        />
+        <TouchableOpacity style={styles.button} onPress={() => { this.submit(); }}>
+          <Text>Confirm</Text>
+        </TouchableOpacity>
       </View>
     );
   }
 }
-
-// const mapStateToProps = (reduxState) => ({
-//   symptoms: reduxState.symptoms.symptoms,
-// });
-
-// export default connect(mapStateToProps, null)(SymptomCheck);
 
 export default SymptomCheck;

@@ -80,15 +80,15 @@ class AccountInformation extends Component {
     const warningMessage = 'We don’t store any personally-identifying information, so if you lose this token, you’ll have to sign up again.';
     return (
       <View style={styles.accountInfoContainer}>
-        <Text style={styles.sectionHeader}>Account Information</Text>
-        <Text>
+        <Text style={styles.sectionHeaderCard}>Account Information</Text>
+        <Text style={styles.userToken}>
           User Token:
           {' '}
           {this.state.phraseToken}
         </Text>
-        <Text>{warningMessage}</Text>
-        <TouchableOpacity onPress={() => { this.setState({ passwordModal: true }); }}><Text>Change Password</Text></TouchableOpacity>
-        <TouchableOpacity onPress={() => { this.props.logout(); }}><Text>LOG OUT</Text></TouchableOpacity>
+        <Text style={styles.paragraph}>{warningMessage}</Text>
+        <TouchableOpacity style={styles.actionButton} onPress={() => { this.setState({ passwordModal: true }); }}><Text style={styles.actionButtonText}>Change Password</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.actionButton} onPress={() => { this.props.logout(); }}><Text style={styles.actionButtonText}>Log Out</Text></TouchableOpacity>
         {this.renderPasswordModal()}
       </View>
     );

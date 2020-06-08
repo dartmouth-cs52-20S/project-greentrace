@@ -6,13 +6,14 @@ import {
   Text,
   TouchableOpacity,
   ActivityIndicator,
-  StyleSheet,
   ScrollView,
+  RefreshControl,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/FontAwesome';
 import { FlatList } from 'react-native-gesture-handler';
 // import getDateUSFormatString from '../lib/date-lib';
 import { connect } from 'react-redux';
+import styles from '../styles/alerts';
 
 import MapBackground from './map-background';
 import { fetchMessages, setCurrMessage } from '../services/api';
@@ -23,7 +24,9 @@ class Alerts extends Component {
     super(props);
     this.state = {
       isLoading: true,
+      refreshing: false,
     };
+    this.onRefresh.bind(this);
   }
 
   componentDidMount() {
@@ -37,6 +40,13 @@ class Alerts extends Component {
     // console.log(this.props.messages);
     this.props.fetchMessages();
     this.setState({ isLoading: false });
+  }
+
+  onRefresh() {
+    this.setState({ refreshing: true });
+    // eslint-disable-next-line react/destructuring-assignment
+    this.props.fetchMessages();
+    this.setState({ refreshing: false, isLoading: false });
   }
 
   showMessageDetail(message) {
@@ -56,7 +66,7 @@ class Alerts extends Component {
 
   renderEmptyState() {
     return (
-      <MapBackground style={styles.emptyState}>
+      <MapBackground>
         <View style={styles.emptyState}>
           <Text style={styles.emptyStateMessage}>No alerts yet! :(</Text>
           <TouchableOpacity onPress={() => {
@@ -75,8 +85,7 @@ class Alerts extends Component {
             this.setState({ isLoading: false });
           }}
           >
-            <Text>Refresh</Text>
-            {/* <Ionicons name="redo" /> */}
+            <Ionicons name="refresh" size="26" style={styles.refresh} />
           </TouchableOpacity>
         </View>
       </MapBackground>
@@ -120,24 +129,24 @@ class Alerts extends Component {
       // this.state.messages.forEach((message) => { console.log('made it to display messages', message); });
       // eslint-disable-next-line react/destructuring-assignment
       // console.log('LINE 142 TRYING TO DISPLAY', this.props.messages);
+      const { refreshing } = this.state;
       return (
         <MapBackground>
-          <TouchableOpacity onPress={() => {
-          // eslint-disable-next-line react/destructuring-assignment
-            this.props.fetchMessages();
-            this.setState({ isLoading: false });
-          }}
+          <ScrollView
+            refreshControl={(
+              <RefreshControl
+                refreshing={refreshing}
+                // eslint-disable-next-line react/jsx-no-bind
+                onRefresh={this.onRefresh.bind(this)}
+              />
+            )}
           >
-            <Text>Refresh</Text>
-            {/* <Ionicons name="redo" size="26" /> */}
-          </TouchableOpacity>
-          <ScrollView>
             <FlatList
             // eslint-disable-next-line react/destructuring-assignment
               data={this.props.messages}
               renderItem={({ item }) => { return this.renderMessageThumbnail(item); }}
               keyExtractor={(item) => item.timestamp}
-              contentContainerStyle={styles.container}
+              contentContainerStyle={styles.overviewContainer}
               style={{ flex: 1 }}
             />
           </ScrollView>
@@ -146,45 +155,6 @@ class Alerts extends Component {
     }
   }
 }
-
-/*  */
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // justifyContent: 'space-around',
-    alignItems: 'center',
-    marginHorizontal: 15,
-    marginVertical: 10,
-  },
-  thumbnail: {
-    flexDirection: 'row',
-    marginHorizontal: 10,
-    marginVertical: 10,
-    padding: 10,
-    borderRadius: 7,
-    backgroundColor: 'white',
-  },
-  thumbnailIcon: {
-    marginHorizontal: 10,
-    marginRight: 15,
-    fontSize: 20,
-    alignSelf: 'center',
-  },
-  thumbnailMessage: {
-    fontSize: 20,
-    flexWrap: 'wrap',
-  },
-  emptyState: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  emptyStateMessage: {
-    fontSize: 15,
-  },
-});
 
 const mapStateToProps = (reduxState) => ({
   messages: reduxState.messages.messages,
