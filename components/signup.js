@@ -1,12 +1,14 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import {
-  StyleSheet, View, Text, TextInput, Button,
+  View, Text, TextInput, TouchableOpacity,
 } from 'react-native';
 import { connect } from 'react-redux';
 import Modal from 'react-native-modal';
 import SignUpModal from './signup-modal';
 import { signup } from '../services/api';
+import MapBackground from './map-background';
+import styles from '../styles/signinup';
 
 
 class SignUp extends Component {
@@ -28,6 +30,17 @@ class SignUp extends Component {
     this.setState({
       infoModal: false,
     });
+  }
+
+  // eslint-disable-next-line react/sort-comp
+  renderError() {
+    if (this.state.error) {
+      return (
+        <Text style={styles.errorText}>Invalid password or passwords do not match!</Text>
+      );
+    } else {
+      return null;
+    }
   }
 
   renderModal = () => {
@@ -66,8 +79,8 @@ class SignUp extends Component {
 
   render() {
     const { email, password, passwordConfirm } = this.state;
-    if (!this.state.error) {
-      return (
+    return (
+      <MapBackground>
         <View style={styles.container}>
           <Text style={styles.pageTitle}>GreenTrace</Text>
           <View style={styles.field}>
@@ -82,71 +95,18 @@ class SignUp extends Component {
             <Text style={styles.fieldTitle}>Confirm Password</Text>
             <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ passwordConfirm: text }); }} secureTextEntry value={passwordConfirm} placeholder="password" />
           </View>
+          {this.renderError()}
           {this.renderModal()}
-          <Button onPress={() => { this.submit(); }} title="Sign Up" />
+          <TouchableOpacity onPress={() => { this.submit(); }} style={styles.button}>
+            <Text>Sign Up</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => { this.props.navigation.navigate('Sign In'); }} style={styles.redirectButton}>
+            <Text style={styles.redirectButtonText}>Already have an account? Log In</Text>
+          </TouchableOpacity>
         </View>
-      );
-    } else {
-      return (
-        <View style={styles.container}>
-          <Text style={styles.pageTitle}>GreenTrace</Text>
-          <View style={styles.field}>
-            <Text style={styles.fieldTitle}>Email</Text>
-            <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ email: text }); }} value={email} placeholder="email" />
-          </View>
-          <View>
-            <Text style={styles.fieldTitle}>Password</Text>
-            <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ password: text }); }} secureTextEntry value={password} placeholder="password" />
-          </View>
-          <View>
-            <Text style={styles.fieldTitle}>Confirm Password</Text>
-            <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ passwordConfirm: text }); }} secureTextEntry value={passwordConfirm} placeholder="password" />
-            <Text style={styles.errorText}>Invalid password or passwords do not match!</Text>
-          </View>
-          {this.renderModal()}
-          <Button onPress={() => { this.submit(); }} title="Sign Up" />
-        </View>
-      );
-    }
+      </MapBackground>
+    );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    paddingTop: 100,
-    paddingBottom: 100,
-    backgroundColor: 'salmon',
-  },
-  errorText: {
-    color: 'white',
-    marginTop: 3,
-  },
-  textInput: {
-    borderColor: 'black',
-    borderWidth: 1,
-    borderRadius: 5,
-    width: 250,
-    height: 30,
-    padding: 3,
-    marginTop: 15,
-    backgroundColor: 'white',
-  },
-  field: {
-    padding: 3,
-  },
-  fieldTitle: {
-    color: 'white',
-    fontWeight: '700',
-    fontSize: 20,
-  },
-  pageTitle: {
-    color: 'white',
-    fontWeight: '600',
-    fontSize: 40,
-  },
-});
 
 export default connect(null, { signup })(SignUp);

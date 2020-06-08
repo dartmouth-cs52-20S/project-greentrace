@@ -3,7 +3,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import {
-  View, Text, StyleSheet, TouchableOpacity, AsyncStorage, // Modal,
+  View, Text, TouchableOpacity, AsyncStorage, // Modal,
 } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown';
 import Modal from 'react-native-modal';
@@ -12,12 +12,16 @@ import { connect } from 'react-redux';
 import SymptomCheck from './symptom-check';
 import { updateUser } from '../services/api';
 import UpdateModalContent from './status-update-modal';
+import MapBackground from './map-background';
+import styles from '../styles/status';
 
 class Status extends Component {
   constructor(props) {
     super(props);
     this.state = {
       prev: {},
+      prevCovid: 'Negative',
+      prevTested: 'Untested',
       covid: 'Negative',
       tested: 'Untested',
       confirmModal: false,
@@ -30,12 +34,6 @@ class Status extends Component {
   componentDidMount() {
     this.fetchCurrentStatus();
   }
-
-  // onHandleChange = (event) => {
-  //   if (event === 'Positive' || event === 'Negative') {
-  //     this.setState({ covid: event, edited: true });
-  //   }
-  // }
 
   fetchCurrentStatus = () => {
     AsyncStorage.getItem('currUser')
@@ -56,7 +54,11 @@ class Status extends Component {
             prev.tested = 'Untested';
           }
           // eslint-disable-next-line object-curly-newline
-          this.setState({ prev, covid: prev.covid, tested: prev.tested, id });
+          console.log('setting prev');
+          console.log(JSON.stringify(prev));
+          this.setState({
+            prevCovid: prev.covid, prevTested: prev.tested, covid: prev.covid, tested: prev.tested, id,
+          });
         }
       })
       .catch((err) => {
@@ -73,11 +75,12 @@ class Status extends Component {
   }
 
   onHandleChange = (event) => {
+    const { prevCovid, prevTested } = this.state;
     if (event === 'Positive' || event === 'Negative') {
-      this.setState({ covid: event, edited: true });
+      this.setState({ covid: event, edited: event !== prevCovid });
     }
     if (event === 'Tested' || event === 'Untested') {
-      this.setState({ tested: event, edited: true });
+      this.setState({ tested: event, edited: event !== prevTested });
     }
   }
 
@@ -91,8 +94,7 @@ class Status extends Component {
   renderSubmit() {
     if (this.state.edited) {
       return (
-        // <TouchableOpacity style={styles.actionButton} onPress={() => { this.setState({ modalIsVisible: true }); }}>
-        <TouchableOpacity onPress={() => { this.setState({ confirmModal: true }); }}>
+        <TouchableOpacity style={styles.actionButton} onPress={() => { this.setState({ confirmModal: true }); }}>
           <Text>
             Submit
           </Text>
@@ -153,8 +155,8 @@ class Status extends Component {
   }
 
   render() {
-    console.log('state:', this.state);
-    console.log('navigation', this.props.navigation);
+    // console.log('state:', this.state);
+    // console.log('navigation', this.props.navigation);
     const covidOptions = [
       {
         value: 'Positive',
@@ -171,89 +173,63 @@ class Status extends Component {
         value: 'Untested',
       },
     ];
+    const dropdownOverlayStyles = {
+      alignSelf: 'center',
+    };
+    const dropdownOffset = {
+      top: 0,
+      left: 0,
+    };
     // eslint-disable-next-line react/destructuring-assignment
-    console.log('show modal?', this.state.confirmModal);
-    console.log('edited?', this.state.edited);
-    console.log('covid?', this.state.covid);
-    console.log('tested?', this.state.tested);
+    // console.log('show modal?', this.state.confirmModal);
+    // console.log('edited?', this.state.edited);
+    // console.log('covid?', this.state.covid);
+    // console.log('tested?', this.state.tested);
 
     return (
-      <View style={styles.container}>
-        <View style={styles.field}>
-          <Text>
-            COVID-19 Status
-          </Text>
-          <Dropdown
-            name="covid"
-            data={covidOptions}
-            style={styles.dropdown}
-            value={this.state.covid}
-            onChangeText={this.onHandleChange}
-          />
+      <MapBackground>
+        <View style={styles.container}>
+          <View style={styles.field}>
+            <Text style={styles.fieldTitle}>
+              COVID-19 Status
+            </Text>
+            <Dropdown
+              name="covid"
+              data={covidOptions}
+              style={styles.dropdown}
+              value={this.state.covid}
+              onChangeText={this.onHandleChange}
+              dropdownOffset={dropdownOffset}
+              overlayStyle={dropdownOverlayStyles}
+              containerStyle={styles.dropdownContainer}
+            />
+          </View>
+          <View style={styles.field}>
+            <Text style={styles.fieldTitle}>
+              Testing Status
+            </Text>
+            <Dropdown
+              name="tested"
+              data={testedOptions}
+              style={styles.dropdown}
+              value={this.state.tested}
+              onChangeText={this.onHandleChange}
+              dropdownOffset={dropdownOffset}
+              overlayStyle={dropdownOverlayStyles}
+              containerStyle={styles.dropdownContainer}
+            />
+          </View>
+          <TouchableOpacity style={styles.actionButton} onPress={() => { this.setState({ symptomModal: true }); }}>
+            <Text>Check Symptoms</Text>
+          </TouchableOpacity>
+          {this.renderSubmit()}
+          {this.renderSymptomModal()}
+          {this.renderConfirmModal()}
         </View>
-        <View style={styles.field}>
-          <Text>
-            Testing Status
-          </Text>
-          <Dropdown
-            name="tested"
-            data={testedOptions}
-            style={styles.dropdown}
-            value={this.state.tested}
-            onChangeText={this.onHandleChange}
-          />
-        </View>
-        <TouchableOpacity onPress={() => { this.setState({ symptomModal: true }); }}>
-          <Text>Check Symptoms</Text>
-        </TouchableOpacity>
-        {this.renderSubmit()}
-        {/* <TouchableOpacity onPress={() => {
-          console.log('pressed button yay');
-          this.setState({ modalIsVisible: true });
-        }}
-        >
-          <Text>
-            Render Modal
-          </Text>
-        </TouchableOpacity> */}
-        {this.renderSymptomModal()}
-        {this.renderConfirmModal()}
-      </View>
-      // </View>
-
+        {/* // </View> */}
+      </MapBackground>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '100%',
-    backgroundColor: 'white',
-  },
-  dropdown: {
-    width: 250,
-  },
-  field: {
-    flex: 1,
-    justifyContent: 'space-around',
-    alignItems: 'stretch',
-    width: 200,
-    // flexDirection: 'column',
-    // alignItems: 'center',
-    marginTop: 30,
-  },
-  hamburger: {
-    alignSelf: 'flex-end',
-    padding: 0,
-    marginRight: 50,
-    marginTop: 50,
-  },
-  actionButton: {
-    marginTop: 50,
-  },
-});
 
 export default connect(null, { updateUser })(Status);

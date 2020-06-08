@@ -30,7 +30,6 @@ class App extends Component {
     return (
       <Provider store={store}>
         <LocationTracking />
-        {/* <MainTabBar /> */}
         <MainNavigation />
       </Provider>
     );

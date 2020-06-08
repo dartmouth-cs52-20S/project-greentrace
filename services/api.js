@@ -106,6 +106,7 @@ export const signin = ({ email, password }) => {
     return 'not success';
   });
 };
+
 export const fetchMessages = () => {
   return (dispatch) => {
     console.log('fetchMessages');

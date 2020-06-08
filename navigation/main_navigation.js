@@ -18,11 +18,16 @@ const MainNavigation = () => {
           component={SignIn}
           options={{
             headerShown: false,
+            gestureEnabled: false,
           }}
         />
         <Stack.Screen
           name="Sign Up"
           component={SignUp}
+          options={{
+            headerShown: false,
+            gestureEnabled: false,
+          }}
         />
         <Stack.Screen
           name="Tab Bar"
