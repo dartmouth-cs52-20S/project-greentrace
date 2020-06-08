@@ -1,10 +1,11 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import {
-  StyleSheet, View, Text, TextInput, TouchableOpacity, // Dimensions, // AsyncStorage,
+  View, Text, TextInput, TouchableOpacity, // Dimensions, // AsyncStorage,
 } from 'react-native';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { signin } from '../services/api';
+import MapBackground from './map-background';
+import styles from '../styles/signinup';
 
 class SignIn extends Component {
   constructor(props) {
@@ -33,37 +34,23 @@ class SignIn extends Component {
     }
   }
 
-  render() {
-    const {
-      tokenFirstPart, tokenSecondPart, password, error,
-    } = this.state;
-    // console.log('dimensions', Dimensions.get('window').width, Dimensions.get('window').height);
+  renderError() {
+    const { error } = this.state;
     if (!error) {
-      return (
-        <View style={styles.container}>
-          <Text style={styles.pageTitle}>GreenTrace</Text>
-          <View style={styles.field}>
-            <Text style={styles.fieldTitle}>Your Token</Text>
-            <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ tokenFirstPart: text }); }} value={tokenFirstPart} placeholder="first word" />
-            <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ tokenSecondPart: text }); }} value={tokenSecondPart} placeholder="second word" />
-          </View>
-          <View>
-            <Text style={styles.fieldTitle}>Password</Text>
-            <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ password: text }); }} secureTextEntry value={password} placeholder="password" />
-          </View>
-          <TouchableOpacity onPress={() => { this.submit(); }} style={styles.button}>
-            <Text>Log In</Text>
-          </TouchableOpacity>
-          {/* <Button onPress={() => { this.submit(); }} style={styles.button} color="white" title="Log In" /> */}
-          <TouchableOpacity onPress={() => { this.props.navigation.navigate('Sign Up'); }} style={styles.redirectButton}>
-            <Text style={styles.redirectButtonText}>New user? Sign Up</Text>
-          </TouchableOpacity>
-          {/* <Button onPress={() => { this.props.navigation.navigate('Sign Up'); }} color="white" title="New user? Sign Up" /> */}
-          {/* <Button onPress={() => { AsyncStorage.clear(); }} style={styles.button} color="white" title="Sign Out" /> */}
-        </View>
-      );
+      return null;
     } else {
       return (
+        <View style={styles.errorSection}>
+          <Text style={styles.errorText}>Incorrect username or password. Please try again or sign up.</Text>
+        </View>
+      );
+    }
+  }
+
+  render() {
+    const { tokenFirstPart, tokenSecondPart, password } = this.state;
+    return (
+      <MapBackground>
         <View style={styles.container}>
           <Text style={styles.pageTitle}>GreenTrace</Text>
           <View style={styles.field}>
@@ -74,72 +61,18 @@ class SignIn extends Component {
           <View>
             <Text style={styles.fieldTitle}>Password</Text>
             <TextInput secureTextEntry style={styles.textInput} onChangeText={(text) => { this.setState({ password: text }); }} value={password} placeholder="password" />
-            <Text style={styles.errorText}>Incorrect username or password</Text>
           </View>
+          {this.renderError()}
           <TouchableOpacity onPress={() => { this.submit(); }} style={styles.button}>
             <Text>Log In</Text>
           </TouchableOpacity>
-          {/* <Button onPress={() => { this.submit(); }} style={styles.button} color="white" title="Log In" /> */}
           <TouchableOpacity onPress={() => { this.props.navigation.navigate('Sign Up'); }} style={styles.redirectButton}>
             <Text style={styles.redirectButtonText}>New user? Sign Up</Text>
           </TouchableOpacity>
-          {/* <Button onPress={() => { this.props.navigation.navigate('Sign Up'); }} color="white" title="New user? Sign Up" /> */}
-          {/* <Button onPress={() => { AsyncStorage.clear(); }} style={styles.button} color="white" title="Sign Out" /> */}
         </View>
-      );
-    }
+      </MapBackground>
+    );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    paddingTop: hp('15%'),
-    paddingBottom: hp('15%'),
-    backgroundColor: 'salmon',
-  },
-  textInput: {
-    borderColor: 'black',
-    borderWidth: 1,
-    borderRadius: 5,
-    width: wp('66%'),
-    height: hp('4.5%'),
-    padding: hp('1%'),
-    marginTop: hp('2.25%'),
-    backgroundColor: 'white',
-  },
-  field: {
-    padding: hp('1%'),
-  },
-  fieldTitle: {
-    color: 'white',
-    fontWeight: '700',
-    fontSize: wp('5.33333333%'),
-  },
-  errorText: {
-    color: 'white',
-  },
-  pageTitle: {
-    color: 'white',
-    fontWeight: '600',
-    fontSize: wp('12%'),
-  },
-  button: {
-    backgroundColor: 'white',
-    paddingHorizontal: wp('5%'),
-    paddingVertical: hp('2%'),
-    borderRadius: 5,
-  },
-  redirectButton: {
-    paddingHorizontal: wp('5%'),
-    paddingVertical: hp('2%'),
-  },
-  redirectButtonText: {
-    color: 'white',
-    fontSize: wp('4%'),
-  },
-});
 
 export default SignIn;

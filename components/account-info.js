@@ -2,10 +2,11 @@
 import React, { Component } from 'react';
 import Modal from 'react-native-modal';
 import {
-  StyleSheet, Text, View, TouchableOpacity, AsyncStorage,
+  Text, View, TouchableOpacity, AsyncStorage,
 } from 'react-native';
 // import { connect } from 'react-redux';
 import PasswordChange from './password-modal';
+import styles from '../styles/info';
 
 
 class AccountInformation extends Component {
@@ -78,8 +79,8 @@ class AccountInformation extends Component {
   render() {
     const warningMessage = 'We don’t store any personally-identifying information, so if you lose this token, you’ll have to sign up again.';
     return (
-      <View style={styles.container}>
-        <Text>Account Information</Text>
+      <View style={styles.accountInfoContainer}>
+        <Text style={styles.sectionHeader}>Account Information</Text>
         <Text>
           User Token:
           {' '}
@@ -93,15 +94,6 @@ class AccountInformation extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    minHeight: 400,
-  },
-});
 
 // const mapStateToProps = (reduxState) => {
 //   return {

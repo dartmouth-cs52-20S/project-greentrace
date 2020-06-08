@@ -13,14 +13,28 @@ const AlertTab = () => {
     <Stack.Navigator>
       <Stack.Screen
         name="Alerts"
+        title="Covid-Positive Contacts"
         component={Alerts}
-        options={Alerts.navigationOptions}
+        options={{
+          headerTitleStyle: {
+            color: 'white',
+          },
+          headerStyle: {
+            backgroundColor: 'black',
+          },
+        }}
       />
       <Stack.Screen
         name="AlertsDetail"
         component={AlertsDetail}
         options={{
           title: 'Alerts',
+          headerTitleStyle: {
+            color: 'white',
+          },
+          headerStyle: {
+            backgroundColor: 'black',
+          },
         }}
       />
     </Stack.Navigator>

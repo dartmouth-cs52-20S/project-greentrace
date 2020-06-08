@@ -5,24 +5,20 @@ import { connect } from 'react-redux';
 import {
   getNumContactsPositive, getNumSymptoms, getNumTested, getNumPositive,
 } from '../services/api';
+import styles from '../styles/risk';
 
 class RiskDetail extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-
   determineNumberOfCovidContacts() {
     this.props.getNumContactsPositive();
     const num = this.props.numPositiveContacts;
     console.log('numPositiveContacts:', num);
     return (
-      <Text>
-        Number of Contacts That Have Tested Positive:
-        {' '}
-        {num}
-      </Text>
+      <View style={styles.statistic}>
+        <Text style={styles.statNumber}>{num}</Text>
+        <Text style={styles.statLabel}>
+          contacts who have tested positive
+        </Text>
+      </View>
     );
   }
 
@@ -30,11 +26,12 @@ class RiskDetail extends Component {
     this.props.getNumTested();
     const num = this.props.numTested;
     return (
-      <Text>
-        Number of Users Tested:
-        {' '}
-        {num}
-      </Text>
+      <View style={styles.statistic}>
+        <Text style={styles.statNumber}>{num}</Text>
+        <Text style={styles.statLabel}>
+          users tested
+        </Text>
+      </View>
     );
   }
 
@@ -42,11 +39,12 @@ class RiskDetail extends Component {
     this.props.getNumSymptoms();
     const num = this.props.numSymptoms;
     return (
-      <Text>
-        Number of Symptoms:
-        {' '}
-        {num}
-      </Text>
+      <View style={styles.statistic}>
+        <Text style={styles.statNumber}>{num}</Text>
+        <Text style={styles.statLabel}>
+          symptoms
+        </Text>
+      </View>
     );
   }
 
@@ -55,17 +53,18 @@ class RiskDetail extends Component {
     const num = this.props.numPositive;
     console.log('Number of people infected', num);
     return (
-      <Text>
-        Number of Positive Users:
-        {' '}
-        {num}
-      </Text>
+      <View style={styles.statistic}>
+        <Text style={styles.statNumber}>{num}</Text>
+        <Text style={styles.statLabel}>
+          positive users
+        </Text>
+      </View>
     );
   }
 
   render() {
     return (
-      <View>
+      <View style={styles.statContainer}>
         {this.determineNumberOfCovidContacts()}
         {this.determineNumberOfSymptoms()}
         {this.determineNumberOfTested()}

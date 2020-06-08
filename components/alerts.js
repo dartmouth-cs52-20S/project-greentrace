@@ -7,30 +7,17 @@ import {
   ActivityIndicator,
   StyleSheet,
   ScrollView,
-  Button,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/FontAwesome';
 import { FlatList } from 'react-native-gesture-handler';
 // import getDateUSFormatString from '../lib/date-lib';
 import { connect } from 'react-redux';
+
+import MapBackground from './map-background';
 import { fetchMessages, setCurrMessage } from '../services/api';
 
-class Alerts extends Component {
-  static navigationOptions = {
-    title: 'Alerts',
-    headerStyle: {
-      backgroundColor: 'green',
-    },
-    headerTintColor: '#fff',
-    // headerLeft: () => (
-    //   <Button
-    //     onPress={() => alert('This is a button!')}
-    //     title="Info"
-    //     color="#fff"
-    //   />
-    // ),
-  };
 
+class Alerts extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -67,50 +54,43 @@ class Alerts extends Component {
 
   renderEmptyState() {
     return (
-      <View style={styles.emptyState}>
-        <Text style={styles.emptyStateMessage}>No alerts yet! :(</Text>
-        <Button onPress={() => {
-          // eslint-disable-next-line react/destructuring-assignment
-          const messages = this.props.fetchMessages();
-          console.log(messages);
-          // const { messages } = this.props;
-          // console.log('fetched messages', messages);
-          // if (messages === undefined) {
-          //   this.setState({ messages: [] });
-          // } else this.setState({ messages });
-          // eslint-disable-next-line react/destructuring-assignment
-          // this.props.fetchMessages();
-          // console.log('messages');
-          // eslint-disable-next-line react/destructuring-assignment
-          // console.log(this.props.messages);
-          this.setState({ isLoading: false });
-        }}
-          color="white"
-          title="refresh"
-        />
-      </View>
+      <MapBackground style={styles.emptyState}>
+        <View style={styles.emptyState}>
+          <Text style={styles.emptyStateMessage}>No alerts yet! :(</Text>
+          <TouchableOpacity onPress={() => {
+            // eslint-disable-next-line react/destructuring-assignment
+            this.props.fetchMessages();
+            // const { messages } = this.props;
+            // console.log('fetched messages', messages);
+            // if (this.props.messages === undefined) {
+            //   this.setState({ messages: [] });
+            // } else this.setState({ messages: messages2 });
+            // eslint-disable-next-line react/destructuring-assignment
+            // this.props.fetchMessages();
+            // console.log('messages');
+            // eslint-disable-next-line react/destructuring-assignment
+            // console.log(this.props.messages);
+            this.setState({ isLoading: false });
+          }}
+          >
+            <Text>Refresh</Text>
+            {/* <Ionicons name="redo" /> */}
+          </TouchableOpacity>
+        </View>
+      </MapBackground>
     );
   }
 
   renderMessageThumbnail(message) {
-    const {
-      timestamp, covid, tested,
-    } = message;
-    let text;
-    if (covid && tested) {
-      text = 'Contact with COVID-19 positive individual';
-    } else if (!covid && tested) {
-      text = 'Contact with COVID-19 negative individual';
-    } else { // not tested/is being tested
-      text = 'Contact with individual being tested for COVID-19';
-    }
+    console.log('message', message);
+    const { contactDate } = message;
+    const text = new Date(contactDate).toDateString();
 
     return (
-      <TouchableOpacity key={timestamp} style={styles.thumbnail} onPress={() => { this.showMessageDetail(message); }}>
+      <TouchableOpacity key={contactDate} style={styles.thumbnail} onPress={() => { this.showMessageDetail(message); }}>
         <Ionicons name="warning" style={styles.thumbnailIcon} />
         <View>
           <Text style={styles.thumbnailMessage}>{text}</Text>
-          <Text style={styles.thumbnailTime}>{timestamp}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -139,25 +119,16 @@ class Alerts extends Component {
       // eslint-disable-next-line react/destructuring-assignment
       // console.log('LINE 142 TRYING TO DISPLAY', this.props.messages);
       return (
-        <View>
-          <Button onPress={() => {
+        <MapBackground>
+          <TouchableOpacity onPress={() => {
           // eslint-disable-next-line react/destructuring-assignment
             this.props.fetchMessages();
-            // const { messages } = this.props;
-            // console.log('fetched messages', messages);
-            // if (this.props.messages === undefined) {
-            //   this.setState({ messages: [] });
-            // } else this.setState({ messages: messages2 });
-            // eslint-disable-next-line react/destructuring-assignment
-            // this.props.fetchMessages();
-            // console.log('messages');
-            // eslint-disable-next-line react/destructuring-assignment
-            // console.log(this.props.messages);
             this.setState({ isLoading: false });
           }}
-            color="white"
-            title="refresh"
-          />
+          >
+            <Text>Refresh</Text>
+            {/* <Ionicons name="redo" size="26" /> */}
+          </TouchableOpacity>
           <ScrollView>
             <FlatList
             // eslint-disable-next-line react/destructuring-assignment
@@ -168,7 +139,7 @@ class Alerts extends Component {
               style={{ flex: 1 }}
             />
           </ScrollView>
-        </View>
+        </MapBackground>
       );
     }
   }

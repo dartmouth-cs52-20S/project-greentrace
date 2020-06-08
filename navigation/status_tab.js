@@ -15,7 +15,12 @@ const StatusTab = () => {
       <Stack.Screen
         name="Status"
         component={Status}
-        options={Status.navigationOptions}
+        options={({ navigation, route }) => ({
+          headerStyle: {
+            backgroundColor: 'black',
+          },
+          headerTintColor: '#fff',
+        })}
       />
     </Stack.Navigator>
   );
