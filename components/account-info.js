@@ -80,7 +80,7 @@ class AccountInformation extends Component {
     const warningMessage = 'We don’t store any personally-identifying information, so if you lose this token, you’ll have to sign up again.';
     return (
       <View style={styles.accountInfoContainer}>
-        <Text style={styles.sectionHeader}>Account Information</Text>
+        <Text style={styles.sectionHeaderCard}>Account Information</Text>
         <Text style={styles.userToken}>
           User Token:
           {' '}

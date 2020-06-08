@@ -46,8 +46,14 @@ const styles = StyleSheet.create({
     // paddingVertical: hp('10%'),
     paddingHorizontal: wp('10%'),
   },
-  sectionHeader: {
+  sectionHeaderCard: {
     fontSize: wp('6%'),
+    fontWeight: '500',
+  },
+  sectionHeaderMap: {
+    fontSize: wp('6%'),
+    color: 'white',
+    fontWeight: '500',
   },
   paragraph: {
     textAlign: 'center',
@@ -57,14 +63,38 @@ const styles = StyleSheet.create({
     fontSize: wp('4%'),
   },
   actionButton: {
+    // flex: 1,
+    // flexDirection: 'row',
     backgroundColor: '#28AC45',
     borderRadius: 4,
     paddingVertical: hp('2%'),
     paddingHorizontal: wp('2%'),
+    maxWidth: wp('40%'),
+    justifyContent: 'center',
   },
   actionButtonText: {
     color: 'white',
     fontSize: wp('4%'),
+    textAlign: 'center',
+  },
+  privacyContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    height: hp('80%'),
+    alignItems: 'center',
+  },
+  privacyParagraph: {
+    fontSize: wp('5%'),
+    fontWeight: '400',
+    textAlign: 'center',
+    color: 'white',
+  },
+  policyContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+    maxHeight: hp('60%'),
+    width: wp('80%'),
   },
 });
 
