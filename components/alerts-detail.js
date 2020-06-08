@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View /* TouchableOpacity */ } from 'react-native';
 import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/FontAwesome';
 import Modal from 'react-native-modal';
@@ -52,7 +52,7 @@ class AlertsDetail extends Component {
           <Ionicons name="warning" style={styles.detailIcon} />
           <Text style={styles.detailInformation}>{notification}</Text>
           <Text style={styles.detailInformation}>{recommendation}</Text>
-          <TouchableOpacity onPress={() => { this.setState({ isModalVisible: true }); }}><Text>Resources</Text></TouchableOpacity>
+          {/* <TouchableOpacity onPress={() => { this.setState({ isModalVisible: true }); }}><Text>Resources</Text></TouchableOpacity> */}
           {this.renderModal()}
         </View>
       </MapBackground>
