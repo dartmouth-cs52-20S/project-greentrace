@@ -55,8 +55,11 @@ class SignIn extends Component {
           <Text style={styles.pageTitle}>GreenTrace</Text>
           <View style={styles.field}>
             <Text style={styles.fieldTitle}>Your Token</Text>
-            <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ tokenFirstPart: text }); }} value={tokenFirstPart} placeholder="first word" />
-            <TextInput style={styles.textInput} onChangeText={(text) => { this.setState({ tokenSecondPart: text }); }} value={tokenSecondPart} placeholder="second word" />
+            <View style={styles.tokenHalves}>
+              <TextInput style={styles.halfToken} onChangeText={(text) => { this.setState({ tokenFirstPart: text }); }} value={tokenFirstPart} placeholder="first word" />
+              <Text style={styles.halfTokenConnect}>-</Text>
+              <TextInput style={styles.halfToken} onChangeText={(text) => { this.setState({ tokenSecondPart: text }); }} value={tokenSecondPart} placeholder="second word" />
+            </View>
           </View>
           <View>
             <Text style={styles.fieldTitle}>Password</Text>

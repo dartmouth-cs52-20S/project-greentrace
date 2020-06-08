@@ -11,6 +11,28 @@ const SignInUpStyles = StyleSheet.create({
     paddingTop: hp('15%'),
     paddingBottom: hp('15%'),
   },
+  halfToken: {
+    borderColor: 'black',
+    borderWidth: 1,
+    borderRadius: 5,
+    width: wp('32%'),
+    height: hp('4.5%'),
+    padding: hp('1%'),
+    marginTop: hp('2.25%'),
+    backgroundColor: 'white',
+  },
+  halfTokenConnect: {
+    fontSize: wp('5%'),
+    alignSelf: 'center',
+    color: 'white',
+    paddingVertical: hp('1%'),
+  },
+  tokenHalves: {
+    flex: 1,
+    flexDirection: 'row',
+    maxHeight: hp('4%'),
+    alignItems: 'center',
+  },
   textInput: {
     borderColor: 'black',
     borderWidth: 1,

@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     maxHeight: hp('70%'),
   },
   dropdown: {
-    width: 250,
+    width: wp('66.666666666666%'),
     backgroundColor: 'white',
   },
   dropdownContainer: {

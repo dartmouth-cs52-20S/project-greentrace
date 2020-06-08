@@ -1,38 +1,38 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import {
-  Text, View, TouchableOpacity, StyleSheet,
+  Text, View, TouchableOpacity,
 } from 'react-native';
+import styles from '../styles/modal';
 // import { connect } from 'react-redux';
 // import Ionicons from 'react-native-vector-icons/FontAwesome';
 
 const UpdateModalContent = (props) => {
   const { original, update } = props;
 
-
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Update Status</Text>
-      <View style={styles.status}>
-        <Text style={styles.statusTitle}>Current Status</Text>
-        <View style={styles.statusInfo}>
-          <Text>{original.covid}</Text>
-          <Text>{original.tested}</Text>
+    <View style={styles.confirmContainer}>
+      <Text style={styles.confirmTitle}>Update Status</Text>
+      <View style={styles.confirmStatus}>
+        <Text style={styles.confirmStatusTitle}>Current Status</Text>
+        <View style={styles.confirmStatusInfo}>
+          <Text style={styles.statusContentText}>{original.covid}</Text>
+          <Text style={styles.statusContentText}>{original.tested}</Text>
         </View>
       </View>
-      <View style={styles.status}>
-        <Text style={styles.statusTitle}>Updated Status</Text>
-        <View style={styles.statusInfo}>
-          <Text>{update.covid}</Text>
-          <Text>{update.tested}</Text>
+      <View style={styles.confirmStatus}>
+        <Text style={styles.confirmStatusTitle}>Updated Status</Text>
+        <View style={styles.confirmStatusInfo}>
+          <Text style={styles.statusContentText}>{update.covid}</Text>
+          <Text style={styles.statusContentText}>{update.tested}</Text>
         </View>
       </View>
-      <View style={styles.buttons}>
-        <TouchableOpacity onPress={() => { props.submit(); }}>
-          <Text>Confirm</Text>
+      <View style={styles.confirmButtons}>
+        <TouchableOpacity style={styles.confirmButton} onPress={() => { props.submit(); }}>
+          <Text style={styles.confirmCancelText}>Confirm</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => { props.closeModal(); }}>
-          <Text>
+        <TouchableOpacity style={styles.cancelButton} onPress={() => { props.closeModal(); }}>
+          <Text style={styles.confirmCancelText}>
             Cancel
           </Text>
         </TouchableOpacity>
@@ -40,41 +40,6 @@ const UpdateModalContent = (props) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'white',
-    alignSelf: 'center',
-    padding: 30,
-    borderRadius: 10,
-    flex: 1,
-    flexDirection: 'column',
-    width: 300,
-    maxHeight: 350,
-  },
-  status: {
-    marginVertical: 10,
-  },
-  statusTitle: {
-    fontSize: 15,
-    textAlign: 'center',
-  },
-  statusInfo: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    margin: 10,
-  },
-  title: {
-    fontSize: 20,
-    textAlign: 'center',
-    marginVertical: 20,
-  },
-  buttons: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    marginTop: 20,
-  },
-});
 
 export default UpdateModalContent;
 // export default connect(null, null)(UpdateModalContent);

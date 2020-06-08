@@ -6,7 +6,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 const RiskStyles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-around',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
     marginBottom: hp('20%'),
     marginTop: hp('5%'),
@@ -14,7 +14,7 @@ const RiskStyles = StyleSheet.create({
     marginHorizontal: hp('5%'),
     backgroundColor: 'white',
     paddingHorizontal: wp('20%'),
-    paddingVertical: hp('5%'),
+    // paddingVertical: hp('5%'),
   },
   statistic: {
     flex: 1,
@@ -45,7 +45,7 @@ const RiskStyles = StyleSheet.create({
   },
   riskDialContainer: {
     paddingHorizontal: wp('10%'),
-    paddingVertical: hp('5%'),
+    paddingTop: hp('5%'),
     // paddingBottom: hp('10%'),
   },
   dialLabel: {
