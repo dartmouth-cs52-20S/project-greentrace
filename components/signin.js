@@ -26,13 +26,9 @@ class SignIn extends Component {
       signin({ email, password }).then((response) => {
         if (response === 'success') {
           this.props.navigation.navigate('Tab Bar');
-<<<<<<< HEAD
-          this.setState({ error: false, email: '', password: '' });
-=======
           this.setState({
             error: false, tokenFirstPart: '', tokenSecondPart: '', password: '',
           });
->>>>>>> e10b6a4750154ed6a74bc5e608304d0f73dda91e
         } else this.setState({ error: true });
       });
     }
