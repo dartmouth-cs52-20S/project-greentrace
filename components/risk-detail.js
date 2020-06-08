@@ -64,7 +64,7 @@ class RiskDetail extends Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.statContainer}>
         {this.determineNumberOfCovidContacts()}
         {this.determineNumberOfSymptoms()}
         {this.determineNumberOfTested()}

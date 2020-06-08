@@ -21,6 +21,7 @@ const AlertTab = () => {
         component={AlertsDetail}
         options={{
           title: 'Alerts',
+          headerBackground: 'black',
         }}
       />
     </Stack.Navigator>
