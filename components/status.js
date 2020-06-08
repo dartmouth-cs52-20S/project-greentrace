@@ -20,6 +20,8 @@ class Status extends Component {
     super(props);
     this.state = {
       prev: {},
+      prevCovid: 'Negative',
+      prevTested: 'Untested',
       covid: 'Negative',
       tested: 'Untested',
       confirmModal: false,
@@ -52,7 +54,11 @@ class Status extends Component {
             prev.tested = 'Untested';
           }
           // eslint-disable-next-line object-curly-newline
-          this.setState({ prev, covid: prev.covid, tested: prev.tested, id });
+          console.log('setting prev');
+          console.log(JSON.stringify(prev));
+          this.setState({
+            prevCovid: prev.covid, prevTested: prev.tested, covid: prev.covid, tested: prev.tested, id,
+          });
         }
       })
       .catch((err) => {
@@ -69,11 +75,12 @@ class Status extends Component {
   }
 
   onHandleChange = (event) => {
+    const { prevCovid, prevTested } = this.state;
     if (event === 'Positive' || event === 'Negative') {
-      this.setState({ covid: event, edited: true });
+      this.setState({ covid: event, edited: event !== prevCovid });
     }
     if (event === 'Tested' || event === 'Untested') {
-      this.setState({ tested: event, edited: true });
+      this.setState({ tested: event, edited: event !== prevTested });
     }
   }
 
@@ -87,8 +94,7 @@ class Status extends Component {
   renderSubmit() {
     if (this.state.edited) {
       return (
-        // <TouchableOpacity style={styles.actionButton} onPress={() => { this.setState({ modalIsVisible: true }); }}>
-        <TouchableOpacity onPress={() => { this.setState({ confirmModal: true }); }}>
+        <TouchableOpacity style={styles.actionButton} onPress={() => { this.setState({ confirmModal: true }); }}>
           <Text>
             Submit
           </Text>

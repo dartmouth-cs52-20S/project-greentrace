@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // justifyContent: 'space-between',
+    marginVertical: hp('5%'),
     marginHorizontal: wp('10%'),
     alignItems: 'center',
     // backgroundColor: 'white',
@@ -42,6 +43,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp('3%'),
     paddingVertical: hp('2%'),
     borderRadius: 10,
+    marginVertical: hp('3%'),
+    marginHorizontal: wp('2%'),
   },
 });
 
