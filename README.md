@@ -2,37 +2,126 @@
 
 ![Team Photo](./assets/selfie.png)
 
-GreenTrace is a React Native mobile application to contact trace for COVID-19 at Dartmouth College. We intend to implement functionality for an alert system to notify users when they've been near someone who has COVID-19; a portal allowing users to identify themselves as COVID-19 positive; a heat map of campus to show users potential COVID-19 hotspots; and a risk assessment page based on a user's information. Thus far, we have completed initial mockups, and we have a basic version of the map, alerts, and update status page. Our risk assessment page is under construction, and all other aspects are also looking forward to some heavy restructuring.
+GreenTrace is a contact tracing mobile application for COVID-19 at Dartmouth College. We implement functionality for:
+- An notifications page to inform users when they've been in contact with someone who has tested positive for COVID-19
+- A form to allow users to report their testing status, COVID-19 status, and relevant symptoms
+- A heat map of campus (or of wherever users are) to show potential COVID-19 hotspots
+- A risk assessment page based on a user's information
+
+We also want to honor our users privacy as much as possible, and to that end, we took a few key steps. First and foremost, **no identifying information** (such as email, name, or Dartmouth ID) is persisted to our MongoDB storage. Users do enter in their email address when signing up but this is only to send them a phrase token which they will use upon subsequent sign in attempts. Further, all location and contact data is discarded after two weeks. Users may also log out at any point.
 
 [Figma Link for our mockups](https://www.figma.com/file/yxsUgPFvbNk1mntMHKRfp1/GreenTrace?node-id=70%3A226)
 
 ## Architecture
 
-TODO:  descriptions of code organization and tools and libraries used
 
-(Initial Stage) - Server Side
-   
-To start off, we've decided to base the server side for our application off of the server we built for Lab 5. We plan models and controllers for both users (to use for authentication and potentially to record their current COVID-19 status) and for data observations (to help us track our user's movements). Our user model will be fairly straightforward with the previously described fields. Our observations model will record each location observation that we record from our user. In our model, we will include fields for latitude, longitude, user ID (we don't want to use name here necessarily for privacy concerns), and a timestamp of the observation. Additionally, we plan to use Mongo to store our data.
-
-(Inital Stage) - Front-end
+```
+.
+├── App.js
+├── app.json
+├── assets
+│   └── ...
+├── components
+│   ├── HeatMap.js
+│   ├── Location.js
+│   ├── account-info.js
+│   ├── alerts-detail.js
+│   ├── alerts.js
+│   ├── drawer-toggle.js
+│   ├── information.js
+│   ├── map.js
+│   ├── password-modal.js
+│   ├── privacy-info.js
+│   ├── resources.js
+│   ├── risk-detail.js
+│   ├── risk-dial.js
+│   ├── risk-info.js
+│   ├── risk.js
+│   ├── signin.js
+│   ├── signup.js
+│   ├── status-update-modal.js
+│   ├── status.js
+│   ├── symptom-check.js
+│   └── symptom-initial.js
+├── lib
+│   ├── date-lib.js
+│   ├── resources.json
+│   └── risk.json
+├── navigation
+│   ├── alert_tab.js
+│   ├── info_tab.js
+│   ├── main_navigation.js
+│   ├── main_tab_bar.js
+│   ├── map_tab.js
+│   ├── risk_tab.js
+│   ├── status_tab.js
+│   └── symptom_stack.js
+├── reducers
+│   ├── auth_reducer.js
+│   ├── index.js
+│   ├── locationsReducer.js
+│   ├── messagesReducer.js
+│   ├── risk_reducer.js
+│   └── user_reducer.js
+├── services
+│   └── api.js
+├── web-build
+│   └── register-service-worker.js
+└── yarn.lock
+```
     
-For our front-end, we plan to use React Native to build a mobile application. We intend to craft our app so that it's as seamless as possible. When a user first opens the app, if they're not signed in (or signed up) yet, they will be directed to a simple, clean page with buttons to either sign up or log in. If they select sign up, they will be routed to a sign up form which they will need to fill out. Once they're signed in, they will be directed to a home page which we hope to display our heat map. Then, we will use a bottom navigation bar to allow the user to navigate to a page showing their recent COVID-19 alerts or a page giving them the ability to self-report themselves as COVID-19 positive. Of course, we will include a settings page as well, and this will likely be available from any of the pages. In terms of libraries/tools, we plan to use Expo, the Expo Location API, and likely the Google Maps API. 
+This mobile application is built with [React Native](https://reactnative.dev/) and uses several React Native component libraries and packages. It uses [Redux](https://redux.js.org/) to store global states and makes API calls to the server using [Axios](https://github.com/axios/axios).
+
+### Feature Overview
+
+#### Sign In/Sign Up
+Users can sign up with their dartmouth emails, and a two-word token will be sent to them. In the sign in page, they can use this token to log in and access the rest of the app. A two-word token is used to ensure the anonymity of users as medical data will not be linked to an email in our database.
+
+#### Location Services
+
+NEEDS TO BE FILLED IN
+
+#### Risk
+
+NEEDS TO BE FILLED IN
+
+#### Alerts
+Users can check messages indicating if they have come into contact with anyone who is being tested or is confirmed positive for COVID-19. Clicking on an individual message will display the date that the contact happened as well.
+
+#### Status Updates
+On the status page, users can specify their COVID-19 status (whether one is positive or negative), their current testing status, as well as the symptoms they are experiencing. Upon pressing submit, this information will be sent to the backend server; if the user specified that they are positive, then other users they came in contact with will be notified.
+
+#### Info
+Users can see their account user token on this page for reference. They are also able to change their passwords and log out of the app on this page. 
 
 ## Setup
+### Retrieving Code
 
-(Notes for Initial Stage)
-We will definitely need install Expo, the Expo Location API, and the Google API. Of course, we need Node.js as well.
+First, run `git clone git@github.com:dartmouth-cs52-20S/project-greentrace.git` in the desired directory to retrieve the frontend code.
+
+### Dependencies
+
+Expo, the Expo Location API, and the Google API are core dependencies for this project.
 
 * Expo Installation:  `npm install -g expo-cli`
-* Expo Location API Installation: `expo install expo-location` then configure for iOS or Android (https://github.com/expo/expo/tree/master/packages/expo-location)
-* Google Maps API Installation: Configure through Google like we've done previously for other assignments (https://developers.google.com/maps/documentation/embed/get-api-key)
+* Expo Location API Installation: `expo install expo-location` then [configure](https://github.com/expo/expo/tree/master/packages/expo-location) for iOS or Android 
+* Google Maps API Installation: [Configure through Google](https://developers.google.com/maps/documentation/embed/get-api-key)
 
-You'll need to `yarn` in the project directory to get all of the packages and dependencies.
+Run `yarn` in the project directory to fetch and download all packages and dependencies.
+
+### Starting up App
+Once all packages and dependecies have been installed, run `expo start` in the root directory. Upon running this command, the expo terminal will open in your browser, and there will be a QR code displayed. 
+
+#### Using Expo on your Phone
+To use the GreenTrace app on your smart phone, you will need to download the Expo app (it is available in the major application stores like Apple's App Store and Android Google Play Store). Upon downloading the app, open up any app that is able to scan a QR code (such as a typical camera app) and scan the QR code on the Expo terminal. This will redirect your phone to the Expo app, which will open up the GreenTrace application for you to use. If you are using an Android device, use the Expo app itself to scan the QR code. Upon opening the app, if it is your first time using it, you will be prompted for location tracking. Make sure to always allow the app to track your location. 
+
+#### Using Expo in an iOS Simulator
+To test out the GreenTrace app in an iOS simulator, you need to first have XCode downloaded on your laptop. Once you have XCode on your laptop, click the link on the Expo terminal on your browser that says 'Run on iOS simulator.' This will automatically open up an iOS simulator and load up the GreenTrace app. When you are prompted with location services, make sure to always allow the app to track your location. 
+
 
 ## Deployment
 
-TODO: how to deploy the project
-Log into Expo with email `greentracedartmouth@gmail.com` and password `DartmouthGreenTraceCS52`.
+Expo with email `greentracedartmouth@gmail.com` and password `DartmouthGreenTraceCS52`.
 It should be located in the projects there!
 
 ## Authors
@@ -40,3 +129,7 @@ It should be located in the projects there!
 David Kantor, Aditya Choudhari, Hershel Warthore, Samiha Datta, Zach Gottesman, and Srishti Bagchi
 
 ## Acknowledgments
+
+We would like to thank Professor Tim Tregubov for teaching us everything we know about web dev during the course of CS 52 and therefore allowing this project to be a reality. We would also like to thank Alexis Harris for listening to our constant pleas for help fixing bugs and for giving amazing advice about how to build a (we hope!) functional app at this scale.
+
+We also benefitted from the work of many open source project for everything from our entire front end framework to the ability to generate random words for our ID tokens. We cannot name all of them, but Expo, Express, and React Native were particularly useful.
