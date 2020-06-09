@@ -17,7 +17,7 @@ const riskObject = require('../lib/risk.json');
 
 const riskInfo = riskObject.risk;
 
-const headerText = 'Risk Assessment Details';
+const headerText = 'Your Risk';
 
 class Risk extends Component {
   constructor(props) {
@@ -53,13 +53,14 @@ class Risk extends Component {
     const { isModalVisible } = this.state;
     if (isModalVisible) {
       return (
-        <MapBackground>
-          <Modal isVisible={this.state.isModalVisible}>
-            <View style={styles.container}>
-              <View style={styles.riskAssessmentHeader}>
-                <Ionicons name="chevron-left" onPress={() => { this.setState({ isModalVisible: false }); }} style={styles.backButton} />
-                <Text style={styles.riskAssessmentHeaderText}>{headerText}</Text>
-              </View>
+        <Modal isVisible={this.state.isModalVisible}>
+          <MapBackground>
+
+            <View style={styles.riskAssessmentContainer}>
+              {/* <View style={styles.riskAssessmentHeader}> */}
+              <Ionicons name="angle-left" onPress={() => { this.setState({ isModalVisible: false }); }} style={styles.backButton} />
+              <Text style={styles.riskAssessmentHeaderText}>{headerText}</Text>
+              {/* </View> */}
               <FlatList
                 data={riskInfo}
                 renderItem={({ item }) => { return this.renderResource(item); }}
@@ -67,8 +68,9 @@ class Risk extends Component {
                 contentContainerStyle={styles.riskAssessment}
               />
             </View>
-          </Modal>
-        </MapBackground>
+          </MapBackground>
+
+        </Modal>
       );
     } else {
       return (
