@@ -153,7 +153,7 @@ The app should be located in the projects listed there!
 
 ## Authors
 
-David Kantor, Aditya Choudhari, Hershel Warthore, Samiha Datta, Zach Gottesman, and Srishti Bagchi
+David Kantor, Aditya Choudhari, Hershel Warthore, Samiha Datta, Zack Gottesman, and Srishti Bagchi
 
 ## Acknowledgments
 
