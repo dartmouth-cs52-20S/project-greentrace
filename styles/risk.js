@@ -18,15 +18,16 @@ const RiskStyles = StyleSheet.create({
   },
   riskAssessmentContainer: {
     flex: 1,
-    width: wp('70%'),
-    height: hp('60%'),
+    // width: wp('80%'),
+    // maxHeight: hp('100%'),
     alignSelf: 'center',
     backgroundColor: 'white',
-    marginVertical: hp('20%'),
+    marginVertical: hp('10%'),
     marginHorizontal: wp('5%'),
     borderRadius: 5,
     paddingVertical: hp('5%'),
     paddingHorizontal: wp('5%'),
+    justifyContent: 'center',
   },
   statistic: {
     flex: 1,
@@ -91,14 +92,15 @@ const RiskStyles = StyleSheet.create({
   riskAssessmentHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: wp('80%'),
-    justifyContent: 'flex-start',
+    width: wp('60%'),
+    // justifyContent: 'space-between',
     marginTop: hp('10%'),
   },
   riskAssessmentHeaderText: {
     fontSize: wp('5%'),
     textAlign: 'center',
-
+    alignSelf: 'center',
+    paddingLeft: wp('10%'),
   },
   backButton: {
     marginRight: wp('7%'),
@@ -111,20 +113,17 @@ const RiskStyles = StyleSheet.create({
     paddingVertical: hp('5%'),
     justifyContent: 'flex-start',
     alignItems: 'center',
-    width: wp('70%'),
-    height: hp('45%'),
-    // backgroundColor: 'lightgreen',
     borderRadius: 25,
     // borderWidth: wp('0.3%'),
   },
   riskAssessmentDescriptionRiskLevel: {
-    fontSize: 20,
+    fontSize: wp('5%'),
     fontWeight: 'bold',
     marginBottom: hp('5%'),
   },
   riskAssessmentText: {
     textAlign: 'center',
-    fontSize: 14,
+    fontSize: wp('4.5%'),
   },
   refreshContainer: {
     flexDirection: 'row',

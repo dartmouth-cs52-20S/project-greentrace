@@ -1,9 +1,10 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import {
-  StyleSheet, Text, View, FlatList, TouchableOpacity, Modal,
+  Text, View, FlatList, TouchableOpacity, Modal,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/FontAwesome';
+import styles from '../styles/risk';
 
 const riskObject = require('../lib/resources.json');
 
@@ -23,7 +24,7 @@ class RiskInfo extends Component {
       const { level, description } = item;
       return (
         <View style={styles.risk} key={level}>
-          <Text>
+          <Text style={styles.riskLevel}>
             {' '}
             Risk Level:
             {' '}
@@ -66,24 +67,5 @@ class RiskInfo extends Component {
       );
     }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    marginHorizontal: 15,
-    marginVertical: 10,
-    minHeight: 700,
-    backgroundColor: 'white',
-  },
-  risk: {
-    flexDirection: 'column',
-    marginHorizontal: 10,
-    marginVertical: 10,
-    padding: 10,
-    borderRadius: 7,
-    backgroundColor: 'gray',
-  },
-});
 
 export default RiskInfo;
