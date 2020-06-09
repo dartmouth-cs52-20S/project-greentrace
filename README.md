@@ -148,7 +148,7 @@ To test out the GreenTrace app in an iOS simulator, you need to first have XCode
 
 ## Deployment
 
-To deploy this app, log into Expo with the GreenTrace account (listed above) and run `expo build` and then `expo publish` in the terminal. To view this deployment, log into Expo with the email `greentracedartmouth@gmail.com` and password `DartmouthGreenTraceCS52`.
+To deploy this app, log into Expo with the GreenTrace account (listed above) and run `expo build` and then `expo publish` in the terminal. To view this deployment, log into Expo with the email `greentracedartmouth@gmail.com` and password `DartmouthGreenTrace52`.
 The app should be located in the projects listed there!
 
 ## Authors
