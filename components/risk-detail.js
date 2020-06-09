@@ -11,12 +11,11 @@ class RiskDetail extends Component {
   determineNumberOfCovidContacts() {
     this.props.getNumContactsPositive();
     const num = this.props.numPositiveContacts;
-    console.log('numPositiveContacts:', num);
     return (
       <View style={styles.statistic}>
         <Text style={styles.statNumber}>{num}</Text>
         <Text style={styles.statLabel}>
-          contacts who have tested positive
+          COVID-19 Positive Contacts
         </Text>
       </View>
     );
@@ -29,7 +28,7 @@ class RiskDetail extends Component {
       <View style={styles.statistic}>
         <Text style={styles.statNumber}>{num}</Text>
         <Text style={styles.statLabel}>
-          users tested
+          Total Tested Users
         </Text>
       </View>
     );
@@ -42,7 +41,7 @@ class RiskDetail extends Component {
       <View style={styles.statistic}>
         <Text style={styles.statNumber}>{num}</Text>
         <Text style={styles.statLabel}>
-          symptoms
+          Identified Symptoms
         </Text>
       </View>
     );
@@ -51,12 +50,11 @@ class RiskDetail extends Component {
   determineNumberOfPeopleInfected() {
     this.props.getNumPositive();
     const num = this.props.numPositive;
-    console.log('Number of people infected', num);
     return (
       <View style={styles.statistic}>
         <Text style={styles.statNumber}>{num}</Text>
         <Text style={styles.statLabel}>
-          positive users
+          Total Positive Users
         </Text>
       </View>
     );

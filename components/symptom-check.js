@@ -54,7 +54,6 @@ class SymptomCheck extends Component {
 
   onhandleChange = (event) => {
     const { name } = event;
-    console.log('event', event);
     this.setState((prevState) => ({ checkedItems: prevState.checkedItems.set(name, event.value) }));
   }
 
@@ -92,7 +91,6 @@ class SymptomCheck extends Component {
           data={Object.keys(symptoms)}
           renderItem={({ item }) => { return this.renderSymptom(item); }}
           keyExtractor={(item) => item.timestamp}
-              // contentContainerStyle={styles.overviewContainer}
           style={{ flex: 1 }}
         />
         <TouchableOpacity style={styles.button} onPress={() => { this.submit(); }}>

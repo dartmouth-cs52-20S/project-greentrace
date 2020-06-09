@@ -28,8 +28,6 @@ class HeatMap extends React.Component {
     getHeatpmap().then(((heatmap) => {
       this.setState({ heatmap });
     }));
-    console.log('region');
-    console.log(this.state.region);
   }
 
   async getInitialLocation() {
@@ -50,8 +48,6 @@ class HeatMap extends React.Component {
       .then((result) => {
         if (result !== null) {
           const region = JSON.parse(result);
-          // console.log('Changing map region to', region);
-          // console.log('region', region);
           this.setState({ region });
           this.mapView.animateToRegion(region, 2000);
         }
@@ -63,7 +59,6 @@ class HeatMap extends React.Component {
 
 
   render() {
-    // console.log(this.state.heatmap);
     return (
       <View style={styles.container}>
         <MapView

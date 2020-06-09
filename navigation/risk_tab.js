@@ -18,9 +18,6 @@ const RiskTab = () => {
             backgroundColor: 'black',
           },
           headerTintColor: '#fff',
-          // headerRight: () => {
-          //   return Risk.HeaderRight(navigation);
-          // },
         })}
       />
       <Stack.Screen

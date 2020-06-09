@@ -79,7 +79,7 @@ Users can sign up with their dartmouth emails, and a two-word token will be sent
 
 #### Location Services
 
-NEEDS TO BE FILLED IN
+When users change their locations, this data will persist to our server and keep track of what locations they have been in. This allows us to notify a user when someone they came in contact with is tested positive. Users can also see a heatmap of COVID positive locations in the map tab of the GreenTrace app. 
 
 #### Risk
 

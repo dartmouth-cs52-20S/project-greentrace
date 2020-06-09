@@ -3,12 +3,11 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import {
-  View, Text, TouchableOpacity, AsyncStorage, // Modal,
+  View, Text, TouchableOpacity, AsyncStorage,
 } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown';
 import Modal from 'react-native-modal';
 import { connect } from 'react-redux';
-// import Ionicons from 'react-native-vector-icons/FontAwesome';
 import SymptomCheck from './symptom-check';
 import { updateUser } from '../services/api';
 import UpdateModalContent from './status-update-modal';
@@ -25,7 +24,6 @@ class Status extends Component {
       tested: 'Untested',
       confirmModal: false,
       symptomModal: false,
-      edited: false,
       id: null,
     };
   }
@@ -39,7 +37,6 @@ class Status extends Component {
       .then((result) => {
         if (result !== null) {
           const user = JSON.parse(result);
-          console.log('Getting curr user', result);
           let prevCovid = '';
           let prevTested = '';
           const { covid, tested, id } = user;
@@ -54,7 +51,6 @@ class Status extends Component {
             prevTested = 'Untested';
           }
           // eslint-disable-next-line object-curly-newline
-          console.log('setting prev');
           this.setState({
             prevCovid, prevTested, covid: prevCovid, tested: prevTested, id,
           });
@@ -74,12 +70,11 @@ class Status extends Component {
   }
 
   onHandleChange = (event) => {
-    const { prevCovid, prevTested } = this.state;
     if (event === 'Positive' || event === 'Negative') {
-      this.setState({ covid: event, edited: event !== prevCovid });
+      this.setState({ covid: event });
     }
     if (event === 'Tested' || event === 'Untested') {
-      this.setState({ tested: event, edited: event !== prevTested });
+      this.setState({ tested: event });
     }
   }
 
@@ -87,25 +82,19 @@ class Status extends Component {
     const { covid, tested, id } = this.state;
     updateUser(id, { covid: (covid === 'Positive'), tested: (tested === 'Tested') });
     this.closeConfirmModal();
-    this.setState({ edited: false });
   }
 
   renderSubmit() {
-    if (this.state.edited) {
-      return (
-        <TouchableOpacity style={styles.actionButton} onPress={() => { this.setState({ confirmModal: true }); }}>
-          <Text>
-            Submit
-          </Text>
-        </TouchableOpacity>
-      );
-    } else {
-      return null;
-    }
+    return (
+      <TouchableOpacity style={styles.actionButton} onPress={() => { this.setState({ confirmModal: true }); }}>
+        <Text style={styles.buttonText}>
+          Submit
+        </Text>
+      </TouchableOpacity>
+    );
   }
 
   renderConfirmModal() {
-    console.log('in render modal');
     const { confirmModal } = this.state;
     if (confirmModal) {
       const original = { covid: this.state.prevCovid, tested: this.state.prevTested };
@@ -154,8 +143,6 @@ class Status extends Component {
   }
 
   render() {
-    // console.log('state:', this.state);
-    // console.log('navigation', this.props.navigation);
     const covidOptions = [
       {
         value: 'Positive',
@@ -179,11 +166,6 @@ class Status extends Component {
       top: 0,
       left: 0,
     };
-    // eslint-disable-next-line react/destructuring-assignment
-    // console.log('show modal?', this.state.confirmModal);
-    // console.log('edited?', this.state.edited);
-    // console.log('covid?', this.state.covid);
-    // console.log('tested?', this.state.tested);
 
     return (
       <MapBackground>
@@ -218,14 +200,13 @@ class Status extends Component {
               containerStyle={styles.dropdownContainer}
             />
           </View>
-          <TouchableOpacity style={styles.actionButton} onPress={() => { this.setState({ symptomModal: true }); }}>
-            <Text>Check Symptoms</Text>
+          <TouchableOpacity style={styles.actionButtonCheckSymptom} onPress={() => { this.setState({ symptomModal: true }); }}>
+            <Text style={styles.buttonTextCheckSymptoms}>Check Symptoms</Text>
           </TouchableOpacity>
           {this.renderSubmit()}
           {this.renderSymptomModal()}
           {this.renderConfirmModal()}
         </View>
-        {/* // </View> */}
       </MapBackground>
     );
   }

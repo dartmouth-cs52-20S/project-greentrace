@@ -22,10 +22,13 @@ const SignInUpStyles = StyleSheet.create({
     backgroundColor: 'white',
   },
   halfTokenConnect: {
-    fontSize: wp('5%'),
+    fontSize: wp('10%'),
+    fontWeight: '900',
     alignSelf: 'center',
     color: 'white',
     paddingVertical: hp('1%'),
+    marginRight: hp('0.2%'),
+    marginLeft: hp('0.2%'),
   },
   tokenHalves: {
     flex: 1,
@@ -37,7 +40,7 @@ const SignInUpStyles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 1,
     borderRadius: 5,
-    width: wp('66%'),
+    width: wp('69%'),
     height: hp('4.5%'),
     padding: hp('1%'),
     marginTop: hp('2.25%'),
@@ -69,6 +72,7 @@ const SignInUpStyles = StyleSheet.create({
   redirectButtonText: {
     color: 'white',
     fontSize: wp('4%'),
+    fontWeight: '900',
   },
   errorText: {
     color: 'white',

@@ -1,7 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import {
-  View, Text, TextInput, TouchableOpacity, // Dimensions, // AsyncStorage,
+  View, Text, TextInput, TouchableOpacity,
 } from 'react-native';
 import { signin } from '../services/api';
 import MapBackground from './map-background';

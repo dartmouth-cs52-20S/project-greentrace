@@ -51,20 +51,16 @@ class Information extends Component {
   renderSubstance() {
     const { current } = this.state;
     const { navigation } = this.props;
-    console.log('current', current);
     if (current === 'Account') {
       return (
-      // <Text>Account Information</Text>
         <AccountInformation logout={this.logout} />
       );
     } else if (current === 'Privacy') {
       return (
-        // <Text>Privacy Information</Text>
         <PrivacyInformation navigation={navigation} />
       );
     } else if (current === 'Resources') {
       return (
-        // <Text>Resources</Text>
         <Resources />
       );
     } else {

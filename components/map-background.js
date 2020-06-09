@@ -5,10 +5,6 @@ import {
 } from 'react-native';
 import { STATIC_MAP_API_KEY } from 'react-native-dotenv';
 
-// require('dotenv').config();
-
-// dotenv.config({ silent: true });
-
 const ROOT_URL = 'https://maps.googleapis.com/maps/api/staticmap?';
 
 class MapBackground extends Component {
@@ -27,16 +23,12 @@ class MapBackground extends Component {
   componentDidMount() {
     AsyncStorage.getItem('currlocation')
       .then((result) => {
-        console.log('got a current location', result);
         if (result !== null) {
           const location = JSON.parse(result);
-          // console.log('Changing map region to', region);
-          // console.log('region', region);
           this.setState({ location });
         }
       })
       .catch((err) => {
-        console.log(err);
         const location = {
           latitude: 43.7044,
           longitude: -72.2887,

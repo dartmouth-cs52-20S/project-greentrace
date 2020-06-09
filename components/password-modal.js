@@ -7,9 +7,6 @@ import {
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { Button } from 'react-native-elements';
 import { changePassword } from '../services/api';
-// import { connect } from 'react-redux';
-// import { CheckBox } from 'react-native-elements';
-// import { logSymptoms } from '../services/api';
 
 class PasswordChange extends Component {
   constructor(props) {
@@ -24,14 +21,11 @@ class PasswordChange extends Component {
 
   submit = () => {
     const { currPass, newPass, confirmPass } = this.state;
-    console.log(currPass, newPass, confirmPass);
-    if (newPass !== confirmPass) {
+    if (newPass !== confirmPass || newPass === '') {
       this.setState({ error: true });
     } else {
-      console.log('WHAT IS IN PROPS', this.props);
       changePassword({ id: this.props.id, phraseToken: this.props.phraseToken, password: currPass, newPass })
         .then((result) => {
-          console.log(result);
           if (result === 'success') {
             this.props.closeModal();
             this.props.logout();
@@ -64,11 +58,11 @@ class PasswordChange extends Component {
           <Text style={styles.fieldTitle}>Current Password</Text>
           <TextInput secureTextEntry style={styles.textInput} onChangeText={(text) => { this.setState({ currPass: text }); }} value={currPass} placeholder="Current Password" />
         </View>
-        <View>
+        <View style={styles.field}>
           <Text style={styles.fieldTitle}>New Password</Text>
           <TextInput secureTextEntry style={styles.textInput} onChangeText={(text) => { this.setState({ newPass: text }); }} value={newPass} placeholder="New Password" />
         </View>
-        <View>
+        <View style={styles.field}>
           <Text style={styles.fieldTitle}>Confirm Password</Text>
           <TextInput secureTextEntry style={styles.textInput} onChangeText={(text) => { this.setState({ confirmPass: text }); }} value={confirmPass} placeholder="Confirm Password" />
         </View>
@@ -100,12 +94,13 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     alignSelf: 'center',
-    padding: 30,
+    paddingTop: hp('2%'),
     borderRadius: 10,
     flex: 1,
     flexDirection: 'column',
-    width: 300,
-    maxHeight: 400,
+    alignItems: 'center',
+    width: wp('80%'),
+    maxHeight: hp('55%'),
   },
   field: {
     padding: hp('1%'),
@@ -117,10 +112,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     textAlign: 'center',
-    marginVertical: 20,
+    marginVertical: hp('2%'),
   },
   button: {
-    marginTop: 15,
+    marginTop: hp('2%'),
   },
 });
 
