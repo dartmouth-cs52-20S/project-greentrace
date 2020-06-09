@@ -83,7 +83,7 @@ NEEDS TO BE FILLED IN
 
 #### Risk
 
-NEEDS TO BE FILLED IN
+Our risk page has a few features. The first is a risk dial which displays the individual's risk level. We determined their risk level with their COVID status, their testing status, and their number of symptoms. We decided against including their number of contacts in the risk algorithm because we could not find a way to standardize the data. Below our risk dial, we included a 'Learn More' button which explains our risk level calulcations to the user. The next main section of our risk page is the risk statistics section. Here, we show the user how many of their contatcs have tested positive for COVID-19, how many symptoms they're displaying, how many total users have been tested, and how manu users have identified themselves as COVID-19 positive. 
 
 #### Alerts
 Users can check messages indicating if they have come into contact with anyone who is being tested or is confirmed positive for COVID-19. Clicking on an individual message will display the date that the contact happened as well.
