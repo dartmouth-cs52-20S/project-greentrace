@@ -10,7 +10,7 @@ const PrivacyInformation = (props) => {
   const paragraph4 = 'iii. We have made sure not to associate any of your data with identifying information';
   return (
     <View style={styles.privacyContainer}>
-      <Text style={styles.sectionHeaderMap}>{headerText}</Text>
+      <Text style={styles.sectionHeaderCard}>{headerText}</Text>
       <View style={styles.policyContainer}>
         <Text style={styles.privacyParagraph}>{paragraph1}</Text>
         <Text style={styles.privacyParagraph}>{paragraph2}</Text>

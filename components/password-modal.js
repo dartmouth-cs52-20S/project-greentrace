@@ -2,11 +2,10 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import {
-  View, Text, TextInput, StyleSheet,
+  View, Text, TextInput, TouchableOpacity,
 } from 'react-native';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { Button } from 'react-native-elements';
 import { changePassword } from '../services/api';
+import styles from '../styles/usermodal';
 
 class PasswordChange extends Component {
   constructor(props) {
@@ -66,63 +65,12 @@ class PasswordChange extends Component {
           <Text style={styles.fieldTitle}>Confirm Password</Text>
           <TextInput secureTextEntry style={styles.textInput} onChangeText={(text) => { this.setState({ confirmPass: text }); }} value={confirmPass} placeholder="Confirm Password" />
         </View>
-        <Button
-          buttonStyle={styles.button}
-          onPress={this.submit}
-          title="Submit"
-          accessibilityLabel="Submit Password Change"
-        />
+        <TouchableOpacity style={styles.button} onPress={() => { this.submit(); }}>
+          <Text style={styles.buttonText}>Submit</Text>
+        </TouchableOpacity>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  error: {
-    fontSize: 10,
-    color: 'red',
-  },
-  textInput: {
-    borderColor: 'black',
-    borderWidth: 1,
-    borderRadius: 5,
-    width: wp('66%'),
-    height: hp('4.5%'),
-    padding: hp('1%'),
-    marginTop: hp('2.25%'),
-  },
-  container: {
-    backgroundColor: 'white',
-    alignSelf: 'center',
-    paddingTop: hp('2%'),
-    borderRadius: 10,
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    width: wp('80%'),
-    maxHeight: hp('55%'),
-  },
-  field: {
-    padding: hp('1%'),
-  },
-  fieldTitle: {
-    fontSize: 15,
-    textAlign: 'left',
-  },
-  title: {
-    fontSize: 20,
-    textAlign: 'center',
-    marginVertical: hp('2%'),
-  },
-  button: {
-    marginTop: hp('2%'),
-  },
-});
-
-// const mapStateToProps = (reduxState) => ({
-//   symptoms: reduxState.symptoms.symptoms,
-// });
-
-// export default connect(mapStateToProps, null)(SymptomCheck);
 
 export default PasswordChange;
