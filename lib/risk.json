@@ -8,32 +8,32 @@
         {
             "level": "1",
             "color": "green",
-            "description": "At this time, we have identified you as a very low-risk individual. This means that you have tested negative for COVID-19 and you’re exhibiting no symptoms. If this information is incorrect, please update your Status page."
+            "description": "At this time, we have identified you as a very low-risk individual. This means that you have tested negative for COVID-19, and you’re exhibiting no symptoms. If this information is incorrect, please update your Status page."
         },
         {
             "level": "2",
             "color": "green",
-            "description": "At this time, we have identified you as a low-risk individual. This means that you have tested negative for COVID-19 but you’re exhibiting some common symptoms. Remember that you could potentially be exposed to the virus after being tested, so we suggest that you continue to monitor your symptoms. If this information is incorrect, please update your Status page."
+            "description": "At this time, we have identified you as a low-risk individual. This means that you have tested negative for COVID-19, but you’re exhibiting some common symptoms. Remember that you could potentially be exposed to the virus after being tested, so we suggest that you continue to monitor your symptoms. If this information is incorrect, please update your Status page."
         },
         {
             "level": "3",
             "color": "green",
-            "description": "At this time, we have identified you as a low/medium-risk individual. This means that you have not identified yourself as COVID-19 positive or as exhibiting any symptoms, but you have not been tested yet. There is a chance that you are asymptomatic, so we suggest that you get tested if possible. If this information is incorrect, please update your Status page."
+            "description": "At this time, we have identified you as a low/medium-risk individual. This means that you have not been tested yet for COVID-19, and you are exhibiting no symptoms. There is a chance that you are asymptomatic, so we suggest that you get tested if possible. If this information is incorrect, please update your Status page."
         },
         {
             "level": "4",
             "color": "yellow",
-            "description": "At this time, we have identified you as medium-risk individual. This means that you are exhibiting a few common symptoms and you have not been tested yet. To be cautious, we suggest that you get tested, if possible, and remain in quarantine until your symptoms dissipate. If this information is incorrect, please update your status page."
+            "description": "At this time, we have identified you as medium-risk individual. This means that you are exhibiting a few common symptoms, and you have not been tested yet. To be cautious, we suggest that you get tested, if possible, and remain in quarantine until your symptoms dissipate. If this information is incorrect, please update your status page."
         },
         {
             "level": "5",
             "color": "yellow",
-            "description": "At this time, we have identified you as a medium/high-risk individual. This means you have tested negative for COVID-19 but you are now exhibiting numerous common symptoms. You could have potentially contracted the virus after being tested, so we suggest that you get tested again if possible. If this information is incorrect, please update your Status page."
+            "description": "At this time, we have identified you as a medium/high-risk individual. This means you have tested negative for COVID-19, but you are now exhibiting numerous common symptoms. You could have potentially contracted the virus after being tested, so we suggest that you get tested again if possible. If this information is incorrect, please update your Status page."
         },
         {
             "level": "6",
             "color": "red",
-            "description": " At this time, we have identified you as a high-risk individual.This means you have not been tested yet and you have not identified yourself as COVID-19 positive, but you are exhibiting numerous common symptoms. To be cautious, we urge you to remain in quarantine until you canbe tested. If this information is incorrect, please update your Status page."
+            "description": " At this time, we have identified you as a high-risk individual. This means you have not been tested yet, but you are exhibiting numerous common symptoms. To be cautious, we urge you to remain in quarantine until you canbe tested. If this information is incorrect, please update your Status page."
         },
         {
             "level": "7",
