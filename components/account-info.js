@@ -2,8 +2,9 @@
 import React, { Component } from 'react';
 import Modal from 'react-native-modal';
 import {
-  Text, View, TouchableOpacity, AsyncStorage,
+  Text, View, TouchableOpacity, AsyncStorage, Clipboard, Alert,
 } from 'react-native';
+import Ionicons from 'react-native-vector-icons/FontAwesome';
 import PasswordChange from './password-modal';
 import styles from '../styles/info';
 
@@ -35,6 +36,14 @@ class AccountInformation extends Component {
 
   closePasswordModal = () => {
     this.setState({ passwordModal: false });
+  }
+
+  copyToken = async () => {
+    const { phraseToken } = this.state;
+    if (phraseToken) {
+      await Clipboard.setString(phraseToken);
+      Alert.alert(`Copied "${phraseToken}" to Clipboard`);
+    }
   }
 
   renderPasswordModal() {
@@ -70,6 +79,9 @@ class AccountInformation extends Component {
           {' '}
           {this.state.phraseToken}
         </Text>
+        <TouchableOpacity onPress={() => { this.copyToken(); }}>
+          <Ionicons name="copy" size="26" />
+        </TouchableOpacity>
         <Text style={styles.paragraph}>{warningMessage}</Text>
         <TouchableOpacity style={styles.actionButton} onPress={() => { this.setState({ passwordModal: true }); }}><Text style={styles.actionButtonText}>Change Password</Text></TouchableOpacity>
         <TouchableOpacity style={styles.actionButton} onPress={() => { this.props.logout(); }}><Text style={styles.actionButtonText}>Log Out</Text></TouchableOpacity>
