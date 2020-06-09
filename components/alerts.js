@@ -59,7 +59,7 @@ class Alerts extends Component {
     return (
       <MapBackground>
         <View style={styles.emptyState}>
-          <Text style={styles.emptyStateMessage}>No alerts yet! :(</Text>
+          <Text style={styles.emptyStateMessage}>No COVID-positve contacts to report</Text>
           <TouchableOpacity onPress={() => {
             // eslint-disable-next-line react/destructuring-assignment
             this.props.fetchMessages();

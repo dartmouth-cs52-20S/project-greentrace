@@ -1,10 +1,11 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import {
-  View, Text, TouchableOpacity, Modal, FlatList,
+  View, Text, TouchableOpacity, ScrollView,
 } from 'react-native';
 import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/FontAwesome';
+import Modal from 'react-native-modal';
 import MapBackground from './map-background';
 import styles from '../styles/risk';
 import RiskDial from './risk-dial';
@@ -17,7 +18,7 @@ const riskObject = require('../lib/risk.json');
 
 const riskInfo = riskObject.risk;
 
-const headerText = 'Risk Assessment Details';
+const headerText = 'Your Risk';
 
 class Risk extends Component {
   constructor(props) {
@@ -27,48 +28,51 @@ class Risk extends Component {
     };
   }
 
-  renderResource(item) {
+  getRiskStyles(level) {
+    console.log(RiskDial.getInternalRiskDialColor(level));
+  }
+
+  renderRisk(item) {
     const { level, description } = item;
-    const { riskLevel } = this.props;
-    const levelInt = parseInt(level, 10);
-    if (levelInt === riskLevel) {
-      return (
-        <View key={level} style={styles.riskAssessmentDescription}>
-          <Text style={styles.riskAssessmentDescriptionRiskLevel}>
-            {' '}
-            Risk Level:
-            {' '}
-            {level}
-            {' '}
-          </Text>
-          <Text style={styles.riskAssessmentText}>{description}</Text>
-        </View>
-      );
-    } else {
-      return null;
-    }
+    // const { riskLevel } = this.props;
+    // const levelInt = parseInt(level, 10);
+    // if (levelInt === riskLevel) {
+    return (
+      <View key={level} style={styles.riskAssessmentDescription}>
+        <Text style={styles.riskAssessmentDescriptionRiskLevel}>
+          {' '}
+          Risk Level:
+          {' '}
+          {level}
+          {' '}
+        </Text>
+        <Text style={styles.riskAssessmentText}>{description}</Text>
+      </View>
+    );
+    // } else {
+    //   return null;
+    // }
   }
 
   renderModal() {
     const { isModalVisible } = this.state;
     if (isModalVisible) {
       return (
-        <MapBackground>
-          <Modal isVisible={this.state.isModalVisible}>
-            <View style={styles.container}>
-              <View style={styles.riskAssessmentHeader}>
-                <Ionicons name="chevron-left" onPress={() => { this.setState({ isModalVisible: false }); }} style={styles.backButton} />
-                <Text style={styles.riskAssessmentHeaderText}>{headerText}</Text>
-              </View>
-              <FlatList
-                data={riskInfo}
-                renderItem={({ item }) => { return this.renderResource(item); }}
-                keyExtractor={(item) => item.level}
-                contentContainerStyle={styles.riskAssessment}
-              />
+        <Modal isVisible={this.state.isModalVisible}>
+          <ScrollView contentContainerStyle={styles.riskAssessmentContainer}>
+            <View style={styles.riskAssessmentHeader}>
+              <Ionicons style={styles.backButton} name="angle-left" onPress={() => { this.setState({ isModalVisible: false }); }} />
+              <Text style={styles.riskAssessmentHeaderText}>{headerText}</Text>
             </View>
-          </Modal>
-        </MapBackground>
+            {this.renderRisk(riskInfo[this.props.riskLevel])}
+            {/* <FlatList
+              data={riskInfo}
+              renderItem={({ item }) => { return this.renderResource(item); }}
+              keyExtractor={(item) => item.level}
+              contentContainerStyle={styles.riskAssessment}
+            /> */}
+          </ScrollView>
+        </Modal>
       );
     } else {
       return (

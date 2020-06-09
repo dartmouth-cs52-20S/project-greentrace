@@ -2,7 +2,7 @@ import React from 'react';
 import {
   View, Text, TouchableOpacity,
 } from 'react-native';
-import styles from '../styles/signinupmodal';
+import styles from '../styles/usermodal';
 
 const SignupModal = (props) => {
   const { closeModal } = props;
