@@ -1,10 +1,11 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import {
-  View, Text, TouchableOpacity, Modal, FlatList,
+  View, Text, TouchableOpacity, FlatList,
 } from 'react-native';
 import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/FontAwesome';
+import Modal from 'react-native-modal';
 import MapBackground from './map-background';
 import styles from '../styles/risk';
 import RiskDial from './risk-dial';
@@ -25,6 +26,10 @@ class Risk extends Component {
     this.state = {
       isModalVisible: false,
     };
+  }
+
+  getRiskStyles(level) {
+    console.log(RiskDial.getInternalRiskDialColor(level));
   }
 
   renderResource(item) {
@@ -54,21 +59,21 @@ class Risk extends Component {
     if (isModalVisible) {
       return (
         <Modal isVisible={this.state.isModalVisible}>
-          <MapBackground>
+          {/* <MapBackground> */}
 
-            <View style={styles.riskAssessmentContainer}>
-              {/* <View style={styles.riskAssessmentHeader}> */}
-              <Ionicons name="angle-left" onPress={() => { this.setState({ isModalVisible: false }); }} style={styles.backButton} />
-              <Text style={styles.riskAssessmentHeaderText}>{headerText}</Text>
-              {/* </View> */}
-              <FlatList
-                data={riskInfo}
-                renderItem={({ item }) => { return this.renderResource(item); }}
-                keyExtractor={(item) => item.level}
-                contentContainerStyle={styles.riskAssessment}
-              />
-            </View>
-          </MapBackground>
+          <View style={styles.riskAssessmentContainer}>
+            {/* <View style={styles.riskAssessmentHeader}> */}
+            <Ionicons name="angle-left" onPress={() => { this.setState({ isModalVisible: false }); }} style={styles.backButton} />
+            <Text style={styles.riskAssessmentHeaderText}>{headerText}</Text>
+            {/* </View> */}
+            <FlatList
+              data={riskInfo}
+              renderItem={({ item }) => { return this.renderResource(item); }}
+              keyExtractor={(item) => item.level}
+              contentContainerStyle={styles.riskAssessment}
+            />
+          </View>
+          {/* </MapBackground> */}
 
         </Modal>
       );

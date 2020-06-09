@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   actionButton: {
     backgroundColor: 'white',
     paddingHorizontal: wp('2%'),
-    paddingVertical: hp('1%'),
+    paddingVertical: hp('2%'),
     borderRadius: 10,
     marginTop: hp('3%'),
     marginHorizontal: wp('2%'),
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   actionButtonCheckSymptom: {
     backgroundColor: 'white',
     paddingHorizontal: wp('2%'),
-    paddingVertical: hp('1%'),
+    paddingVertical: hp('2%'),
     borderRadius: 10,
     marginTop: hp('3%'),
     marginBottom: hp('1%'),
