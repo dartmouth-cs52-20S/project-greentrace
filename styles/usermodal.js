@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   information: {
-    fontSize: hp('4%'),
+    fontSize: wp('4%'),
     textAlign: 'center',
   },
   title: {

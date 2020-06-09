@@ -34,9 +34,6 @@ class Risk extends Component {
 
   renderRisk(item) {
     const { level, description } = item;
-    // const { riskLevel } = this.props;
-    // const levelInt = parseInt(level, 10);
-    // if (levelInt === riskLevel) {
     return (
       <View key={level} style={styles.riskAssessmentDescription}>
         <Text style={styles.riskAssessmentDescriptionRiskLevel}>
@@ -49,9 +46,6 @@ class Risk extends Component {
         <Text style={styles.riskAssessmentText}>{description}</Text>
       </View>
     );
-    // } else {
-    //   return null;
-    // }
   }
 
   renderModal() {
@@ -65,12 +59,6 @@ class Risk extends Component {
               <Text style={styles.riskAssessmentHeaderText}>{headerText}</Text>
             </View>
             {this.renderRisk(riskInfo[this.props.riskLevel])}
-            {/* <FlatList
-              data={riskInfo}
-              renderItem={({ item }) => { return this.renderResource(item); }}
-              keyExtractor={(item) => item.level}
-              contentContainerStyle={styles.riskAssessment}
-            /> */}
           </ScrollView>
         </Modal>
       );
