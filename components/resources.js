@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Text, View, FlatList, TouchableOpacity, Linking,
 } from 'react-native';
-// import getDateUSFormatString from '../lib/date-lib';
 import styles from '../styles/info';
 
 const resourcesObject = require('../lib/resources.json');
@@ -31,7 +30,7 @@ const Resources = (props) => {
 
   return (
     <View style={styles.resourceContainer}>
-      <Text style={styles.sectionHeaderMap}>{headerText}</Text>
+      <Text style={styles.sectionHeaderMapResources}>{headerText}</Text>
       <View style={styles.resourceList}>
         <FlatList
           data={resources}
@@ -42,7 +41,6 @@ const Resources = (props) => {
       </View>
     </View>
   );
-//   }
 };
 
 export default Resources;

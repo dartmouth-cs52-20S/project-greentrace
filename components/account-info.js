@@ -4,7 +4,6 @@ import Modal from 'react-native-modal';
 import {
   Text, View, TouchableOpacity, AsyncStorage,
 } from 'react-native';
-// import { connect } from 'react-redux';
 import PasswordChange from './password-modal';
 import styles from '../styles/info';
 
@@ -14,11 +13,9 @@ class AccountInformation extends Component {
     super(props);
     this.state = {
       passwordModal: false,
-      // token: '',
       id: '',
       phraseToken: '',
     };
-    // this.fetchToken();
     this.fetchUser();
   }
 
@@ -35,19 +32,6 @@ class AccountInformation extends Component {
         console.log(err);
       });
   }
-
-  // fetchToken = () => {
-  //   AsyncStorage.getItem('token')
-  //     .then((result) => {
-  //       if (result !== null) {
-  //         const token = JSON.parse(result);
-  //         this.setState({ token });
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }
 
   closePasswordModal = () => {
     this.setState({ passwordModal: false });
@@ -77,7 +61,7 @@ class AccountInformation extends Component {
   }
 
   render() {
-    const warningMessage = 'We don’t store any personally-identifying information, so if you lose this token, you’ll have to sign up again.';
+    const warningMessage = 'Please note, you will need to use this phrase token to log in, so we suggest that you store it somewhere secure.';
     return (
       <View style={styles.accountInfoContainer}>
         <Text style={styles.sectionHeaderCard}>Account Information</Text>
@@ -95,11 +79,4 @@ class AccountInformation extends Component {
   }
 }
 
-// const mapStateToProps = (reduxState) => {
-//   return {
-//     userId: reduxState.auth.id,
-//   };
-// };
-
-// export default connect(mapStateToProps, null)(AlertsDetail);
 export default AccountInformation;

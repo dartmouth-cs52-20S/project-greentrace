@@ -1,7 +1,5 @@
 import React from 'react';
-// import { Button } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-// import Ionicons from 'react-native-vector-icons/FontAwesome';
 
 import Alerts from '../components/alerts';
 import AlertsDetail from '../components/alerts-detail';
@@ -15,7 +13,7 @@ const AlertTab = () => {
         name="Alerts"
         component={Alerts}
         options={{
-          title: 'Covid-Positive Contacts',
+          title: 'COVID-Positive Contacts',
           headerTitleStyle: {
             color: 'white',
           },
@@ -28,7 +26,7 @@ const AlertTab = () => {
         name="AlertsDetail"
         component={AlertsDetail}
         options={{
-          title: 'Covid-Positive Contact',
+          title: 'COVID-Positive Contact',
           headerTitleStyle: {
             color: 'white',
           },

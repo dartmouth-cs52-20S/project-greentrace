@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/FontAwesome';
 import { FlatList } from 'react-native-gesture-handler';
-// import getDateUSFormatString from '../lib/date-lib';
 import { connect } from 'react-redux';
 import styles from '../styles/alerts';
 
@@ -30,14 +29,6 @@ class Alerts extends Component {
   }
 
   componentDidMount() {
-    // eslint-disable-next-line react/destructuring-assignment
-    // const messages = this.props.fetchMessages();
-    // console.log('fetched messages', messages);
-    // eslint-disable-next-line react/destructuring-assignment
-    // this.props.fetchMessages();
-    // console.log('messages');
-    // eslint-disable-next-line react/destructuring-assignment
-    // console.log(this.props.messages);
     this.props.fetchMessages();
     this.setState({ isLoading: false });
   }
@@ -72,16 +63,6 @@ class Alerts extends Component {
           <TouchableOpacity onPress={() => {
             // eslint-disable-next-line react/destructuring-assignment
             this.props.fetchMessages();
-            // const { messages } = this.props;
-            // console.log('fetched messages', messages);
-            // if (this.props.messages === undefined) {
-            //   this.setState({ messages: [] });
-            // } else this.setState({ messages: messages2 });
-            // eslint-disable-next-line react/destructuring-assignment
-            // this.props.fetchMessages();
-            // console.log('messages');
-            // eslint-disable-next-line react/destructuring-assignment
-            // console.log(this.props.messages);
             this.setState({ isLoading: false });
           }}
           >
@@ -93,7 +74,6 @@ class Alerts extends Component {
   }
 
   renderMessageThumbnail(message) {
-    console.log('message', message);
     const { contactDate } = message;
     const text = new Date(contactDate).toDateString();
 
@@ -108,13 +88,6 @@ class Alerts extends Component {
   }
 
   render() {
-    // AsyncStorage.getItem('currUser')
-    //   .then((response) => {
-    //     console.log(response);
-    //   });
-    // console.log(AsyncStorage.getItem('currUser').then(response));
-    // const { messages } = this.props;
-    // const messages = iMessages;
     const { isLoading } = this.state;
     const { messages } = this.props;
     // eslint-disable-next-line react/destructuring-assignment
@@ -124,11 +97,6 @@ class Alerts extends Component {
     } else if (messages.length === 0) {
       return this.renderEmptyState();
     } else {
-      // eslint-disable-next-line react/destructuring-assignment
-      // console.log('in display line 139', this.state.messages);
-      // this.state.messages.forEach((message) => { console.log('made it to display messages', message); });
-      // eslint-disable-next-line react/destructuring-assignment
-      // console.log('LINE 142 TRYING TO DISPLAY', this.props.messages);
       const { refreshing } = this.state;
       return (
         <MapBackground>

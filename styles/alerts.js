@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingHorizontal: wp('10%'),
     paddingVertical: hp('5%'),
-    paddingBottom: hp('10%'),
+    paddingBottom: hp('15%'),
   },
   information: {
     textAlign: 'center',
@@ -27,6 +27,18 @@ const styles = StyleSheet.create({
   backButton: {
     fontSize: hp('5%'),
     alignSelf: 'flex-start',
+    color: 'black',
+    marginRight: wp('10%'),
+  },
+  backButtonResources: {
+    fontSize: hp('5%'),
+    alignSelf: 'flex-start',
+    color: 'white',
+  },
+  dateStyle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: wp('60%'),
   },
   thumbnail: {
     flexDirection: 'row',
@@ -35,6 +47,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: wp('70%'),
     height: hp('10%'),
+    marginBottom: hp('3%'),
     borderRadius: 7,
     backgroundColor: 'white',
   },
@@ -44,10 +57,17 @@ const styles = StyleSheet.create({
     fontSize: wp('5.2%'),
     alignSelf: 'center',
     paddingVertical: hp('1%'),
+    color: 'black',
   },
   thumbnailMessage: {
     fontSize: wp('5.5%'),
     flexWrap: 'wrap',
+  },
+  resourcesText: {
+    fontSize: wp('5.2%'),
+    fontWeight: 'bold',
+    borderWidth: wp('.3%'),
+    padding: wp('1%'),
   },
   emptyState: {
     flex: 1,

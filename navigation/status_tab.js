@@ -1,9 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-// import AccountInformation from '../components/account-info';
-// import PrivacyInformation from '../components/privacy-info';
 import Status from '../components/status';
-// import Resources from '../components/resources';
 
 const Stack = createStackNavigator();
 

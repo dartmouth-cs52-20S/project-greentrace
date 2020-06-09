@@ -4,8 +4,6 @@ import {
   Text, View, TouchableOpacity,
 } from 'react-native';
 import styles from '../styles/modal';
-// import { connect } from 'react-redux';
-// import Ionicons from 'react-native-vector-icons/FontAwesome';
 
 const UpdateModalContent = (props) => {
   const { original, update } = props;
@@ -42,4 +40,3 @@ const UpdateModalContent = (props) => {
 };
 
 export default UpdateModalContent;
-// export default connect(null, null)(UpdateModalContent);

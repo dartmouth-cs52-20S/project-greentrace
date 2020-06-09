@@ -11,8 +11,6 @@ class Map extends Component {
     this.state = {
       latitude: '',
       longitude: '',
-      // locations: '',
-      // postResponse: '',
     };
   }
 
@@ -22,12 +20,9 @@ class Map extends Component {
     const { sendLocation } = this.props;
     sendLocation({ latitude, longitude })
       .then((response) => {
-        console.log('in handleSendLocation');
         console.log(response);
-        // this.setState({ postResponse: response });
       })
       .catch((error) => {
-        console.log('error in send boo');
         console.log(error);
       });
   }
@@ -38,10 +33,8 @@ class Map extends Component {
     getLocations()
       .then((locations) => {
         console.log(locations);
-        // this.setState({ locations });
       })
       .catch((error) => {
-        console.log('error in get boooo');
         console.log(error);
       });
   }

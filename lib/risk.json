@@ -23,7 +23,7 @@
         {
             "level": "4",
             "color": "yellow",
-            "description": "At this time, we have identified you as medium-risk individual. This means that you have not identified yourself as COVID-19 positive, but you are exhibiting a few common symptoms and you have not been tested yet. To be cautious, we suggest that you get tested if possible and remain in quarantine until your symptoms dissipate. If this information isincorrect, please update your status page."
+            "description": "At this time, we have identified you as medium-risk individual. This means that you are exhibiting a few common symptoms and you have not been tested yet. To be cautious, we suggest that you get tested, if possible, and remain in quarantine until your symptoms dissipate. If this information is incorrect, please update your status page."
         },
         {
             "level": "5",

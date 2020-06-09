@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
-import { Text, View /* TouchableOpacity */ } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/FontAwesome';
 import Modal from 'react-native-modal';
 import MapBackground from './map-background';
 import styles from '../styles/alerts';
 import Resources from './resources';
-
-
-// import getDateUSFormatString from '../lib/date-lib';
-
 
 class AlertsDetail extends Component {
   constructor(props) {
@@ -23,7 +19,7 @@ class AlertsDetail extends Component {
     const { isModalVisible } = this.state;
     return (
       <Modal isVisible={isModalVisible}>
-        <Ionicons name="times" onPress={() => { this.setState({ isModalVisible: false }); }} style={styles.backButton} />
+        <Ionicons name="times" onPress={() => { this.setState({ isModalVisible: false }); }} style={styles.backButtonResources} />
         <Text> For more information, please refer to our resource guide </Text>
         <Resources />
       </Modal>
@@ -47,12 +43,14 @@ class AlertsDetail extends Component {
     return (
       <MapBackground>
         <View style={styles.detailContainer}>
-          <Ionicons name="angle-left" onPress={() => { navigation.navigate('Alerts'); }} style={styles.backButton} />
-          <Text style={styles.detailDate}>{contactDateString}</Text>
+          <View style={styles.dateStyle}>
+            <Ionicons name="angle-left" onPress={() => { navigation.navigate('Alerts'); }} style={styles.backButton} />
+            <Text style={styles.detailDate}>{contactDateString}</Text>
+          </View>
           <Ionicons name="warning" style={styles.detailIcon} />
           <Text style={styles.detailInformation}>{notification}</Text>
           <Text style={styles.detailInformation}>{recommendation}</Text>
-          {/* <TouchableOpacity onPress={() => { this.setState({ isModalVisible: true }); }}><Text>Resources</Text></TouchableOpacity> */}
+          <TouchableOpacity onPress={() => { this.setState({ isModalVisible: true }); }}><Text style={styles.resourcesText}>Resources</Text></TouchableOpacity>
           {this.renderModal()}
         </View>
       </MapBackground>

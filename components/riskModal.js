@@ -19,15 +19,6 @@ class RiskInfo extends Component {
     };
   }
 
-  //   toggleVisibility = (event) => {
-  //     console.log('hello', this.state.isModalVisible);
-  //     event.preventDefault();
-  //     this.setState((prevState) => ({
-  //       isModalVisible: !prevState.isModalVisible,
-  //     }));
-  //     console.log('goodbye', this.state.isModalVisible);
-  //   }
-
     renderResource = (item) => {
       const { level, description } = item;
       return (
@@ -45,7 +36,6 @@ class RiskInfo extends Component {
     };
 
     renderModal() {
-      console.log('in render modal');
       if (this.state.isModalVisible) {
         return (
           <Modal isVisible={this.state.isModalVisible}>
@@ -69,7 +59,6 @@ class RiskInfo extends Component {
     }
 
     render() {
-      console.log('made it into general render', this.state.isModalVisible);
       return (
         <View>
           {this.renderModal()}
@@ -81,7 +70,6 @@ class RiskInfo extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: 'space-around',
     alignItems: 'center',
     marginHorizontal: 15,
     marginVertical: 10,

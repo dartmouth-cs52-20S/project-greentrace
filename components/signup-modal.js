@@ -15,12 +15,6 @@ const SignupModal = (props) => {
           Continue
         </Text>
       </TouchableOpacity>
-      {/* <Button
-        buttonStyle={styles.button}
-        onPress={closeModal}
-        title="Continue"
-        accessibilityLabel="Continue"
-      /> */}
     </View>
   );
 };

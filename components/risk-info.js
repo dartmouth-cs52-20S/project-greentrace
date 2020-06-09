@@ -1,10 +1,7 @@
-// currently contains the same stuff as resources; will be updated to show risk stuff when we decide on what that should look like
-
 import React from 'react';
 import {
   StyleSheet, Text, View, FlatList, TouchableOpacity, Linking,
 } from 'react-native';
-// import getDateUSFormatString from '../lib/date-lib';
 
 const riskObject = require('../lib/resources.json');
 
@@ -41,7 +38,6 @@ const RiskInfo = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: 'space-around',
     alignItems: 'center',
     marginHorizontal: 15,
     marginVertical: 10,

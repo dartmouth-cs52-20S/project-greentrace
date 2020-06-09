@@ -9,7 +9,9 @@ import MapBackground from './map-background';
 import styles from '../styles/risk';
 import RiskDial from './risk-dial';
 import RiskDetail from './risk-detail';
-// import RiskInfo from './riskModal';
+import {
+  getRiskScore, getNumContactsPositive, getNumSymptoms, getNumTested, getNumPositive,
+} from '../services/api';
 
 const riskObject = require('../lib/risk.json');
 
@@ -26,9 +28,7 @@ class Risk extends Component {
   }
 
   renderResource(item) {
-    console.log('item here', item);
     const { level, description } = item;
-    console.log('level:', level, 'description:', description);
     const { riskLevel } = this.props;
     const levelInt = parseInt(level, 10);
     if (levelInt === riskLevel) {
@@ -49,21 +49,7 @@ class Risk extends Component {
     }
   }
 
-  /*
-<View style={styles.risk} key={level}>
-        <Text>
-          {' '}
-          Risk Level:
-          {' '}
-          {level}
-          {' '}
-        </Text>
-        <Text>{description}</Text>
-      </View>
-  */
-
   renderModal() {
-    console.log('in render modal printin risk info', riskInfo);
     const { isModalVisible } = this.state;
     if (isModalVisible) {
       return (
@@ -95,6 +81,18 @@ class Risk extends Component {
     return (
       <MapBackground>
         <View style={styles.container}>
+          <TouchableOpacity onPress={() => {
+            this.props.getRiskScore();
+            this.props.getNumContactsPositive();
+            this.props.getNumSymptoms();
+            this.props.getNumTested();
+            this.props.getNumPositive();
+          }}
+          >
+            <View style={styles.refreshContainer}>
+              <Ionicons name="refresh" size={26} style={styles.refresh} />
+            </View>
+          </TouchableOpacity>
           <RiskDial />
           {this.renderModal()}
           <RiskDetail />
@@ -108,4 +106,14 @@ const mapStateToProps = (reduxState) => {
   return { riskLevel: reduxState.risk.riskLevel };
 };
 
-export default connect(mapStateToProps, null)(Risk);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getRiskScore: () => dispatch(getRiskScore()),
+    getNumContactsPositive: () => dispatch(getNumContactsPositive()),
+    getNumSymptoms: () => dispatch(getNumSymptoms()),
+    getNumTested: () => dispatch(getNumTested()),
+    getNumPositive: () => dispatch(getNumPositive()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Risk);
