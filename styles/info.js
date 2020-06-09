@@ -6,12 +6,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: wp('90%'),
     height: hp('8%'),
-    // height: hp('10%'),
     justifyContent: 'space-evenly',
     alignSelf: 'center',
     alignItems: 'center',
     marginVertical: 30,
-    // backgroundColor: 'black',
   },
   toggleItemText: {
     color: 'white',
@@ -45,7 +43,6 @@ const styles = StyleSheet.create({
     marginHorizontal: wp('10%'),
     marginBottom: hp('20%'),
     height: hp('10%'),
-    // paddingVertical: hp('10%'),
     paddingHorizontal: wp('10%'),
   },
   sectionHeaderCard: {
@@ -91,7 +88,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
     alignSelf: 'center',
-    // marginHorizontal: wp('12%'),
     marginBottom: hp('12%'),
     height: hp('10%'),
     paddingHorizontal: wp('5%'),
@@ -114,14 +110,6 @@ const styles = StyleSheet.create({
     maxHeight: hp('60%'),
     width: wp('80%'),
   },
-  // privacyContainer: {
-  //   flex: 1,
-  //   // justifyContent: 'space-around',
-  //   alignItems: 'center',
-  //   marginHorizontal: 15,
-  //   marginVertical: 10,
-  //   minHeight: 700,
-  // },
   resourceContainer: {
     flex: 1,
     flexDirection: 'column',

@@ -3,7 +3,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 
 const styles = StyleSheet.create({
   error: {
-    fontSize: 10,
+    fontSize: wp('3%'),
     color: 'red',
   },
   textInput: {
