@@ -28,10 +28,12 @@
         "NSLocationAlwaysUsageDescription": "Allow greentrace to use your location.",
         "NSLocationWhenInUseUsageDescription": "Allow greentrace to use your location.",
         "UIBackgroundModes": [
-                 "location",
-                 "fetch"
-               ]
-    }
-    }
+          "location",
+          "fetch"
+        ]
+      }
+    },
+    "description": "",
+    "githubUrl": "https://github.com/dartmouth-cs52-20S/project-greentrace/"
   }
 }
